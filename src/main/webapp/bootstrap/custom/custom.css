@@ -1,0 +1,118 @@
+.register-img {
+    background-image: url("/resources/img/cupcake-register.jpg");
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-img {
+    background-image: url("/resources/img/cupcake-login.jpg");
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-img-container {
+    max-width: 720px;
+    min-width: 480px;
+    max-height: 580px;
+    min-height: 280px;
+}
+
+.landing-header {
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.landing-header .landing-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.landing-header .landing-container {
+    position: relative;
+    z-index: 2;
+}
+
+.bg-cupcakes {
+    background-color: #6c5b31;
+}
+
+.navbar-cupcakes {
+    color: #6c5b31;
+}
+
+.text-cupcakes {
+    color: #c5a877;
+    transition: all;
+    transition-duration: 200ms;
+}
+
+.text-cupcakes:hover {
+    color: #6c5b31;
+    transition: all;
+    transition-duration: 200ms;
+}
+
+.btn-cupcakes-primary {
+    background-color: #D9CAB3;
+}
+
+.btn-cupcakes-secondary {
+    color: #fff;
+    background-color: #c5a877;
+    border-color: #c5a877;
+
+}
+
+.btn-cupcakes-secondary:hover {
+    color: #fff;
+    background-color: #F3E2C6;
+    border-color: #F3E2C6;
+}
+
+.text-shadow {
+    text-shadow: 5px 0 3px rgb(0 0 0 / 30%);
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.card-img-top {
+    height: 275px !important;
+}
+
+.sidebar-margin {
+    margin-left: 280px !important;
+}
