@@ -29,7 +29,7 @@
 
                                     <div class="row align-content-center align-content-lg-end px-5">
                                         <div class="col-12 col-lg-4 mb-1 mb-lg-0">
-                                            <button type="button" class="col-12 btn btn-cupcakes-secondary"
+                                            <button type="button" class="col-12 btn btn-fog-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalAddBalance-${item.getId()}">
                                                 Giv kredit
@@ -38,11 +38,11 @@
                                         <form class="col-12 col-lg-4 mb-1 mb-lg-0" method="get"
                                               action="${pageContext.request.contextPath}/admin/orders?userId=${item.getId()}">
                                             <input type="hidden" name="userId" value="${item.getId()}">
-                                            <input class="col-12 btn btn-cupcakes-secondary" type="submit"
+                                            <input class="col-12 btn btn-fog-secondary" type="submit"
                                                    value="Se ordre">
                                         </form>
                                         <div class="col-12 col-lg-4 mb-1 mb-lg-0">
-                                            <button type="button" class="col-12 btn btn-cupcakes-secondary"
+                                            <button type="button" class="col-12 btn btn-fog-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalVerify-${item.getId()}">
                                                 Slet bruger
@@ -97,7 +97,7 @@
                                                             <input class="form-control" type="number"
                                                                    name="addToBalance">
                                                         </div>
-                                                        <input class="col-4 btn btn-cupcakes-secondary" type="submit"
+                                                        <input class="col-4 btn btn-fog-secondary" type="submit"
                                                                value="Indsæt beløb">
                                                     </form>
                                                 </div>

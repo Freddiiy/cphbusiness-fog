@@ -45,9 +45,9 @@
                   <div class="invalid-feedback">Kodeorderne matcher ikke.</div>
                 </div>
                 <hr class="my-4">
-                <button class="w-100 btn btn-lg btn-cupcakes-secondary" type="submit" id="sendButton">Tilmeld</button>
+                <button class="w-100 btn btn-lg btn-fog-primary" type="submit" id="sendButton">Tilmeld</button>
                 <div class="py-2">
-                  <small class="text-muted">Har du allerede en bruger? <a class="text-cupcakes text-decoration-none" href="${pageContext.request.contextPath}/login">Log ind</a></small>
+                  <small class="text-muted">Har du allerede en bruger? <a class="text-fog text-decoration-none" href="${pageContext.request.contextPath}/login">Log ind</a></small>
                 </div>
               </form>
             </div>

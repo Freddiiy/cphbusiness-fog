@@ -28,7 +28,7 @@
                                             <hr class="mb-3">
                                         </div>
                                         <input type="hidden" name="cartId" value="${item.getId()}">
-                                        <input class="col-12 col-md-4 btn btn-cupcakes-secondary float-end"
+                                        <input class="col-12 col-md-4 btn btn-fog-secondary float-end"
                                                type="submit"
                                                value="Fjern fra kurv">
                                     </form>
@@ -49,7 +49,7 @@
                                         </div>
                                     </c:if>
                                     <div class="bg-light p-5">
-                                        <input class="col-12 col-md-4 btn btn-cupcakes-secondary float-end" type="submit" value="Køb">
+                                        <input class="col-12 col-md-4 btn btn-fog-secondary float-end" type="submit" value="Køb">
                                     </div>
                                 </form>
                             </c:if>

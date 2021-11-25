@@ -1,5 +1,5 @@
 .register-img {
-    background-image: url("/resources/img/loginimg.png");
+    background-image: url("/resources/img/loginimg.jpg");
     height: 100vh;
 
     background-position: center;
@@ -8,7 +8,7 @@
 }
 
 .login-img {
-    background-image: url("/resources/img/loginimg.png");
+    background-image: url("/resources/img/loginimg.jpg");
     height: 100vh;
 
     background-position: center;
@@ -63,41 +63,49 @@
     z-index: 2;
 }
 
-.bg-cupcakes {
-    background-color: #6c5b31;
+.bg-fog {
+    background-color: #003d76;
 }
 
-.navbar-cupcakes {
-    color: #6c5b31;
+.navbar-fog {
+    color: #003d76;
 }
 
-.text-cupcakes {
-    color: #c5a877;
+.text-fog {
+    color: #003d76;
     transition: all;
     transition-duration: 200ms;
 }
 
-.text-cupcakes:hover {
-    color: #6c5b31;
+.text-fog:hover {
+    color: #036bd0;
     transition: all;
     transition-duration: 200ms;
 }
 
-.btn-cupcakes-primary {
-    background-color: #D9CAB3;
+.btn-fog-primary {
+    color: #fff;
+    background-color: #003d76;
+    border-color: #003d76;
 }
 
-.btn-cupcakes-secondary {
+.btn-fog-primary:hover {
     color: #fff;
-    background-color: #c5a877;
-    border-color: #c5a877;
+    background-color: #036bd0;
+    border-color: #036bd0;
+}
+
+.btn-fog-secondary {
+    color: #fff;
+    background-color: #003d76;
+    border-color: #003d76;
 
 }
 
-.btn-cupcakes-secondary:hover {
+.btn-fog-secondary:hover {
     color: #fff;
-    background-color: #F3E2C6;
-    border-color: #F3E2C6;
+    background-color: #036bd0;
+    border-color: #036bd0;
 }
 
 .text-shadow {
