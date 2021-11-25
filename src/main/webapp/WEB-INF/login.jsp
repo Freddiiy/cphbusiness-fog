@@ -29,7 +29,7 @@
                                         Din email eller adgangskode er forkert.
                                     </div>
                                 </c:if>
-                                <h4 class="pb-3">Log ind på Olsker Cupcakes.</h4>
+                                <h4 class="pb-3">Log ind på Fog.</h4>
                                 <div class="form-floating mb-3">
                                     <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
                                     <label for="floatingInput">Email adresse</label>

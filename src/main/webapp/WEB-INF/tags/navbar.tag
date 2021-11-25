@@ -10,13 +10,12 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 px-3 align-content-lg-center">
+<nav class="top navbar navbar-expand-lg navbar-light bg-light px-3 align-content-lg-center">
     <div class="container">
         <div class="d-block">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img draggable="false" class="user-select-none rounded-3" style="height: 2em; width: auto;"
-                     src="${pageContext.request.contextPath}/resources/img/favicon.png">
-                Olskers Cupcakes
+                     src="${pageContext.request.contextPath}/resources/img/favicon.png" alt="">
             </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -27,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav justify-content-start">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shop">Shop</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shop">Carporte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Om os</a>
@@ -44,7 +43,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">${sessionScope.user.email}</a>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-start dropdown-menu-lg-end opacity-75"
+                            <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end opacity-75"
                                 aria-labelledby="navbarDarkDropdownMenuLink" style="margin-top: 7px;">
                                 <c:choose>
                                     <c:when test="${sessionScope.user.role == 'Admin'}">
@@ -68,11 +67,11 @@
                 <c:otherwise>
                     <ul class="navbar-nav list-group list-group-horizontal">
                         <li class="nav-item row-cols-1 row-cols-lg-1 me-2">
-                            <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/login"
+                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/login"
                                value="Log ind">Log Ind</a>
                         </li>
                         <li class="nav-item row-cols-1 row-cols-lg-1 me-2">
-                            <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/register"
+                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/register"
                                value="Registrer">Registrer</a>
                         </li>
                     </ul>

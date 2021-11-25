@@ -1,5 +1,5 @@
 .register-img {
-    background-image: url("/resources/img/cupcake-register.jpg");
+    background-image: url("/resources/img/loginimg.png");
     height: 100vh;
 
     background-position: center;
@@ -8,7 +8,7 @@
 }
 
 .login-img {
-    background-image: url("/resources/img/cupcake-login.jpg");
+    background-image: url("/resources/img/loginimg.png");
     height: 100vh;
 
     background-position: center;
