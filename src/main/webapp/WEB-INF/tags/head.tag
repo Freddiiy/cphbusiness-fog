@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/custom/custom.css" />
     <script defer src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.bundle.js"></script>
-    <title>Olsker Cupcakes</title>
+    <title>Fog</title>
 </head>
 
 <body>

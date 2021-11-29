@@ -3,7 +3,7 @@ package util;
 public class SVG
 {
     StringBuilder svg = new StringBuilder();
-    
+
     public SVG(int x, int y, String viewBox, int width, int height) {
         String headerTemplate = "<svg height=\"%d%%\" " +
                 "width=\"%d%%\" " +
