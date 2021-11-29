@@ -16,6 +16,16 @@
     background-size: cover;
 }
 
+.shopping-cart-opacity-50 {
+    opacity: 50%;
+    transition: 200ms;
+}
+
+.shopping-cart-opacity-50:focus,
+.shopping-cart-opacity-50:hover{
+    opacity: 75%;
+}
+
 .card-img-container {
     max-width: 720px;
     min-width: 480px;

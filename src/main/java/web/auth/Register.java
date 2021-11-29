@@ -3,7 +3,7 @@ package web.auth;
 import model.User;
 import persistance.Database;
 import controller.UserController;
-import validation.Validation;
+import util.Validation;
 
 import java.io.*;
 import javax.servlet.ServletException;

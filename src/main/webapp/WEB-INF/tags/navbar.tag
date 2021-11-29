@@ -43,8 +43,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">${sessionScope.user.email}</a>
-                            <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end opacity-75"
-                                aria-labelledby="navbarDarkDropdownMenuLink" style="margin-top: 7px;">
+                            <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end opacity-75 rounded-0 rounded-bottom"
+                                aria-labelledby="navbarDarkDropdownMenuLink" style="margin-top: 8px;">
                                 <c:choose>
                                     <c:when test="${sessionScope.user.role == 'Admin'}">
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Admin</a></li>
@@ -59,7 +59,7 @@
                         <li class="nav-item">
                             <a class="nav-link">${sessionScope.user.balance} kr.</a>
                         </li>
-                        <li>
+                        <li class="nav-item shopping-cart-opacity-50">
                             <a class="nav-link" href="${pageContext.request.contextPath}/cart"><img style="height: 2em; width: auto;" src="${pageContext.request.contextPath}/resources/img/shopping-cart.png" alt="Shopping cart"></a>
                         </li>
                     </ul>
