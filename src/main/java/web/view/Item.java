@@ -1,7 +1,5 @@
 package web.view;
 
-import model.Cupcake;
-import persistance.CupcakeInfo;
 import persistance.Database;
 import controller.UserController;
 
@@ -25,11 +23,6 @@ public class Item extends HttpServlet {
             PrintWriter writer=response.getWriter();
             writer.append("No cupcake specified");
         } else {
-            Cupcake cupcakeData = new CupcakeInfo(new Database()).getItemFromID(request.getParameter("id"));
-
-
-
-            request.setAttribute("cupcakeData", cupcakeData);
             request.setAttribute("sessionID", sessionID);
             request.getRequestDispatcher("/WEB-INF/item.jsp").forward(request, response);
         }
