@@ -10,7 +10,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<nav class="top navbar navbar-expand-lg navbar-light bg-light px-3 align-content-lg-center">
+<nav class="top navbar navbar-expand-lg navbar-fog navbar-text-white px-3 align-content-lg-center">
     <div class="container">
         <div class="d-block">
             <a class="navbar-brand" href="${pageContext.request.contextPath}/">
@@ -67,11 +67,11 @@
                 <c:otherwise>
                     <ul class="navbar-nav list-group list-group-horizontal">
                         <li class="nav-item row-cols-1 row-cols-lg-1 me-2">
-                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/login"
+                            <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/login"
                                value="Log ind">Log Ind</a>
                         </li>
                         <li class="nav-item row-cols-1 row-cols-lg-1 me-2">
-                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/register"
+                            <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/register"
                                value="Registrer">Registrer</a>
                         </li>
                     </ul>
