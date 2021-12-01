@@ -17,7 +17,7 @@ public class MaterialsController {
     public List getMaterials() {
         List<Material> materialsList = new ArrayList<>();
         String sql = "SELECT * FROM CarportMaterials";
-                
+
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -41,9 +41,14 @@ public class MaterialsController {
         return materialsList;
     }
 
-
-
-
+    public double calcPriceFromMaterials(List<Material> materialsList)    {
+        double sumOfMaterials = 0;
+        for (Material material:materialsList) {
+            sumOfMaterials += material.getPrice();
+        }
+        System.out.println(sumOfMaterials);
+        return sumOfMaterials;
+    }
 
 
 }
