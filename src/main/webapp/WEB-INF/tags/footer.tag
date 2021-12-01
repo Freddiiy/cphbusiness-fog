@@ -10,7 +10,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<footer class="footer bg-dark">
+<footer class="footer bottom-0 bg-dark">
     <div class="container mt-auto py-4">
         <div class="row">
             <div class="col-12 text-white">
