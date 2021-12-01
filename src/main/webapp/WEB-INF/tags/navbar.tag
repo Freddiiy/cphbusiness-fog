@@ -26,13 +26,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav justify-content-start">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shop">Carporte</a>
+                    <a class="nav-link text-white" href="${pageContext.request.contextPath}/shop">Carporte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Om os</a>
+                    <a class="nav-link text-white" href="">Om os</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Kontakt</a>
+                    <a class="nav-link text-white" href="">Kontakt</a>
                 </li>
             </ul>
         </div>

@@ -143,3 +143,7 @@
 .sidebar-margin {
     margin-left: 280px !important;
 }
+
+.form-floating-fix {
+    margin-left: 0.25rem !important;
+}

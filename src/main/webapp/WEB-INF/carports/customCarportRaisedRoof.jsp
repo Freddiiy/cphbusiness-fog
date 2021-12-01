@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-9">
                             <form action="${pageContext.request.contextPath}/addToCart" method="POST">
-                                <h2 class="fw-bolder">Byg carport med fladt tag</h2>
+                                <h2 class="fw-bolder">Byg carport med rejsning</h2>
                                 <hr>
                                 <h5 class="fw-light">Carport bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
@@ -85,7 +85,35 @@
                                 <h5 class="fw-light">Tag</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="roof" required>
-                                        <option selected="selected" value="Plasttrapezplader">Plasttrapezplader</option>
+                                        <option value="" selected="true" disabled="disabled">Vælg tag/farve</option>
+                                        <option value="Betontagsten - Rød">Betontagsten - Rød</option>
+                                        <option value="Betontagsten - Teglrød">Betontagsten - Teglrød</option>
+                                        <option value="Betontagsten - Brun">Betontagsten - Brun</option>
+                                        <option value="Betontagsten - Sort">Betontagsten - Sort</option>
+                                        <option value="Eternittag B6 - Grå">Eternittag B6 - Grå</option>
+                                        <option value="Eternittag B6 - Sort">Eternittag B6 - Sort</option>
+                                        <option value="Eternittag B6 - Mokka (brun)">Eternittag B6 - Mokka (brun)</option>
+                                        <option value="Eternittag B6 - Rødbrun">Eternittag B6 - Rødbrun</option>
+                                        <option value="Eternittag B6 - Teglrød">Eternittag B6 - Teglrød</option>
+                                        <option value="Eternittag B7 - Grå">Eternittag B7 - Grå</option>
+                                        <option value="Eternittag B7 - Sort">Eternittag B7 - Sort</option>
+                                        <option value="Eternittag B7 - Mokka (brun)">Eternittag B7 - Mokka (brun)</option>
+                                        <option value="Eternittag B7 - Rødbrun">Eternittag B7 - Rødbrun</option>
+                                        <option value="Eternittag B7 - Teglrød">Eternittag B7 - Teglrød</option>
+                                        <option value="Eternittag B7 - Rødflammet">Eternittag B7 - Rødflammet</option>
+                                    </select>
+                                </div>
+
+                                <h5 class="fw-light">Taghældning</h5>
+                                <div class="col-12 col-md-7 mb-3">
+                                    <select class="form-select flex-column" name="roof" required>
+                                        <option value="15 grader">15 grader</option>
+                                        <option value="20 grader">20 grader</option>
+                                        <option selected="selected" value="25 grader">25 grader</option>
+                                        <option value="30 grader">30 grader</option>
+                                        <option value="35 grader">35 grader</option>
+                                        <option value="40 grader">40 grader</option>
+                                        <option value="45 grader">45 grader</option>
                                     </select>
                                 </div>
 
@@ -150,6 +178,8 @@
 
                                 <div class="d-flex">
                                     <div>
+                                        <input class="form-control text-center me-3" id="amount" type="number" value="1"
+                                               style="max-width: 3rem; float: left" name="amount">
                                         <input class="btn btn-outline-dark flex-shrink-0" type="submit"
                                                value="Tilføj til kurven">
                                     </div>

@@ -34,6 +34,18 @@
                   <label for="floatingInput">Email adresse</label>
                   <div class="invalid-feedback">Venligst angiv en gyldig email.</div>
                 </div>
+                <div class="row">
+                  <div class="form-floating mb-3 col-12 col-sm-6">
+                    <input name="fname" type="text" class="form-control" id="floatingFname" placeholder="fornavn" required>
+                    <label for="floatingFname" class="ms-2">Fornavn</label>
+                    <div class="invalid-feedback">Angiv venligst et fornavn.</div>
+                  </div>
+                  <div class="form-floating mb-3 col-12 col-sm-6">
+                    <input name="lname" type="text" class="form-control" id="floatingLname" placeholder="efternavn" required>
+                    <label for="floatingLname" class="ms-2">Efternavn</label>
+                    <div class="invalid-feedback">Angiv venligst et efternavn.</div>
+                  </div>
+                </div>
                 <div class="form-floating mb-3">
                   <input name="password1" type="password" class="form-control" id="floatingPassword" placeholder="Password"required>
                   <label for="floatingPassword">Kodeord</label>
