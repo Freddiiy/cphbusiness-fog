@@ -31,4 +31,10 @@ public class Admin extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
+
+    }
 }

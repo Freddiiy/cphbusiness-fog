@@ -91,7 +91,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form class="row justify-content-end" method="post"
-                                                          action="${pageContext.request.contextPath}/adminAddBalance">
+                                                          action="${pageContext.request.contextPath}/admin/add-balance">
                                                         <input type="hidden" name="userId" value="${item.getId()}">
                                                         <div class="col-4">
                                                             <input class="form-control" type="number"
