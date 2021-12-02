@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav justify-content-start">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="${pageContext.request.contextPath}/shop">Carporte</a>
+                    <a class="nav-link text-white" href="${pageContext.request.contextPath}/carport">Carporte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="">Om os</a>
@@ -41,7 +41,7 @@
                 <c:when test="${sessionScope.user.sessionID != null}">
                     <ul class="navbar-nav list-group list-group-horizontal">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">${sessionScope.user.email}</a>
                             <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end opacity-75 rounded-0 rounded-bottom"
                                 aria-labelledby="navbarDarkDropdownMenuLink" style="margin-top: 8px;">
@@ -57,9 +57,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link">${sessionScope.user.balance} kr.</a>
+                            <a class="nav-link text-white">${sessionScope.user.balance} kr.</a>
                         </li>
-                        <li class="nav-item shopping-cart-opacity-50">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/cart"><img style="height: 2em; width: auto;" src="${pageContext.request.contextPath}/resources/img/shopping-cart.png" alt="Shopping cart"></a>
                         </li>
                     </ul>

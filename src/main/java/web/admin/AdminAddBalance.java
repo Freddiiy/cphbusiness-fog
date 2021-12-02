@@ -17,14 +17,10 @@ public class AdminAddBalance extends HttpServlet {
         HttpSession session = request.getSession();
         AdminController adminController = new AdminController(new Database());
 
-        if (adminController.isAdmin(session.getId())) {
-            int userId = Integer.parseInt(request.getParameter("userId"));
-            int addToBalance = Integer.parseInt(request.getParameter("addToBalance"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int addToBalance = Integer.parseInt(request.getParameter("addToBalance"));
 
-            adminController.updateUserBalance(addToBalance, userId, session.getId());
-            response.sendRedirect("/admin");
-        } else {
-            response.sendRedirect("/");
-        }
+        adminController.updateUserBalance(addToBalance, userId, session.getId());
+        response.sendRedirect("/admin");
     }
 }

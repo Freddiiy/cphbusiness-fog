@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 @WebFilter("/*")
 public class RBACFilter implements Filter {
@@ -26,9 +25,18 @@ public class RBACFilter implements Filter {
 
         restrictedPages = new HashMap<>();
         restrictedPages.put("/admin", ADMIN);
+        restrictedPages.put("/admin/orders", ADMIN);
+        restrictedPages.put("/admin/add-balance", ADMIN);
+        restrictedPages.put("/admin/remove-order", ADMIN);
+        restrictedPages.put("/admin/remove-user", ADMIN);
 
         restrictedPages.put("/cart", CUSTOMER);
+        restrictedPages.put("/cart/add-to-cart", CUSTOMER);
+        restrictedPages.put("/cart/remove-from-cart", CUSTOMER);
+
         restrictedPages.put("/orders", CUSTOMER);
+        restrictedPages.put("/orders/add", CUSTOMER);
+
         restrictedPages.put("/profile", CUSTOMER);
         restrictedPages.put("/confirm-order", CUSTOMER);
         restrictedPages.put("/shoppingcart", CUSTOMER);
@@ -43,7 +51,6 @@ public class RBACFilter implements Filter {
 
         if (!roleHasAccess(req)) {
             // Create a new GET request to the home page
-            System.out.println("You don't have access");
             res.sendRedirect("/");
             return;
         }
@@ -58,17 +65,16 @@ public class RBACFilter implements Filter {
     public boolean roleHasAccess(HttpServletRequest request) {
         UserController userController = new UserController(new Database());
         String role = userController.getUserRole(request.getSession().getId());
-        if (role != null && role.equals(ADMIN)) {
-            return true;
-        }
 
-        System.out.println("Your role is " + role);
+        if (role != null && role.equals(ADMIN)) return true;
+
         String servletPath = request.getServletPath();
         return roleHasAccess(role, servletPath);
     }
 
     private boolean roleHasAccess(String role, String servletPath) {
         if (servletPath.contains("/*")) {
+
             String neededRole = neededRoleForPath(servletPath);
             if (neededRole != null) {
                 return neededRole.equals(role);
@@ -77,6 +83,7 @@ public class RBACFilter implements Filter {
         if (!pageIsRestricted(servletPath)) {
             return true;
         }
+
         return restrictedPages.get(servletPath).equals(role);
     }
 

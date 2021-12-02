@@ -18,14 +18,10 @@ public class AdminRemoveOrder extends HttpServlet {
         HttpSession session = request.getSession();
         AdminController adminController = new AdminController(new Database());
 
-        if (adminController.isAdmin(session.getId())) {
-            int orderId = Integer.parseInt(request.getParameter("orderId"));
-            int userId = Integer.parseInt(request.getParameter("userId"));
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
 
-            adminController.removeOrder(orderId, session.getId());
-            response.sendRedirect("/admin/orders?userId=" + userId);
-        } else {
-            response.sendRedirect("/");
-        }
+        adminController.removeOrder(orderId, session.getId());
+        response.sendRedirect("/admin/orders?userId=" + userId);
     }
 }

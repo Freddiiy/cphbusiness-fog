@@ -18,14 +18,10 @@ public class AdminRemoveUser extends HttpServlet {
         HttpSession session = request.getSession();
         AdminController adminController = new AdminController(new Database());
 
-        if (adminController.isAdmin(session.getId())) {
-            int userId = Integer.parseInt(request.getParameter("userId"));
-            System.out.println(userId);
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        System.out.println(userId);
 
-            adminController.removeUser(userId, session.getId());
-            response.sendRedirect("/admin");
-        } else {
-            response.sendRedirect("/");
-        }
+        adminController.removeUser(userId, session.getId());
+        response.sendRedirect("/admin");
     }
 }

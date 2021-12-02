@@ -100,7 +100,7 @@
                                 <h5 class="fw-light">Redskabsrum bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="toolroomWidth" required>
-                                        <option value="" selected="true" disabled="disabled">Ønsker ikke redskabsrum</option>
+                                        <option value="none" selected="true">Ønsker ikke redskabsrum</option>
                                         <option value="210 cm">210 cm</option>
                                         <option value="240 cm">240 cm</option>
                                         <option value="270 cm">270 cm</option>
@@ -125,7 +125,7 @@
                                 <h5 class="fw-light">Redskabsrum længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="toolroomLength" id="choose-menu" required>
-                                        <option value="" selected="true" disabled="disabled">Ønsker ikke redskabsrum</option>
+                                        <option value="none" selected="true">Ønsker ikke redskabsrum</option>
                                         <option value="150 cm">150 cm</option>
                                         <option value="180 cm">180 cm</option>
                                         <option value="210 cm">210 cm</option>
@@ -151,7 +151,7 @@
                                 <div class="d-flex">
                                     <div>
                                         <input class="btn btn-outline-dark flex-shrink-0" type="submit"
-                                               value="Tilføj til kurven">
+                                               value="Send en forespørgsel">
                                     </div>
                                 </div>
                             </form>
