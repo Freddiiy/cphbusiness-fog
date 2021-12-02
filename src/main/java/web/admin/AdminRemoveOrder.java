@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "AdminRemoveOrder", urlPatterns = {"/adminRemoveOrder"})
+@WebServlet(name = "AdminRemoveOrder", urlPatterns = {"/admin/remove-order"})
 public class AdminRemoveOrder extends HttpServlet {
 
     @Override

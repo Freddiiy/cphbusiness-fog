@@ -44,7 +44,7 @@ public class UserController {
     }
 
     public User getUserFromDb(String email, String password) {
-        String sql = "SELECT id_user, email, password, balance, role, sessionID, fnmae, lname from Users WHERE email = ?";
+        String sql = "SELECT id_user, email, password, balance, role, sessionID, fname, lname from Users WHERE email = ?";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);

@@ -12,7 +12,7 @@
                             <h1>Ordrer fra ${requestScope.orderList.get(0).getEmail()}</h1>
 
                             <c:forEach var="item" items="${requestScope.orderList}">
-                                <form method="POST" action="${pageContext.request.contextPath}/adminRemoveOrder">
+                                <form method="POST" action="${pageContext.request.contextPath}/admin/remove-order">
 
                                     <div class="px-0 py-5 mb-5 bg-light border rounded shadow mx-3">
                                         <div class="row text-start px-5">

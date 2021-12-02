@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form class="" method="post"
-                                                          action="${pageContext.request.contextPath}/adminRemoveUser">
+                                                          action="${pageContext.request.contextPath}/admin/remove-user">
                                                         <input type="hidden" name="userId" value="${item.getId()}">
                                                         <input class="btn btn-outline-danger" type="submit"
                                                                value="Slet ${item.getEmail()}">
