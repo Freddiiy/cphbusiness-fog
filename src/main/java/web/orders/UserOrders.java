@@ -12,7 +12,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "UserOrders", urlPatterns = {"/orders"})
+@WebServlet(name = "UserOrders", urlPatterns = {"/orders/view"})
 public class UserOrders extends HttpServlet {
 
     @Override

@@ -38,7 +38,7 @@
                                 <h1>${sessionScope.totalPrice} kr.</h1>
                             </div>
                             <c:if test="${sessionScope.cartList != null}">
-                                <form class="" method="post" action="${pageContext.request.contextPath}/addOrder">
+                                <form class="" method="post" action="${pageContext.request.contextPath}/orders/add">
                                     <c:if test="${param.error==1}">
                                         <div class="row">
                                             <div class="col-9">

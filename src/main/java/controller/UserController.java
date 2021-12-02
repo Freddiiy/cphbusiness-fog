@@ -74,6 +74,24 @@ public class UserController {
         return null;
     }
 
+    public String getUserRole(String sessionId) {
+        String sql = "SELECT (role) from Users WHERE sessionID = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, sessionId);
+
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("role");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public double getUserBalance(String sessionId) {
         String sql = "SELECT (balance) from Users WHERE sessionID = ?";
 

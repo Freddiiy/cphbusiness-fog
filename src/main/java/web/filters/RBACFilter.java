@@ -1,29 +1,34 @@
 package web.filters;
 
+import controller.UserController;
+import persistance.Database;
+import util.ArrayHelpers;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @WebFilter("/*")
 public class RBACFilter implements Filter {
 
     private HashMap<String, String> restrictedPages;
+    private HashMap<String, String> userPages;
+
+    final String ADMIN = "Admin";
+    final String CUSTOMER = "Customer";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
-        final String ADMIN = "ADMIN";
-        final String CUSTOMER = "CUSTOMER";
-
         restrictedPages = new HashMap<>();
-        restrictedPages.put("/admin/*", ADMIN);
-        restrictedPages.put("/employee", ADMIN);
-        restrictedPages.put("/give-money", ADMIN);
+        restrictedPages.put("/admin", ADMIN);
 
-        restrictedPages.put("/cart/*", CUSTOMER);
+        restrictedPages.put("/cart", CUSTOMER);
+        restrictedPages.put("/orders", CUSTOMER);
         restrictedPages.put("/profile", CUSTOMER);
         restrictedPages.put("/confirm-order", CUSTOMER);
         restrictedPages.put("/shoppingcart", CUSTOMER);
@@ -38,7 +43,8 @@ public class RBACFilter implements Filter {
 
         if (!roleHasAccess(req)) {
             // Create a new GET request to the home page
-            res.sendRedirect(req.getContextPath());
+            System.out.println("You don't have access");
+            res.sendRedirect("/");
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -50,16 +56,40 @@ public class RBACFilter implements Filter {
     }
 
     public boolean roleHasAccess(HttpServletRequest request) {
-        String role = (String) request.getSession().getAttribute("role");
+        UserController userController = new UserController(new Database());
+        String role = userController.getUserRole(request.getSession().getId());
+        if (role != null && role.equals(ADMIN)) {
+            return true;
+        }
+
+        System.out.println("Your role is " + role);
         String servletPath = request.getServletPath();
         return roleHasAccess(role, servletPath);
     }
 
     private boolean roleHasAccess(String role, String servletPath) {
+        if (servletPath.contains("/*")) {
+            String neededRole = neededRoleForPath(servletPath);
+            if (neededRole != null) {
+                return neededRole.equals(role);
+            }
+        }
         if (!pageIsRestricted(servletPath)) {
             return true;
         }
         return restrictedPages.get(servletPath).equals(role);
+    }
+
+    private String neededRoleForPath(String path) {
+        if (path.contains("/admin/")) {
+            return ADMIN;
+        }
+        // todo: better name
+        String[] adminSuperPaths = new String[] { "/cart/", "/orders/" };
+        if (ArrayHelpers.stringInArray(path, adminSuperPaths)) {
+            return CUSTOMER;
+        }
+        return null;
     }
 
     private boolean pageIsRestricted(String servletPath) {
