@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "AddToCart", urlPatterns = {"/addToCart"})
+@WebServlet(name = "AddToCart", urlPatterns = {"/cart/add-to-cart"})
 public class AddToCart extends HttpServlet {
 
     @Override

@@ -31,6 +31,8 @@ public class AdminController {
                 while (resultSet.next() && !resultSet.wasNull()) {
                     userList.add(new User(resultSet.getInt("id_user"),
                             resultSet.getString("email"),
+                            resultSet.getString("fname"),
+                            resultSet.getString("lname"),
                             resultSet.getDouble("balance"),
                             resultSet.getString("role"),
                             resultSet.getString("sessionID")));

@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "RemoveFromCart", urlPatterns = {"/removeFromCart"})
+@WebServlet(name = "RemoveFromCart", urlPatterns = {"/cart/remove-from-cart"})
 public class RemoveFromCart extends HttpServlet {
 
     @Override

@@ -13,7 +13,7 @@
 
                             <c:forEach var="item" items="${sessionScope.cartList}">
                                 <div class="px-5 py-5 mb-5 bg-light border rounded shadow mx-3">
-                                    <form method="post" action="${pageContext.request.contextPath}/removeFromCart">
+                                    <form method="post" action="${pageContext.request.contextPath}/cart/">
                                         <div class="row text-start">
                                             <h4 class="col-6">Bund: ${item.getCartItems().getBottom()}</h4>
                                             <h4 class="col-6">${item.getCartItems().getBottomPrice()} kr.</h4>

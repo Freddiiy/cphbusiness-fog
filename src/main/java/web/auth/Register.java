@@ -28,6 +28,8 @@ public class Register extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
@@ -36,7 +38,7 @@ public class Register extends HttpServlet {
 
         Validation validation = new Validation();
         if (validation.validateEmail(email) && validation.matchPasswords(password1, password2)) {
-            User user = new User(email, password1, "Customer", sessionID);
+            User user = new User(email, fname, lname, password1, "Customer", sessionID);
 
             try {
                 UserController userController = new UserController(new Database());

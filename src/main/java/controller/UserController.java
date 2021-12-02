@@ -23,7 +23,7 @@ public class UserController {
 
     //Insert data
     public void insertUserToDb(User user) {
-        String sql = "INSERT INTO Users (email, password, balance, role, sessionID) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (email, password, balance, role, sessionID, fname, lname) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -33,13 +33,45 @@ public class UserController {
             ps.setInt(3, 300);
             ps.setString(4, user.getRole());
             ps.setString(5, user.getSessionID());
-
+            ps.setString(6, user.getFname());
+            ps.setString(7, user.getLname());
             ps.executeUpdate();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+    }
+
+    public User getUserFromDb(String email, String password) {
+        String sql = "SELECT id_user, email, password, balance, role, sessionID, fnmae, lname from Users WHERE email = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, email);
+
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id_user");
+                String emailFromDb = resultSet.getString("email");
+                String fnameFromDb = resultSet.getString("fname");
+                String lnameFromDb = resultSet.getString("lname");
+                String passwordFromDb = resultSet.getString("password");
+                int balanceFromDb = resultSet.getInt("balance");
+                String roleFromDb = resultSet.getString("role");
+                String sessionIDFromDb = resultSet.getString("sessionID");
+
+                if (email.equals(emailFromDb) && matchHashedPassword(password, passwordFromDb)) {
+                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, balanceFromDb, roleFromDb, sessionIDFromDb);
+                }
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public double getUserBalance(String sessionId) {
@@ -90,37 +122,6 @@ public class UserController {
             throwables.printStackTrace();
         }
 
-    }
-
-    //Get data
-
-    public User getUserFromDb(String email, String password) {
-        String sql = "SELECT id_user, email, password, balance, role, sessionID from Users WHERE email = ?";
-
-        try (Connection connection = database.connect()) {
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setString(1, email);
-
-            ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                int id = resultSet.getInt("id_user");
-                String emailFromDb = resultSet.getString("email");
-                String passwordFromDb = resultSet.getString("password");
-                int balanceFromDb = resultSet.getInt("balance");
-                String roleFromDb = resultSet.getString("role");
-                String sessionIDFromDb = resultSet.getString("sessionID");
-
-                if (email.equals(emailFromDb) && matchHashedPassword(password, passwordFromDb)) {
-                    return new User(id, emailFromDb, balanceFromDb, roleFromDb, sessionIDFromDb);
-                }
-
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
     }
 
     // Checks

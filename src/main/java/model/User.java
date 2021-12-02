@@ -3,6 +3,8 @@ package model;
 public class User {
     private int id;
     private String email;
+    private String fname;
+    private String lname;
     private String password;
     private double balance;
     private String role;
@@ -10,6 +12,15 @@ public class User {
 
     public User(String email, String password, String role, String sessionID) {
         this.email = email;
+        this.password = password;
+        this.role = role;
+        this.sessionID = sessionID;
+    }
+
+    public User(String email, String fname, String lname, String password, String role, String sessionID) {
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
         this.password = password;
         this.role = role;
         this.sessionID = sessionID;
@@ -32,9 +43,11 @@ public class User {
         this.sessionID = sessionID;
     }
 
-    public User(int id, String email, double balance, String role, String sessionID) {
+    public User(int id, String email, String fname, String lname, double balance, String role, String sessionID) {
         this.id = id;
         this.email = email;
+        this.fname = fname;
+        this.lname = lname;
         this.balance = balance;
         this.role = role;
         this.sessionID = sessionID;
@@ -46,6 +59,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getPassword() {
