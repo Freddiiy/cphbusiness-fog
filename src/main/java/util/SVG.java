@@ -5,6 +5,8 @@ import util.drawing.svg.basicshapes.Rect;
 public class SVG
 {
     StringBuilder svg = new StringBuilder();
+    private final int MARKER_WIDTH = 10;
+    private final int MARKER_HEIGHT = 7;
 
     /**
      * todo: Scaling
@@ -31,8 +33,8 @@ public class SVG
                 "    <defs>\n" +
                 "        <marker\n" +
                 "          id=\"startarrow\"\n" +
-                "          markerWidth=\"10\"\n" +
-                "          markerHeight=\"7\"\n" +
+                "          markerWidth=\"%d\"\n" +
+                "          markerHeight=\"%d\"\n" +
                 "          refX=\"10\"\n" +
                 "          refY=\"3.5\"\n" +
                 "          orient=\"auto\"\n" +
@@ -41,8 +43,8 @@ public class SVG
                 "        </marker>\n" +
                 "        <marker\n" +
                 "          id=\"endarrow\"\n" +
-                "          markerWidth=\"10\"\n" +
-                "          markerHeight=\"7\"\n" +
+                "          markerWidth=\"%d\"\n" +
+                "          markerHeight=\"%d\"\n" +
                 "          refX=\"0\"\n" +
                 "          refY=\"3.5\"\n" +
                 "          orient=\"auto\"\n" +
@@ -54,14 +56,12 @@ public class SVG
         svg.append(
                 String.format(
                         headerTemplate,
-                        height,
-                        width,
-                        viewBox.getX(),
-                        viewBox.getY(),
-                        viewBox.getW(),
-                        viewBox.getH(),
-                        x,
-                        y
+                        height, width,
+                        viewBox.getX(), viewBox.getY(),
+                        viewBox.getW(), viewBox.getH(),
+                        x, y,
+                        MARKER_WIDTH, MARKER_HEIGHT,
+                        MARKER_WIDTH, MARKER_HEIGHT
                 )
         );
     }
@@ -70,13 +70,18 @@ public class SVG
         this(x, y, new Rect(x, y, width, height), width, height);
     }
 
-    public void addRect(int x, int y, double height, double width) {
-        String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #fff\" />";
+    public void addRect(int x, int y, int width, int height) {
+        String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000; fill: #fff\" />";
         svg.append(String.format(rectTemplate, x, y, height, width));
     }
 
+    public void addRect(Rect rect) {
+        String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000; fill: #fff\" />";
+        svg.append(String.format(rectTemplate, rect.getX(), rect.getY(), rect.getW(), rect.getH()));
+    }
+
     public void addLine(int x1, int y1, int x2, int y2 ) {
-        String lineTemplate ="line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; fill: #fff\" />";
+        String lineTemplate ="<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#000\" />";
         svg.append(String.format(lineTemplate, x1, y1, x2, y2));
     }
 
@@ -92,7 +97,15 @@ public class SVG
                 "    marker-end=\"url(#endarrow)\"\n" +
                 "    marker-start=\"url(#startarrow)\"\n" +
                 "></line>";
-        svg.append(String.format(lineTemplate, x1, y1, x2, y2));
+        svg.append(
+                String.format(
+                        lineTemplate,
+                        x1 + MARKER_WIDTH,
+                        y1,
+                        x2 - MARKER_WIDTH,
+                        y2
+                )
+        );
     }
 
     /**  70cm
@@ -110,9 +123,23 @@ public class SVG
                 "    marker-start=\"url(#startarrow)\"\n" +
                 "></line>";
         int xText = x1 + (x2 - x1) / 2;
-        int yText = y1 - 20; // Doesn't account for odd angles
-        String textTemplate = "<text x=\"%d\" y=\"%d\" class=\"small\">%s</text>";
-        svg.append(String.format(lineTemplate, x1, y1, x2, y2));
+        int yText = y1 - 10; // Doesn't account for odd angles
+        String textTemplate = "" +
+                "<text " +
+                "   x=\"%d\" " +
+                "   y=\"%d\" " +
+                "   font-size=\"smaller\" " +
+                "   text-anchor=\"middle\"" +
+                ">%s</text>";
+        svg.append(
+                String.format(
+                        lineTemplate,
+                        x1 + MARKER_WIDTH,
+                        y1,
+                        x2 - MARKER_WIDTH,
+                        y2
+                )
+        );
         svg.append(String.format(textTemplate, xText, yText, text));
     }
 
