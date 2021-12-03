@@ -6,7 +6,19 @@ public class SVG
 {
     StringBuilder svg = new StringBuilder();
 
-
+    /**
+     * todo: Scaling
+     *
+     * Let's say the viewport width is 800 units.
+     * Inside the viewport is the viewbox.
+     *
+     * One centimeter translates to one unit in SVG.
+     * If a carport is only 400 cm, we can make the viewbox 400 units,
+     * so that for every one unit in the viewport, the viewbox will show two units.
+     *
+     * That way, the carport drawing will always be the same size,
+     * no matter the real world size of the carport.
+     * */
 
     public SVG(int x, int y, Rect viewBox, int width, int height) {
         String headerTemplate = "<svg height=\"%d\" " +

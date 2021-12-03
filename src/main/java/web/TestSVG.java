@@ -19,7 +19,7 @@ public class TestSVG extends HttpServlet {
         SVG svg = new SVG(x, y, new Rect(x, y, w, h), w, h);
         svg.addArrowLine(10, 10, 210, 10);
 
-        svg.addArrowLine(10, 80, 210, 80);
+        svg.addArrowLine(10, 80, 210, 80, "200cm");
 
         request.setAttribute("svg", svg.toString());
 
