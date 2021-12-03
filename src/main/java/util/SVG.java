@@ -143,6 +143,59 @@ public class SVG
         svg.append(String.format(textTemplate, xText, yText, text));
     }
 
+    /**      /\
+     *       |
+     * 10 cm |
+     *       |
+     *      \/
+     * */
+    public void addVerticalArrowLine(int x1, int y1, int x2, int y2, String text) {
+        String lineTemplate = "" +
+                "<line\n" +
+                "    x1=\"%d\"\n" +
+                "    y1=\"%d\"\n" +
+                "    x2=\"%d\"\n" +
+                "    y2=\"%d\"\n" +
+                "    stroke=\"#000\"\n" +
+                "    marker-end=\"url(#endarrow)\"\n" +
+                "    marker-start=\"url(#startarrow)\"\n" +
+                "></line>";
+        int xText = x1 - MARKER_WIDTH;
+        int yText = y1 + (y2 - y1) / 2;
+        String textTemplate = "" +
+                "<text " +
+                "   x=\"%d\" " +
+                "   y=\"%d\" " +
+                "   font-size=\"smaller\" " +
+                "   text-anchor=\"end\"" +
+                "   dominant-baseline=\"middle\"" +
+                ">%s</text>";
+        svg.append(
+                String.format(
+                        lineTemplate,
+                        x1,
+                        y1 + MARKER_HEIGHT,
+                        x2,
+                        y2 + MARKER_HEIGHT
+                )
+        );
+        svg.append(String.format(textTemplate, xText, yText, text));
+    }
+
+    /** We won't be dealing with lines that are not 0, π/2, π or 3π/2 radians */
+    public boolean lineIsHorizontal(int x1, int y1, int x2, int y2) {
+        if (y1 == y2 && x1 != x2) {
+            return true;
+        }
+        if (x1 == x2 && y1 != y2) {
+            return false;
+        }
+        System.out.println("WARNING: We're not equipped to draw skewed lines. See SVG.lineIsHorizontal()");
+        int xDiff = x2 - x1;
+        int yDiff = y2 - y1;
+        return xDiff > yDiff;
+    }
+
     @Override
     public String toString() {
         return svg.toString() + "</svg>" ;
