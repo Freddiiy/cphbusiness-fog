@@ -4,10 +4,10 @@ public class Rect {
 
     private int x;
     private int y;
-    private double w;
-    private double h;
+    private int w;
+    private int h;
 
-    public Rect(int x, int y, double w, double h) {
+    public Rect(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -30,19 +30,19 @@ public class Rect {
         this.y = y;
     }
 
-    public double getW() {
+    public int getW() {
         return w;
     }
 
-    public void setW(double w) {
+    public void setW(int w) {
         this.w = w;
     }
 
-    public double getH() {
+    public int getH() {
         return h;
     }
 
-    public void setH(double h) {
+    public void setH(int h) {
         this.h = h;
     }
 }
