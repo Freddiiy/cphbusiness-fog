@@ -58,7 +58,7 @@ public class TestSVG extends HttpServlet {
             );
         }
 
-        svg.addVerticalArrowLine(40, 100, 40, 200, "Hej");
+        svg.addArrowLine(40, 100, 40, 200, "Hej");
 
         /* Draw carport */
         /*

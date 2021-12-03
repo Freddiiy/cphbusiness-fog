@@ -20,6 +20,7 @@ public class SVG
      *
      * That way, the carport drawing will always be the same size,
      * no matter the real world size of the carport.
+     *
      * */
 
     public SVG(int x, int y, Rect viewBox, int width, int height) {
@@ -85,33 +86,20 @@ public class SVG
         svg.append(String.format(lineTemplate, x1, y1, x2, y2));
     }
 
-    /** <-----> */
-    public void addArrowLine(int x1, int y1, int x2, int y2) {
-        String lineTemplate = "" +
-                "<line\n" +
-                "    x1=\"%d\"\n" +
-                "    y1=\"%d\"\n" +
-                "    x2=\"%d\"\n" +
-                "    y2=\"%d\"\n" +
-                "    stroke=\"#000\"\n" +
-                "    marker-end=\"url(#endarrow)\"\n" +
-                "    marker-start=\"url(#startarrow)\"\n" +
-                "></line>";
-        svg.append(
-                String.format(
-                        lineTemplate,
-                        x1 + MARKER_WIDTH,
-                        y1,
-                        x2 - MARKER_WIDTH,
-                        y2
-                )
-        );
+    /** A line with arrowheads in both ends and text above or next to it.
+     *  Useful for conveying scale. */
+    public void addArrowLine(int x1, int y1, int x2, int y2, String text) {
+        if (lineIsHorizontal(x1, y1, x2, y2)) {
+            this.addHorizontalArrowLine(x1, y1, x2, y2, text);
+        } else {
+            this.addVerticalArrowLine(x1, y1, x2, y2, text);
+        }
     }
 
     /**  70cm
      * <------>
      * */
-    public void addArrowLine(int x1, int y1, int x2, int y2, String text) {
+    private void addHorizontalArrowLine(int x1, int y1, int x2, int y2, String text) {
         String lineTemplate = "" +
                 "<line\n" +
                 "    x1=\"%d\"\n" +
@@ -149,7 +137,7 @@ public class SVG
      *       |
      *      \/
      * */
-    public void addVerticalArrowLine(int x1, int y1, int x2, int y2, String text) {
+    private void addVerticalArrowLine(int x1, int y1, int x2, int y2, String text) {
         String lineTemplate = "" +
                 "<line\n" +
                 "    x1=\"%d\"\n" +
@@ -184,12 +172,9 @@ public class SVG
 
     /** We won't be dealing with lines that are not 0, π/2, π or 3π/2 radians */
     public boolean lineIsHorizontal(int x1, int y1, int x2, int y2) {
-        if (y1 == y2 && x1 != x2) {
-            return true;
-        }
-        if (x1 == x2 && y1 != y2) {
-            return false;
-        }
+        if (y1 == y2 && x1 != x2) return true;
+        if (x1 == x2 && y1 != y2) return false;
+
         System.out.println("WARNING: We're not equipped to draw skewed lines. See SVG.lineIsHorizontal()");
         int xDiff = x2 - x1;
         int yDiff = y2 - y1;
