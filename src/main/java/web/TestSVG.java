@@ -20,63 +20,92 @@ public class TestSVG extends HttpServlet {
 
         /* 1 cm == 1 SVG unit */
 
-        /* Carport measurements */
-        int xCarport = 40;
-        int yCarport = 40;
-        int wCarport = 780; // cm. as seen from above
+        /* Carport measurements in cm*/
+        int xCarport = 140;
+        int yCarport = 60;
+        int wCarport = 780;
         int hCarport = 600;
-        int distPillars = 530; // see drawing
 
-        int wRafter = 2; // arbitrary
+        int wRafter = 3; // arbitrary
         int numRafters = 15;
 
-        /* Drawing measurements */
         int margin = 10;
 
-        /* Draw carport scale */
+        // Draw rect around carport
+        svg.addRect(xCarport, yCarport, wCarport, hCarport);
+
+        /* Draw carport scale guides */
+
+        // Height guide
+        int xHeightLineGuide = 40;
+        svg.addArrowLine(
+                xHeightLineGuide,
+                yCarport,
+                xHeightLineGuide,
+                yCarport + hCarport,
+                String.format("%.2f", (double) hCarport / 100)
+        );
+
+        // Distance between pillars (edges furthest away)
+        int distPillars = 530; // see drawing
+        int xDistPillarsGuide = 100;
+        int yDistPillarsGuide = yCarport + (hCarport - distPillars) / 2;
+        svg.addArrowLine(
+                xDistPillarsGuide,
+                yDistPillarsGuide,
+                xDistPillarsGuide,
+                yDistPillarsGuide + distPillars,
+                String.format("%.2f", (double) distPillars / 100)
+        );
+
         // Rafter guides
         int distBetweenRafters = 55;
         int hLineGuide = 30;
-        int xVerticalLine;
         int xHorizontalLine;
-        for (int i = 0; i < numRafters; i++) {
-            int j = Math.min(i, 13);
-            xVerticalLine = xCarport + wRafter + i  * distBetweenRafters;
-            svg.addLine(
-                    xVerticalLine,
-                    margin,
-                    xVerticalLine,
-                    margin + hLineGuide
-            );
-            xHorizontalLine = xCarport + wRafter + j * distBetweenRafters;
+        for (int i = 0; i < numRafters - 1; i++) {
+            xHorizontalLine = xCarport + wRafter + i * distBetweenRafters;
             svg.addArrowLine(
                     xHorizontalLine,
                     margin + hLineGuide / 2,
                     xHorizontalLine + distBetweenRafters,
                     margin + hLineGuide / 2,
-                    String.format("%d cm", distBetweenRafters)
+                    String.format("%.2f", (double) distBetweenRafters / 100)
             );
         }
 
-        svg.addArrowLine(40, 100, 40, 200, "Hej");
-
         /* Draw carport */
-        /*
+
+        // Support bars (name?). The horizontal thingy the pillars are attached to.
+        // A lot of these values are arbitrary, until we get the carport calculator working.
+        int hSupportBar = 20;
+        svg.addRect(
+                xCarport,
+                yDistPillarsGuide,
+                wCarport,
+                hSupportBar
+        );
+        svg.addRect(
+                xCarport,
+                yDistPillarsGuide + distPillars - hSupportBar,
+                wCarport,
+                hSupportBar
+        );
+
+        // Rafters
+        int xRafter;
         for (int i = 0; i < numRafters; i++) {
+            xRafter = xCarport
+                    + wRafter / 2
+                    + i * distBetweenRafters;
             svg.addRect(
-                    xCarport + i * distBetweenRafters,
+                    xRafter - wRafter / 2,
                     yCarport,
                     wRafter,
                     hCarport
             );
         }
 
-         */
-
-        // svg.addArrowLine(10, 80, 210, 80, "200cm");
-
         request.setAttribute("svg", svg.toString());
-
         request.getRequestDispatcher("/WEB-INF/testsvg.jsp")
                 .forward(request, response);
     }

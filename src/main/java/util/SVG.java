@@ -6,7 +6,7 @@ public class SVG
 {
     StringBuilder svg = new StringBuilder();
     private final int MARKER_WIDTH = 10;
-    private final int MARKER_HEIGHT = 7;
+    private final int LINE_GUIDE_LENGTH = 30;
 
     /**
      * todo: Scaling
@@ -61,8 +61,8 @@ public class SVG
                         viewBox.getX(), viewBox.getY(),
                         viewBox.getW(), viewBox.getH(),
                         x, y,
-                        MARKER_WIDTH, MARKER_HEIGHT,
-                        MARKER_WIDTH, MARKER_HEIGHT
+                        MARKER_WIDTH, MARKER_WIDTH,
+                        MARKER_WIDTH, MARKER_WIDTH
                 )
         );
     }
@@ -129,6 +129,19 @@ public class SVG
                 )
         );
         svg.append(String.format(textTemplate, xText, yText, text));
+
+        this.addLine(
+                x1,
+                y1 - LINE_GUIDE_LENGTH / 2,
+                x1,
+                y2 + LINE_GUIDE_LENGTH / 2
+        );
+        this.addLine(
+                x2,
+                y1 - LINE_GUIDE_LENGTH / 2,
+                x2,
+                y2 + LINE_GUIDE_LENGTH / 2
+        );
     }
 
     /**      /\
@@ -162,12 +175,25 @@ public class SVG
                 String.format(
                         lineTemplate,
                         x1,
-                        y1 + MARKER_HEIGHT,
+                        y1 + MARKER_WIDTH,
                         x2,
-                        y2 + MARKER_HEIGHT
+                        y2 - MARKER_WIDTH
                 )
         );
         svg.append(String.format(textTemplate, xText, yText, text));
+
+        this.addLine(
+                x1 - LINE_GUIDE_LENGTH / 2,
+                y1,
+                x2 + LINE_GUIDE_LENGTH / 2,
+                y1
+        );
+        this.addLine(
+                x1 - LINE_GUIDE_LENGTH / 2,
+                y2,
+                x2 + LINE_GUIDE_LENGTH / 2,
+                y2
+        );
     }
 
     /** We won't be dealing with lines that are not 0, π/2, π or 3π/2 radians */
