@@ -96,7 +96,7 @@ public class SVG
         }
     }
 
-    /**  70cm
+    /**  7.00
      * <------>
      * */
     private void addHorizontalArrowLine(int x1, int y1, int x2, int y2, String text) {
@@ -146,7 +146,7 @@ public class SVG
 
     /**      /\
      *       |
-     * 10 cm |
+     * 1.10  |
      *       |
      *      \/
      * */
