@@ -13,6 +13,7 @@ class SVGElementTest {
                 .attr("stroke-weight", "4")
                 .build();
         System.out.println(rect.getAttributes());
+        System.out.println(rect);
     }
 
 }

@@ -41,6 +41,23 @@ public class SVGRect extends SVGElement {
         h = builder.h;
     }
 
+    @Override
+    public String toString() {
+        String rectTemplate = "" +
+                "<rect\n" +
+                "    x=\"%d\"\n" +
+                "    y=\"%d\"\n" +
+                "    height=\"%d\"\n" +
+                "    width=\"%d\"\n" +
+                "    %s\n" +
+                "/>";
+        return String.format(
+                rectTemplate,
+                x, y, w, h,
+                super.attributePairs()
+        );
+    }
+
     /* Getters */
 
     public HashMap<String, String> getAttributes() {

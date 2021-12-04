@@ -1,6 +1,7 @@
 package util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class SVGElement {
 
@@ -20,6 +21,20 @@ public abstract class SVGElement {
 
     SVGElement(Builder<?> builder) {
         this.attributes = builder.attributes;
+    }
+
+    public String attributePairs() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : attributes.entrySet()) {
+            sb.append(attributePair(entry));
+        }
+        return sb.toString();
+    }
+
+    private String attributePair(Map.Entry<String, String> keyValuePair) {
+        return String.format("%s: %s\n\t",
+                keyValuePair.getKey(),
+                keyValuePair.getValue());
     }
 
     /* Getters */
