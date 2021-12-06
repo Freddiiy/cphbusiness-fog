@@ -1,22 +1,34 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Order {
     private int id;
     private String email;
     private int userId;
-    private OrderItems orderItems;
+    private Carport carport;
+    private Timestamp timestamp;
+    private double totalPrice;
 
-    public Order(int id, int userId, OrderItems orderItems) {
+    public Order(int id, int userId, Carport carport) {
         this.id = id;
         this.userId = userId;
-        this.orderItems= orderItems;
+        this.carport = carport;
     }
 
-    public Order(int id, String email, int userId, OrderItems orderItems) {
+    public Order(int id, String email, int userId, Carport carport, Timestamp timestamp, double totalPrice) {
         this.id = id;
         this.email = email;
         this.userId = userId;
-        this.orderItems = orderItems;
+        this.carport = carport;
+        this.timestamp = timestamp;
+        this.totalPrice = totalPrice;
+    }
+
+    public Order(int id, String email, int userId) {
+        this.id = id;
+        this.email = email;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -43,11 +55,27 @@ public class Order {
         this.email = email;
     }
 
-    public OrderItems getOrderItems() {
-        return orderItems;
+    public Carport getCarport() {
+        return carport;
     }
 
-    public void setOrderItems(OrderItems orderItems) {
-        this.orderItems = orderItems;
+    public void setCarport(Carport carport) {
+        this.carport = carport;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

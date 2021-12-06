@@ -23,9 +23,9 @@ public class AdminOrders extends HttpServlet {
 
         String sessionID = request.getSession().getId();
         int userId = Integer.parseInt(request.getParameter("userId"));
-        List orderList = adminController.getOrdersByUserId(sessionID, userId);
+        //List orderList = adminController.getOrdersByUserId(sessionID, userId);
 
-        request.setAttribute("orderList", orderList);
+        //request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("/WEB-INF/adminOrders.jsp").forward(request, response);
     }
 }

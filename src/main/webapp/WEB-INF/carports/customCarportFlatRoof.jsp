@@ -33,26 +33,26 @@
                             </ul>
                         </div>
                         <div class="col-md-9">
-                            <form action="${pageContext.request.contextPath}/addToCart" method="POST">
+                            <form action="${pageContext.request.contextPath}/orders/add" method="POST">
                                 <h2 class="fw-bolder">Byg carport med fladt tag</h2>
                                 <hr>
                                 <h5 class="fw-light">Carport bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportWidth" required>
                                         <option value="" selected="true" disabled="disabled">Vælg bredde</option>
-                                        <option value="240 cm">240 cm</option>
-                                        <option value="270 cm">270 cm</option>
-                                        <option value="300 cm">300 cm</option>
-                                        <option value="330 cm">330 cm</option>
-                                        <option value="360 cm">360 cm</option>
-                                        <option value="390 cm">390 cm</option>
-                                        <option value="420 cm">420 cm</option>
-                                        <option value="450 cm">450 cm</option>
-                                        <option value="480 cm">480 cm</option>
-                                        <option value="510 cm">510 cm</option>
-                                        <option value="540 cm">540 cm</option>
-                                        <option value="570 cm">570 cm</option>
-                                        <option value="600 cm">600 cm</option>
+                                        <option value="240">240 cm</option>
+                                        <option value="270">270 cm</option>
+                                        <option value="300">300 cm</option>
+                                        <option value="330">330 cm</option>
+                                        <option value="360">360 cm</option>
+                                        <option value="390">390 cm</option>
+                                        <option value="420">420 cm</option>
+                                        <option value="450">450 cm</option>
+                                        <option value="480">480 cm</option>
+                                        <option value="510">510 cm</option>
+                                        <option value="540">540 cm</option>
+                                        <option value="570">570 cm</option>
+                                        <option value="600">600 cm</option>
                                     </select>
                                 </div>
 
@@ -60,32 +60,32 @@
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportLength" required>
                                         <option value="" selected="true" disabled="disabled">Vælg længde</option>
-                                        <option value="240 cm">240 cm</option>
-                                        <option value="270 cm">270 cm</option>
-                                        <option value="300 cm">300 cm</option>
-                                        <option value="330 cm">330 cm</option>
-                                        <option value="360 cm">360 cm</option>
-                                        <option value="390 cm">390 cm</option>
-                                        <option value="420 cm">420 cm</option>
-                                        <option value="450 cm">450 cm</option>
-                                        <option value="480 cm">480 cm</option>
-                                        <option value="510 cm">510 cm</option>
-                                        <option value="540 cm">540 cm</option>
-                                        <option value="570 cm">570 cm</option>
-                                        <option value="600 cm">600 cm</option>
-                                        <option value="630 cm">630 cm</option>
-                                        <option value="660 cm">660 cm</option>
-                                        <option value="690 cm">690 cm</option>
-                                        <option value="720 cm">720 cm</option>
-                                        <option value="750 cm">750 cm</option>
-                                        <option value="780 cm">780 cm</option>
+                                        <option value="240">240 cm</option>
+                                        <option value="270">270 cm</option>
+                                        <option value="300">300 cm</option>
+                                        <option value="330">330 cm</option>
+                                        <option value="360">360 cm</option>
+                                        <option value="390">390 cm</option>
+                                        <option value="420">420 cm</option>
+                                        <option value="450">450 cm</option>
+                                        <option value="480">480 cm</option>
+                                        <option value="510">510 cm</option>
+                                        <option value="540">540 cm</option>
+                                        <option value="570">570 cm</option>
+                                        <option value="600">600 cm</option>
+                                        <option value="630">630 cm</option>
+                                        <option value="660">660 cm</option>
+                                        <option value="690">690 cm</option>
+                                        <option value="720">720 cm</option>
+                                        <option value="750">750 cm</option>
+                                        <option value="780">780 cm</option>
                                     </select>
                                 </div>
 
                                 <h5 class="fw-light">Tag</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="roof" required>
-                                        <option selected="selected" value="Plasttrapezplader">Plasttrapezplader</option>
+                                        <option selected="selected" value="28">Plastmo Ecolite Tagplade</option>
                                     </select>
                                 </div>
 
@@ -99,61 +99,74 @@
 
                                 <h5 class="fw-light">Redskabsrum bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
-                                    <select class="form-select flex-column" name="toolroomWidth" required>
-                                        <option value="none" selected="true">Ønsker ikke redskabsrum</option>
-                                        <option value="210 cm">210 cm</option>
-                                        <option value="240 cm">240 cm</option>
-                                        <option value="270 cm">270 cm</option>
-                                        <option value="300 cm">300 cm</option>
-                                        <option value="330 cm">330 cm</option>
-                                        <option value="360 cm">360 cm</option>
-                                        <option value="390 cm">390 cm</option>
-                                        <option value="420 cm">420 cm</option>
-                                        <option value="450 cm">450 cm</option>
-                                        <option value="480 cm">480 cm</option>
-                                        <option value="510 cm">510 cm</option>
-                                        <option value="540 cm">540 cm</option>
-                                        <option value="570 cm">570 cm</option>
-                                        <option value="600 cm">600 cm</option>
-                                        <option value="630 cm">630 cm</option>
-                                        <option value="660 cm">660 cm</option>
-                                        <option value="690 cm">690 cm</option>
-                                        <option value="720 cm">720 cm</option>
+                                    <select class="form-select flex-column" name="shedWidth" required>
+                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
+                                        <option value="210">210 cm</option>
+                                        <option value="240">240 cm</option>
+                                        <option value="270">270 cm</option>
+                                        <option value="300">300 cm</option>
+                                        <option value="330">330 cm</option>
+                                        <option value="360">360 cm</option>
+                                        <option value="390">390 cm</option>
+                                        <option value="420">420 cm</option>
+                                        <option value="450">450 cm</option>
+                                        <option value="480">480 cm</option>
+                                        <option value="510">510 cm</option>
+                                        <option value="540">540 cm</option>
+                                        <option value="570">570 cm</option>
+                                        <option value="600">600 cm</option>
+                                        <option value="630">630 cm</option>
+                                        <option value="660">660 cm</option>
+                                        <option value="690">690 cm</option>
+                                        <option value="720">720 cm</option>
                                     </select>
                                 </div>
 
                                 <h5 class="fw-light">Redskabsrum længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
-                                    <select class="form-select flex-column" name="toolroomLength" id="choose-menu" required>
-                                        <option value="none" selected="true">Ønsker ikke redskabsrum</option>
-                                        <option value="150 cm">150 cm</option>
-                                        <option value="180 cm">180 cm</option>
-                                        <option value="210 cm">210 cm</option>
-                                        <option value="240 cm">240 cm</option>
-                                        <option value="270 cm">270 cm</option>
-                                        <option value="300 cm">300 cm</option>
-                                        <option value="330 cm">330 cm</option>
-                                        <option value="360 cm">360 cm</option>
-                                        <option value="390 cm">390 cm</option>
-                                        <option value="420 cm">420 cm</option>
-                                        <option value="450 cm">450 cm</option>
-                                        <option value="480 cm">480 cm</option>
-                                        <option value="510 cm">510 cm</option>
-                                        <option value="540 cm">540 cm</option>
-                                        <option value="570 cm">570 cm</option>
-                                        <option value="600 cm">600 cm</option>
-                                        <option value="630 cm">630 cm</option>
-                                        <option value="660 cm">660 cm</option>
-                                        <option value="690 cm">690 cm</option>
+                                    <select class="form-select flex-column" name="shedLength" id="choose-menu" required>
+                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
+                                        <option value="150">150 cm</option>
+                                        <option value="180">180 cm</option>
+                                        <option value="210">210 cm</option>
+                                        <option value="240">240 cm</option>
+                                        <option value="270">270 cm</option>
+                                        <option value="300">300 cm</option>
+                                        <option value="330">330 cm</option>
+                                        <option value="360">360 cm</option>
+                                        <option value="390">390 cm</option>
+                                        <option value="420">420 cm</option>
+                                        <option value="450">450 cm</option>
+                                        <option value="480">480 cm</option>
+                                        <option value="510">510 cm</option>
+                                        <option value="540">540 cm</option>
+                                        <option value="570">570 cm</option>
+                                        <option value="600">600 cm</option>
+                                        <option value="630">630 cm</option>
+                                        <option value="660">660 cm</option>
+                                        <option value="690">690 cm</option>
                                     </select>
                                 </div>
-
-                                <div class="d-flex">
-                                    <div>
-                                        <input class="btn btn-outline-dark flex-shrink-0" type="submit"
-                                               value="Send en forespørgsel">
-                                    </div>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${sessionScope.user != null}">
+                                        <div class="d-flex">
+                                            <div>
+                                                <input class="btn btn-outline-dark flex-shrink-0" type="submit"
+                                                       value="Send en forespørgsel">
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form action="${pageContext.request.contextPath}/login" method="POST">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <input class="btn btn-outline-dark flex-shrink-0" type="submit" disabled="disabled"
+                                                           value="Log ind for at sende en forespørgsel">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </c:otherwise>
+                                </c:choose>
                             </form>
                         </div>
                     </div>

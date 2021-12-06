@@ -11,6 +11,7 @@ public class Database {
     private final String USER;
     private final String PASSWORD;
     private final String URL;
+    private static final Database instance = new Database();
 
     public Database(String user, String password, String url) {
         String deployed = System.getenv("DEPLOYED");
@@ -56,6 +57,10 @@ public class Database {
         Connection connection = null;
         connection = DriverManager.getConnection(URL, USER, PASSWORD);
         return connection;
+    }
+
+    public Database getInstance() {
+        return instance;
     }
 
     public String getUSER() {

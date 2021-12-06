@@ -1,7 +1,7 @@
 package controller;
 
+import model.Carport;
 import model.Order;
-import model.OrderItems;
 import model.User;
 import persistance.Database;
 
@@ -66,7 +66,7 @@ public class AdminController {
             }
         }
     }
-
+/*
     public List getOrders(String sessionId) {
         if (isAdmin(sessionId)) {
             String sql = "SELECT Bottom.name, Bottom.bottomPrice, Topping.name, Topping.toppingPrice, ((Bottom.bottomPrice + Topping.toppingPrice) * Orderitems.amount) AS total_price, Orderitems.id_orderitems, Orderitems.amount, Orders.id_order, Users.id_user, Users.email FROM Orders " +
@@ -106,7 +106,30 @@ public class AdminController {
             return null;
         }
     }
+ */
+    public Carport getCarportByOrderId(int orderId, String sessionId) {
+        if (isAdmin(sessionId)) {
+            String sql = "SELECT CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength FROM Orders " +
+                    "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
+                    "WHERE id_order = ? ";
 
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+
+                ps.setInt(1, orderId);
+                ResultSet resultSet = ps.executeQuery();
+                if(resultSet.next()) {
+
+                    return new Carport(resultSet.getInt("CarportRequest.id_carportRequest"), resultSet.getInt("CarportRequest.width"), resultSet.getInt("CarportRequest.length"),resultSet.getInt("CarportRequest.id_roof"), resultSet.getBoolean("CarportRequest.hasShed"), resultSet.getInt("CarportRequest.shedWidth"), resultSet.getInt("CarportRequest.shedLength"));
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
+    /*
     public List getOrdersByUserId(String sessionId, int userId) {
         if (isAdmin(sessionId)) {
             String sql = "SELECT Bottom.name, Bottom.bottomPrice, Topping.name, Topping.toppingPrice, ((Bottom.bottomPrice + Topping.toppingPrice) * Orderitems.amount) AS total_price, Orderitems.id_orderitems, Orderitems.amount, Orders.id_order, Users.id_user, Users.email FROM Orders " +
@@ -149,6 +172,7 @@ public class AdminController {
             return null;
         }
     }
+*/
 
     public void removeOrder(int orderId, String sessionId) {
         if (isAdmin(sessionId)) {

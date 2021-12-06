@@ -25,9 +25,9 @@ public class UserOrders extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             String sessionID = request.getSession().getId();
-            List orderList = orderController.getOrders(sessionID);
+            //List orderList = orderController.getOrders(sessionID);
 
-            request.setAttribute("orderList", orderList);
+            //request.setAttribute("orderList", orderList);
             request.getRequestDispatcher("/WEB-INF/userOrders.jsp").forward(request, response);
         }
     }
