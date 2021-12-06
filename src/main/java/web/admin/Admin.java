@@ -22,8 +22,6 @@ public class Admin extends HttpServlet {
         String sessionID = request.getSession().getId();
         List<Order> orderList = adminController.getOrders(sessionID);
 
-        System.out.println(orderList.get(2).getTimestamp());
-
         request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }

@@ -75,8 +75,9 @@ public class AdminController {
                                     resultSet.getBoolean("CarportRequest.hasShed"),
                                     resultSet.getInt("CarportRequest.shedLength"),
                                     resultSet.getInt("CarportRequest.shedWidth")),
-                            resultSet.getTimestamp("timestamp"),
-                            resultSet.getDouble("total_price")));
+                            resultSet.getString("Orders.status"),
+                            resultSet.getDouble("Orders.total_price"),
+                            resultSet.getTimestamp("Orders.timestamp")));
                 }
                 if (orderList.isEmpty()) {
                     return null;

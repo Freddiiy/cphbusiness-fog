@@ -7,8 +7,9 @@ public class Order {
     private String email;
     private int userId;
     private Carport carport;
-    private Timestamp timestamp;
+    private String status;
     private double totalPrice;
+    private Timestamp timestamp;
 
     public Order(int id, int userId, Carport carport) {
         this.id = id;
@@ -16,13 +17,14 @@ public class Order {
         this.carport = carport;
     }
 
-    public Order(int id, String email, int userId, Carport carport, Timestamp timestamp, double totalPrice) {
+    public Order(int id, String email, int userId, Carport carport, String status, double totalPrice, Timestamp timestamp) {
         this.id = id;
         this.email = email;
         this.userId = userId;
         this.carport = carport;
-        this.timestamp = timestamp;
+        this.status = status;
         this.totalPrice = totalPrice;
+        this.timestamp = timestamp;
     }
 
     public Order(int id, String email, int userId) {
@@ -77,5 +79,13 @@ public class Order {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
