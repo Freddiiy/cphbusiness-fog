@@ -55,13 +55,6 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Log ud</a></li>
                             </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white">${sessionScope.user.balance} kr.</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/cart"><img style="height: 2em; width: auto;" src="${pageContext.request.contextPath}/resources/img/shopping-cart.png" alt="Shopping cart"></a>
-                        </li>
                     </ul>
                 </c:when>
                 <c:otherwise>

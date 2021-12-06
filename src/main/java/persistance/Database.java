@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private Connection connection;
     private final String USER;
     private final String PASSWORD;
     private final String URL;
@@ -59,7 +58,7 @@ public class Database {
         return connection;
     }
 
-    public Database getInstance() {
+    public static Database getInstance() {
         return instance;
     }
 

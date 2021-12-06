@@ -16,7 +16,7 @@ public class AdminRemoveOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        AdminController adminController = new AdminController(new Database());
+        AdminController adminController = new AdminController();
 
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         int userId = Integer.parseInt(request.getParameter("userId"));

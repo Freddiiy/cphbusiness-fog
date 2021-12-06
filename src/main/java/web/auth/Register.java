@@ -16,7 +16,7 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
+        UserController userController = new UserController();
         HttpSession session = request.getSession();
 
         if(userController.validateSession(session)) {
@@ -41,7 +41,7 @@ public class Register extends HttpServlet {
             User user = new User(email, fname, lname, password1, "Customer", sessionID);
 
             try {
-                UserController userController = new UserController(new Database());
+                UserController userController = new UserController();
 
                 if (!userController.emailExists(email)) {
                     userController.insertUserToDb(user);

@@ -10,8 +10,8 @@ import java.util.List;
 public class OrderController {
     private final Database database;
 
-    public OrderController(Database database) {
-        this.database = database;
+    public OrderController() {
+        this.database = Database.getInstance();
     }
 
     public void addToOrder(Carport carport, String sessionId) {

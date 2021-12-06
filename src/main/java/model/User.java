@@ -6,7 +6,6 @@ public class User {
     private String fname;
     private String lname;
     private String password;
-    private double balance;
     private String role;
     private String sessionID;
 
@@ -26,29 +25,19 @@ public class User {
         this.sessionID = sessionID;
     }
 
-    public User(String email, String password, double balance, String role, String sessionID) {
-        this.email = email;
-        this.password = password;
-        this.balance = balance;
-        this.role = role;
-        this.sessionID = sessionID;
-    }
-
-    public User(int id, String email, String password, double balance, String role, String sessionID) {
+    public User(int id, String email, String password, String role, String sessionID) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.balance = balance;
         this.role = role;
         this.sessionID = sessionID;
     }
 
-    public User(int id, String email, String fname, String lname, double balance, String role, String sessionID) {
+    public User(int id, String email, String fname, String lname, String role, String sessionID) {
         this.id = id;
         this.email = email;
         this.fname = fname;
         this.lname = lname;
-        this.balance = balance;
         this.role = role;
         this.sessionID = sessionID;
     }
@@ -107,13 +96,5 @@ public class User {
 
     public void setSessionID(String sessionID) {
         this.sessionID = sessionID;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
     }
 }

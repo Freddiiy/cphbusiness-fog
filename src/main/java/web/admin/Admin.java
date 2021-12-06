@@ -3,8 +3,7 @@ package web.admin;
 
 import controller.AdminController;
 import model.Carport;
-import persistance.Database;
-import controller.UserController;
+import model.Order;
 
 import java.io.*;
 import java.util.List;
@@ -18,14 +17,14 @@ public class Admin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        AdminController adminController = new AdminController(new Database());
+        AdminController adminController = new AdminController();
 
         String sessionID = request.getSession().getId();
-        List userList = adminController.getUsers(sessionID);
+        List<Order> orderList = adminController.getOrders(sessionID);
 
-        Carport carportFromDB = adminController.getCarportByOrderId(2, sessionID);
-        System.out.println(carportFromDB.getWidth() + " " + carportFromDB.getLength() + " " + carportFromDB.hasShed());
-        request.setAttribute("userList", userList);
+        System.out.println(orderList.get(2).getTimestamp());
+
+        request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 

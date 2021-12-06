@@ -17,8 +17,8 @@ public class AdminOrders extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
-        AdminController adminController = new AdminController(new Database());
+        UserController userController = new UserController();
+        AdminController adminController = new AdminController();
         HttpSession session = request.getSession();
 
         String sessionID = request.getSession().getId();

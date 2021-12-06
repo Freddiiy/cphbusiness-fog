@@ -15,7 +15,7 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
+        UserController userController = new UserController();
         HttpSession session = request.getSession();
 
         if(userController.validateSession(session)) {
@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
         String sessionID = session.getId();
 
         try {
-            UserController userController = new UserController(new Database());
+            UserController userController = new UserController();
             User user = userController.getUserFromDb(email, password);
 
             if(user != null && userController.emailExists(user.getEmail())) {

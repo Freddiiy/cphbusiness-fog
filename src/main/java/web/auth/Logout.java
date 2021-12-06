@@ -14,7 +14,7 @@ public class Logout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
+        UserController userController = new UserController();
         HttpSession session = request.getSession();
 
         if(userController.validateSession(session)) {

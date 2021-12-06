@@ -10,7 +10,6 @@
                     <h3>${sessionScope.user.email}</h3>
                     <h3>${sessionScope.user.fname}</h3>
                     <h3>${sessionScope.user.lname}</h3>
-                    <h3>${sessionScope.user.balance}</h3>
                     <h3>${sessionScope.user.role}</h3>
                 </div>
         </jsp:body>

@@ -13,8 +13,8 @@ import java.text.DecimalFormat;
 public class UserController {
     private final Database database;
 
-    public UserController(Database database) {
-        this.database = database;
+    public UserController() {
+        this.database = Database.getInstance();
     }
 
     public boolean isLoggedIn(HttpSession session, User user) {
@@ -23,14 +23,13 @@ public class UserController {
 
     //Insert data
     public void insertUserToDb(User user) {
-        String sql = "INSERT INTO Users (email, password, balance, role, sessionID, fname, lname) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (email, password, role, sessionID, fname, lname) VALUES(?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, user.getEmail());
             ps.setString(2, hashPassword(user.getPassword()));
-            ps.setInt(3, 300);
             ps.setString(4, user.getRole());
             ps.setString(5, user.getSessionID());
             ps.setString(6, user.getFname());
@@ -44,7 +43,7 @@ public class UserController {
     }
 
     public User getUserFromDb(String email, String password) {
-        String sql = "SELECT id_user, email, password, balance, role, sessionID, fname, lname from Users WHERE email = ?";
+        String sql = "SELECT id_user, email, password, role, sessionID, fname, lname from Users WHERE email = ?";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -58,12 +57,11 @@ public class UserController {
                 String fnameFromDb = resultSet.getString("fname");
                 String lnameFromDb = resultSet.getString("lname");
                 String passwordFromDb = resultSet.getString("password");
-                int balanceFromDb = resultSet.getInt("balance");
                 String roleFromDb = resultSet.getString("role");
                 String sessionIDFromDb = resultSet.getString("sessionID");
 
                 if (email.equals(emailFromDb) && matchHashedPassword(password, passwordFromDb)) {
-                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, balanceFromDb, roleFromDb, sessionIDFromDb);
+                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, roleFromDb, sessionIDFromDb);
                 }
 
             }
@@ -90,40 +88,6 @@ public class UserController {
             throwables.printStackTrace();
         }
         return null;
-    }
-
-    public double getUserBalance(String sessionId) {
-        String sql = "SELECT (balance) from Users WHERE sessionID = ?";
-
-        try (Connection connection = database.connect()) {
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setString(1, sessionId);
-
-            ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt("balance");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return -1;
-    }
-
-    public void updateBalance(double price, String sessionId) {
-
-        String sql = "UPDATE Users SET balance = balance - ? WHERE sessionID = ?";
-
-        try (Connection connection = database.connect()) {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            ps.setDouble(1, price);
-            ps.setString(2, sessionId);
-
-            ps.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
     public void updateSessionID(String email, String sessionID) {

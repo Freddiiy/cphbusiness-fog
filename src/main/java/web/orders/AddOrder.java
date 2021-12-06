@@ -30,7 +30,7 @@ public class AddOrder extends HttpServlet {
         int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
 
-        OrderController orderController = new OrderController(new Database());
+        OrderController orderController = new OrderController();
 
         if (shedWidth == 0 || shedLength == 0) {
             orderController.addToOrder(new Carport(carportWidth, carportLength, roof, false), session.getId());

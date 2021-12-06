@@ -17,8 +17,8 @@ public class UserOrders extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
-        OrderController orderController = new OrderController(new Database());
+        UserController userController = new UserController();
+        OrderController orderController = new OrderController();
         HttpSession session = request.getSession();
 
         if(!userController.validateSession(session)) {

@@ -14,7 +14,7 @@ public class Item extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController(new Database());
+        UserController userController = new UserController();
         HttpSession session = request.getSession();
         String sessionID = session.getId();
 
