@@ -6,7 +6,6 @@ public class SVG
 {
     StringBuilder svg = new StringBuilder();
     private final int MARKER_WIDTH = 10;
-    private final int LINE_GUIDE_LENGTH = 30;
 
     /**
      * todo: Scaling
@@ -71,140 +70,14 @@ public class SVG
         this(x, y, new Rect(x, y, width, height), width, height);
     }
 
-    public void addRect(int x, int y, int width, int height) {
-        String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000; fill: #fff\" />";
-        svg.append(String.format(rectTemplate, x, y, height, width));
+    public void addElement(SVGElement element) {
+        svg.append(element.toString());
     }
 
-    public void addRect(Rect rect) {
-        String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000; fill: #fff\" />";
-        svg.append(String.format(rectTemplate, rect.getX(), rect.getY(), rect.getW(), rect.getH()));
-    }
-
-    public void addLine(int x1, int y1, int x2, int y2 ) {
-        String lineTemplate ="<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#000\" />";
-        svg.append(String.format(lineTemplate, x1, y1, x2, y2));
-    }
-
-    /** A line with arrowheads in both ends and text above or next to it.
-     *  Useful for conveying scale. */
-    public void addArrowLine(int x1, int y1, int x2, int y2, String text) {
-        if (lineIsHorizontal(x1, y1, x2, y2)) {
-            this.addHorizontalArrowLine(x1, y1, x2, y2, text);
-        } else {
-            this.addVerticalArrowLine(x1, y1, x2, y2, text);
+    public void addElements(SVGElement... elements) {
+        for (SVGElement elem : elements) {
+            svg.append(elem.toString());
         }
-    }
-
-    /**  7.00
-     * <------>
-     * */
-    private void addHorizontalArrowLine(int x1, int y1, int x2, int y2, String text) {
-        String lineTemplate = "" +
-                "<line\n" +
-                "    x1=\"%d\"\n" +
-                "    y1=\"%d\"\n" +
-                "    x2=\"%d\"\n" +
-                "    y2=\"%d\"\n" +
-                "    stroke=\"#000\"\n" +
-                "    marker-end=\"url(#endarrow)\"\n" +
-                "    marker-start=\"url(#startarrow)\"\n" +
-                "></line>";
-        int xText = x1 + (x2 - x1) / 2;
-        int yText = y1 - 10; // Doesn't account for odd angles
-        String textTemplate = "" +
-                "<text " +
-                "   x=\"%d\" " +
-                "   y=\"%d\" " +
-                "   font-size=\"smaller\" " +
-                "   text-anchor=\"middle\"" +
-                ">%s</text>";
-        svg.append(
-                String.format(
-                        lineTemplate,
-                        x1 + MARKER_WIDTH,
-                        y1,
-                        x2 - MARKER_WIDTH,
-                        y2
-                )
-        );
-        svg.append(String.format(textTemplate, xText, yText, text));
-
-        this.addLine(
-                x1,
-                y1 - LINE_GUIDE_LENGTH / 2,
-                x1,
-                y2 + LINE_GUIDE_LENGTH / 2
-        );
-        this.addLine(
-                x2,
-                y1 - LINE_GUIDE_LENGTH / 2,
-                x2,
-                y2 + LINE_GUIDE_LENGTH / 2
-        );
-    }
-
-    /**      /\
-     *       |
-     * 1.10  |
-     *       |
-     *      \/
-     * */
-    private void addVerticalArrowLine(int x1, int y1, int x2, int y2, String text) {
-        String lineTemplate = "" +
-                "<line\n" +
-                "    x1=\"%d\"\n" +
-                "    y1=\"%d\"\n" +
-                "    x2=\"%d\"\n" +
-                "    y2=\"%d\"\n" +
-                "    stroke=\"#000\"\n" +
-                "    marker-end=\"url(#endarrow)\"\n" +
-                "    marker-start=\"url(#startarrow)\"\n" +
-                "></line>";
-        int xText = x1 - MARKER_WIDTH;
-        int yText = y1 + (y2 - y1) / 2;
-        String textTemplate = "" +
-                "<text " +
-                "   x=\"%d\" " +
-                "   y=\"%d\" " +
-                "   font-size=\"smaller\" " +
-                "   text-anchor=\"end\"" +
-                "   dominant-baseline=\"middle\"" +
-                ">%s</text>";
-        svg.append(
-                String.format(
-                        lineTemplate,
-                        x1,
-                        y1 + MARKER_WIDTH,
-                        x2,
-                        y2 - MARKER_WIDTH
-                )
-        );
-        svg.append(String.format(textTemplate, xText, yText, text));
-
-        this.addLine(
-                x1 - LINE_GUIDE_LENGTH / 2,
-                y1,
-                x2 + LINE_GUIDE_LENGTH / 2,
-                y1
-        );
-        this.addLine(
-                x1 - LINE_GUIDE_LENGTH / 2,
-                y2,
-                x2 + LINE_GUIDE_LENGTH / 2,
-                y2
-        );
-    }
-
-    /** We won't be dealing with lines that are not 0, π/2, π or 3π/2 radians */
-    public boolean lineIsHorizontal(int x1, int y1, int x2, int y2) {
-        if (y1 == y2 && x1 != x2) return true;
-        if (x1 == x2 && y1 != y2) return false;
-
-        System.out.println("WARNING: We're not equipped to draw skewed lines. See SVG.lineIsHorizontal()");
-        int xDiff = x2 - x1;
-        int yDiff = y2 - y1;
-        return xDiff > yDiff;
     }
 
     @Override

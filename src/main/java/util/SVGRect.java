@@ -24,11 +24,28 @@ public class SVGRect extends SVGElement {
 
         @Override
         public SVGRect build() {
+            // Set defaults
+            if (!attributes.containsKey("stroke")) {
+                attr("stroke", "#000");
+            }
+            if (!attributes.containsKey("fill")) {
+                attr("fill", "#fff");
+            }
             return new SVGRect(this);
         }
 
         @Override
         protected Builder self() {
+            return this;
+        }
+
+        public Builder stroke(String hex) {
+            attr("stroke", hex);
+            return this;
+        }
+
+        public Builder fill(String hex) {
+            attr("fill", hex);
             return this;
         }
     }
@@ -47,20 +64,20 @@ public class SVGRect extends SVGElement {
                 "<rect\n" +
                 "    x=\"%d\"\n" +
                 "    y=\"%d\"\n" +
-                "    height=\"%d\"\n" +
                 "    width=\"%d\"\n" +
-                "    %s\n" +
+                "    height=\"%d\"\n" +
+                "    %s" +
                 "/>";
         return String.format(
                 rectTemplate,
                 x, y, w, h,
-                super.attributePairs()
+                attributePairs()
         );
     }
 
     /* Getters */
 
     public HashMap<String, String> getAttributes() {
-        return super.getAttributes();
+        return getAttributes();
     }
 }
