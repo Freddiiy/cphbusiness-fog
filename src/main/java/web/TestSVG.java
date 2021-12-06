@@ -49,7 +49,7 @@ public class TestSVG extends HttpServlet {
                         yCarport,
                         xHeightLineGuide,
                         yCarport + hCarport)
-                        .text(String.format("%.2f", (double) hCarport / 100))
+                        .text("auto")
                         .build()
         );
 
@@ -63,7 +63,7 @@ public class TestSVG extends HttpServlet {
                         yDistPillarsGuide,
                         xDistPillarsGuide,
                         yDistPillarsGuide + distPillars)
-                        .text(String.format("%.2f", (double) distPillars / 100))
+                        .text("auto")
                         .build()
         );
 
@@ -79,7 +79,7 @@ public class TestSVG extends HttpServlet {
                             margin + hLineGuide / 2,
                             xHorizontalLine + distBetweenRafters,
                             margin + hLineGuide / 2)
-                            .text(String.format("%.2f", (double) distBetweenRafters / 100))
+                            .text("auto")
                             .build()
             );
         }
@@ -116,16 +116,6 @@ public class TestSVG extends HttpServlet {
                             .build()
             );
         }
-
-        SVGMeasurementGuide svgMG = new SVGMeasurementGuide.Builder(
-                80, 750, 280, 750)
-                .build();
-        SVGMeasurementGuide svgMGwText = new SVGMeasurementGuide.Builder(
-                80, 950, 280, 950)
-                .text("1.00")
-                .build();
-
-        svg.addElements(svgMG, svgMGwText);
 
         request.setAttribute("svg", svg.toString());
         request.getRequestDispatcher("/WEB-INF/testsvg.jsp")

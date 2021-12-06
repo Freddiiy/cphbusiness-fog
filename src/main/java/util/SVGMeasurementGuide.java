@@ -10,15 +10,7 @@ public class SVGMeasurementGuide extends SVGElement {
     private final String text;
 
     private final int MARKER_WIDTH = 10;
-    private final int LINE_GUIDE_LENGTH = 30;
-    private final String LINE_TEMPLATE = "" +
-            "<line\n" +
-            "    x1=\"%d\"\n" +
-            "    y1=\"%d\"\n" +
-            "    x2=\"%d\"\n" +
-            "    y2=\"%d\"\n" +
-            "    %s" +                                  // other attributes
-            "></line>";
+    private final int NORMAL_LENGTH = 30;
 
     public static class Builder extends SVGElement.Builder<Builder> {
         private final int x1;
@@ -47,7 +39,7 @@ public class SVGMeasurementGuide extends SVGElement {
         public Builder text(String text) {
             this.text = text;
             if (text.equals("auto")) {
-
+                this.text = String.format("%.2f", distBetweenPoints(x1, y1, x2, y2) / 100); // cm.
             }
             return this;
         }
@@ -90,22 +82,7 @@ public class SVGMeasurementGuide extends SVGElement {
                 .attr("marker-end", "url(#endarrow)")
                 .build();
 
-        // Normals
-        SVGLine normalStart = new SVGLine.Builder(
-                x1,
-                y1 - LINE_GUIDE_LENGTH / 2,
-                x1,
-                y2 + LINE_GUIDE_LENGTH / 2)
-                .build();
-
-        SVGLine normalEnd = new SVGLine.Builder(
-                x2,
-                y1 - LINE_GUIDE_LENGTH / 2,
-                x2,
-                y2 + LINE_GUIDE_LENGTH / 2)
-                .build();
-
-        String lines = line.toString() + normalStart + normalEnd;
+        String lines = line.toString() + normals();//normalStart + normalEnd;
         if (text != null) {
             return lines + textForHorizontalGuide();
         }
@@ -122,22 +99,7 @@ public class SVGMeasurementGuide extends SVGElement {
                 .attr("marker-end", "url(#endarrow)")
                 .build();
 
-        // Normals
-        SVGLine normalStart = new SVGLine.Builder(
-                x1 - LINE_GUIDE_LENGTH / 2,
-                y1,
-                x2 + LINE_GUIDE_LENGTH / 2,
-                y1)
-                .build();
-
-        SVGLine normalEnd = new SVGLine.Builder(
-                x1 - LINE_GUIDE_LENGTH / 2,
-                y2,
-                x2 + LINE_GUIDE_LENGTH / 2,
-                y2)
-                .build();
-
-        String lines = line.toString() + normalStart + normalEnd;
+        String lines = line.toString() + normals(); // normalStart + normalEnd;
         if (text != null) {
             return lines + textForVerticalGuide();
         }
@@ -167,5 +129,44 @@ public class SVGMeasurementGuide extends SVGElement {
                 .attr("dominant-baseline", "middle")
                 .build();
         return svgText.toString();
+    }
+
+    /** Draw the normals that are placed at each end of the measurement guide */
+    private String normals() {
+        SVGLine normalStart;
+        SVGLine normalEnd;
+        int x1start, y1start;
+        int x2start, y2start;
+        int x1end, y1end;
+        int x2end, y2end;
+        if (lineIsHorizontal()) {
+            x1start = x1;
+            y1start = y1 - NORMAL_LENGTH / 2;
+            x2start = x1;
+            y2start = y2 + NORMAL_LENGTH / 2;
+            x1end = x2;
+            y1end = y1 - NORMAL_LENGTH / 2;
+            x2end = x2;
+            y2end = y2 + NORMAL_LENGTH / 2;
+        } else {
+            x1start = x1 - NORMAL_LENGTH / 2;
+            y1start = y1;
+            x2start = x2 + NORMAL_LENGTH / 2;
+            y2start = y1;
+            x1end = x1 - NORMAL_LENGTH / 2;
+            y1end = y2;
+            x2end = x2 + NORMAL_LENGTH / 2;
+            y2end = y2;
+        }
+
+        // Create both normals
+        normalStart = new SVGLine.Builder(x1start, y1start, x2start, y2start).build();
+        normalEnd = new SVGLine.Builder(x1end, y1end, x2end, y2end).build();
+
+        return normalStart.toString() + normalEnd.toString();
+    }
+
+    public static double distBetweenPoints(int x1, int y1, int x2, int y2) {
+        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 }
