@@ -2,6 +2,7 @@ package web.admin;
 
 
 import controller.AdminController;
+import model.Carport;
 import persistance.Database;
 import controller.UserController;
 
@@ -21,6 +22,9 @@ public class Admin extends HttpServlet {
 
         String sessionID = request.getSession().getId();
         List userList = adminController.getUsers(sessionID);
+
+        Carport carportFromDB = adminController.getCarportByOrderId(2, sessionID);
+        System.out.println(carportFromDB.getWidth() + " " + carportFromDB.getLength() + " " + carportFromDB.hasShed());
         request.setAttribute("userList", userList);
         request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
