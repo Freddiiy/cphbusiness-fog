@@ -1,8 +1,7 @@
 package web.auth;
 
 import model.User;
-import persistance.Database;
-import controller.UserController;
+import mapper.UserMapper;
 import util.Validation;
 
 import java.io.*;
@@ -16,10 +15,10 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController();
+        UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(userController.validateSession(session)) {
+        if(userMapper.validateSession(session)) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
@@ -41,10 +40,10 @@ public class Register extends HttpServlet {
             User user = new User(email, fname, lname, password1, "Customer", sessionID);
 
             try {
-                UserController userController = new UserController();
+                UserMapper userMapper = new UserMapper();
 
-                if (!userController.emailExists(email)) {
-                    userController.insertUserToDb(user);
+                if (!userMapper.emailExists(email)) {
+                    userMapper.insertUserToDb(user);
 
                     session.setAttribute("user", user);
 

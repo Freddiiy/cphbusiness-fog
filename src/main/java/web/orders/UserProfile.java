@@ -1,8 +1,7 @@
 package web.orders;
 
 
-import persistance.Database;
-import controller.UserController;
+import mapper.UserMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -15,10 +14,10 @@ public class UserProfile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController();
+        UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(!userController.validateSession(session)) {
+        if(!userMapper.validateSession(session)) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             request.getRequestDispatcher("/WEB-INF/userProfile.jsp").forward(request, response);

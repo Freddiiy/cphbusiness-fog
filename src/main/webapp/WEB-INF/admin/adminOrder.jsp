@@ -13,8 +13,8 @@
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
-                                        <th class="col">Kundeoplysninger</th>
-                                        <th class="col"></th>
+                                    <th class="col">Kundeoplysninger</th>
+                                    <th class="col"></th>
                                     </thead>
                                     <tr>
                                         <td>Kunde nummer:</td>
@@ -33,8 +33,8 @@
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
-                                        <th>Ordredetaljer</th>
-                                        <th></th>
+                                    <th>Ordredetaljer</th>
+                                    <th></th>
                                     </thead>
                                     <tr>
                                         <td>Ref nr.:</td>
@@ -50,48 +50,62 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-6">
-                                <table class="table table-striped table-bordered flex-column table-hover">
-                                    <thead class="table-active">
-                                    <th>Carport</th>
-                                    <th></th>
-                                    </thead>
-                                    <tr>
-                                        <td>Carport bredde:</td>
-                                        <td>${requestScope.order.carport.width}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Carport længde:</td>
-                                        <td>${requestScope.order.carport.length}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Carport tag:</td>
-                                        <td>${requestScope.order.carport.idRoof}</td>
-                                    </tr>
-                                    <c:choose>
-                                        <c:when test="${requestScope.order.carport.hasShed()}">
-                                            <tr>
-                                                <td>Redskabsrum:</td>
-                                                <td>${requestScope.order.carport.hasShedString()}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Redskabsrum bredde:</td>
-                                                <td>${requestScope.order.carport.shedWidth} cm</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Redskabsrum længde:</td>
-                                                <td>${requestScope.order.carport.shedLength} cm</td>
-                                            </tr>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <tr>
-                                                <td>Redskabsrum:</td>
-                                                <td>${requestScope.order.carport.hasShedString()}</td>
-                                            </tr>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </table>
-                            </div>
+                            <form>
+                                <div class="col-6">
+                                    <table class="table table-striped table-bordered flex-column table-hover">
+                                        <thead class="table-active">
+                                        <th>Carport</th>
+                                        <th>
+                                            <div>
+                                                <input type="checkbox" id="carportLock" name="carportLock" checked>
+                                                <label for="carportLock">Lås carport</label>
+                                            </div>
+                                        </th>
+                                        </thead>
+
+                                        <tr>
+                                            <td>Carport bredde:</td>
+                                            <td><input type="number" name="carportWidth" value=""></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Carport længde:</td>
+                                            <td>${requestScope.order.carport.length} cm</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Carport tag:</td>
+                                            <td>${requestScope.order.carport.idRoof}</td>
+                                        </tr>
+                                        <c:choose>
+                                            <c:when test="${requestScope.order.carport.hasShed()}">
+                                                <tr>
+                                                    <td>Redskabsrum:</td>
+                                                    <td>${requestScope.order.carport.hasShedString()}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Redskabsrum bredde:</td>
+                                                    <td>${requestScope.order.carport.shedWidth} cm</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Redskabsrum længde:</td>
+                                                    <td>${requestScope.order.carport.shedLength} cm</td>
+                                                </tr>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td>Redskabsrum:</td>
+                                                    <td>${requestScope.order.carport.hasShedString()}</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </table>
+                                    <div>
+                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                        <input type="submit" class="btn btn-fog-primary btn-sm" value="Opdatér værdier">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </c:when>

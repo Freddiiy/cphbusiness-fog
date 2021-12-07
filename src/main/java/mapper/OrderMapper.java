@@ -1,4 +1,4 @@
-package controller;
+package mapper;
 
 import model.*;
 import persistance.Database;
@@ -7,10 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderController {
+public class OrderMapper {
     private final Database database;
 
-    public OrderController() {
+    public OrderMapper() {
         this.database = Database.getInstance();
     }
 

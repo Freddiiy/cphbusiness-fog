@@ -1,8 +1,7 @@
 package web.admin;
 
 
-import controller.AdminController;
-import model.Carport;
+import mapper.AdminMapper;
 import model.Order;
 
 import java.io.*;
@@ -17,10 +16,10 @@ public class Admin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        AdminController adminController = new AdminController();
+        AdminMapper adminMapper = new AdminMapper();
 
         String sessionID = request.getSession().getId();
-        List<Order> orderList = adminController.getOrders(sessionID);
+        List<Order> orderList = adminMapper.getOrders(sessionID);
 
         request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("/WEB-INF/admin/admin.jsp").forward(request, response);

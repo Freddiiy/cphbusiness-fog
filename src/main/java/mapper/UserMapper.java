@@ -1,4 +1,4 @@
-package controller;
+package mapper;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import model.*;
@@ -8,12 +8,11 @@ import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.*;
-import java.text.DecimalFormat;
 
-public class UserController {
+public class UserMapper {
     private final Database database;
 
-    public UserController() {
+    public UserMapper() {
         this.database = Database.getInstance();
     }
 

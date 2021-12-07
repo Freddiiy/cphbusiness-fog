@@ -1,7 +1,6 @@
 package web.auth;
 
-import persistance.Database;
-import controller.UserController;
+import mapper.UserMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -14,10 +13,10 @@ public class Logout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController();
+        UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(userController.validateSession(session)) {
+        if(userMapper.validateSession(session)) {
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/");
             return;

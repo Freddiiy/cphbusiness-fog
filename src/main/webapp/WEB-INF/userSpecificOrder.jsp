@@ -58,11 +58,11 @@
                                     </thead>
                                     <tr>
                                         <td>Carport bredde:</td>
-                                        <td>${requestScope.order.carport.width}</td>
+                                        <td>${requestScope.order.carport.width} cm</td>
                                     </tr>
                                     <tr>
                                         <td>Carport længde:</td>
-                                        <td>${requestScope.order.carport.length}</td>
+                                        <td>${requestScope.order.carport.length} cm</td>
                                     </tr>
                                     <tr>
                                         <td>Carport tag:</td>

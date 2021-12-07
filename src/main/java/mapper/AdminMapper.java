@@ -1,4 +1,4 @@
-package controller;
+package mapper;
 
 import model.Carport;
 import model.Order;
@@ -9,11 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminController {
+public class AdminMapper {
 
     private final Database database;
 
-    public AdminController() {
+    public AdminMapper() {
         this.database = Database.getInstance();
     }
 
