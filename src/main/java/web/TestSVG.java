@@ -1,6 +1,9 @@
 package web;
 
-import util.*;
+import mapper.CarportMapper;
+import util.drawing.SVG;
+import util.drawing.SVGMeasurementGuide;
+import util.drawing.SVGRect;
 import util.drawing.svg.basicshapes.Rect;
 
 import java.io.*;
@@ -83,20 +86,8 @@ public class TestSVG extends HttpServlet {
 
         /* Draw carport */
 
-        // Support bars (name?). The horizontal thingy the pillars are attached to.
-        // A lot of these values are arbitrary, until we get the carport calculator working.
-        int hSupportBar = 20;
-        SVGRect supportBar0 = new SVGRect.Builder(
-                xCarport, yDistPillarsGuide,
-                wCarport, hSupportBar)
-                .build();
-        SVGRect supportBar1 = new SVGRect.Builder(
-                xCarport,
-                yDistPillarsGuide + distPillars - hSupportBar,
-                wCarport, hSupportBar)
-                .build();
-
-        svg.addElements(supportBar0, supportBar1);
+        SVGRect[] supportBars = createSupportBars(carportRect, distPillars);
+        svg.addElements(supportBars);
 
         // Rafters
         int xRafter;
@@ -114,22 +105,40 @@ public class TestSVG extends HttpServlet {
             );
         }
 
-        // Pillars (for now)
-        /*  4 Pillars:
-            15% --- 85%
-
-            6 Pillars:
-            12.5% -- 50% -- 87.5%
-        */
-
         int numPillars = 6;
-        SVGRect[] pillars = createPillars(supportBar0, supportBar1, numPillars);
+        SVGRect[] pillars = createPillars(supportBars[0], supportBars[1], numPillars);
         svg.addElements(pillars);
-
 
         request.setAttribute("svg", svg.toString());
         request.getRequestDispatcher("/WEB-INF/testsvg.jsp")
                 .forward(request, response);
+    }
+
+
+
+    /**
+     * @param carportRect - x, y, w and h of the carport
+     * @param yDeltaPillarsOuter - The distance from the uppermost part of the upper support bar
+     *                           to the lowest part of the lower support bar.
+     * @return Two SVGRects
+     */
+    private SVGRect[] createSupportBars(SVGRect carportRect, int yDeltaPillarsOuter) {
+        // Support bars (name?). The horizontal thingy the pillars are attached to.
+        int hSupportBar = 20;
+        int yUpper = carportRect.getY() + (carportRect.getH() - yDeltaPillarsOuter) / 2;
+        SVGRect upperSupportBar = new SVGRect.Builder(
+                carportRect.getX(),
+                yUpper,
+                carportRect.getW(),
+                hSupportBar)
+                .build();
+        SVGRect lowerSupportBar = new SVGRect.Builder(
+                carportRect.getX(),
+                yUpper + yDeltaPillarsOuter - hSupportBar,
+                carportRect.getW(),
+                hSupportBar)
+                .build();
+        return new SVGRect[] { upperSupportBar, lowerSupportBar };
     }
 
     private SVGRect[] createPillars(SVGRect upperSupportBar, SVGRect lowerSupportBar, int numPillars) {

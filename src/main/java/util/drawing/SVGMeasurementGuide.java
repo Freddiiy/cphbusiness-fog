@@ -1,4 +1,4 @@
-package util;
+package util.drawing;
 
 public class SVGMeasurementGuide extends SVGElement {
 
@@ -35,6 +35,7 @@ public class SVGMeasurementGuide extends SVGElement {
             return this;
         }
 
+        /** Adds text to the SVGElement. Pass "auto" for the will to live for five minutes longer. */
         public Builder text(String text) {
             this.text = text;
             if (text.equals("auto")) {

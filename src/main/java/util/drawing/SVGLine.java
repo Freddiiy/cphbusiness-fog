@@ -1,4 +1,4 @@
-package util;
+package util.drawing;
 
 public class SVGLine extends SVGElement {
 

@@ -1,17 +1,10 @@
-package util;
+package util.drawing;
 
 public class SVGText extends SVGElement {
 
     private final int x;
     private final int y;
     private final String text;
-
-    private final String TEMPLATE = "" +
-            "<text " +
-            "    x=\"%d\" " +
-            "    y=\"%d\" " +
-            "    %s" +
-            ">%s</text>";
 
     public static class Builder extends SVGElement.Builder<Builder> {
         private final int x;
@@ -52,8 +45,15 @@ public class SVGText extends SVGElement {
 
     @Override
     public String toString() {
+        String template = "" +
+                "<text " +
+                "    x=\"%d\" " +
+                "    y=\"%d\" " +
+                "    %s" +
+                ">%s</text>";
+
         return String.format(
-                TEMPLATE,
+                template,
                 x, y,
                 attributePairs(),
                 text

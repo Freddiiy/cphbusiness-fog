@@ -1,4 +1,4 @@
-package util;
+package util.drawing;
 
 import java.util.HashMap;
 

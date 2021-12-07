@@ -1,6 +1,7 @@
 package util;
 
 import org.testng.annotations.Test;
+import util.drawing.SVGMeasurementGuide;
 
 import static org.testng.Assert.*;
 

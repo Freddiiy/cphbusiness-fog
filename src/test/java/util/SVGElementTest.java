@@ -1,6 +1,7 @@
 package util;
 
 import org.testng.annotations.Test;
+import util.drawing.SVGRect;
 
 class SVGElementTest {
 

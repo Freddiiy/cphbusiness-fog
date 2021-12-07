@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import static org.testng.Assert.*;
 
-class CarportControllerTest {
+public class CarportControllerTest {
 
     @Test
     void returnCarportPillarLightRoofNoShed() {

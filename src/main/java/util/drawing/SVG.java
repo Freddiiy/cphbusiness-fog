@@ -1,4 +1,4 @@
-package util;
+package util.drawing;
 
 import util.drawing.svg.basicshapes.Rect;
 
