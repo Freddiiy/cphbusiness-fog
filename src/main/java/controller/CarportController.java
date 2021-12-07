@@ -39,6 +39,7 @@ public class CarportController {
             int packofScrewsUnivsersal = 250;
             int bolt = 0;
             int squarePiece = 0;
+            int packofSquarePiece = 50;
             int screw70mm = 400;
             int screw50mm = 300;
 
@@ -66,6 +67,9 @@ public class CarportController {
             // Buy this many packs of screws
             packofScrewsUnivsersal = packofScrewsUnivsersal/screwsUniversals;
 
+            // Buy this many packs of square pieces
+            packofSquarePiece = packofSquarePiece/squarePiece;
+
             System.out.println("Amount of holetape rolls: " + holetapeRolls);
             System.out.println("Amount of bolts: " + bolt);
             System.out.println("Amount of square pieces: " + squarePiece);
@@ -76,7 +80,7 @@ public class CarportController {
 
             materials.put("holetape", holetapeRolls);
             materials.put("bolt", bolt);
-            materials.put("squarePiece", squarePiece);
+            materials.put("squarePiece", packofSquarePiece);
             materials.put("universalR", universalR);
             materials.put("universalL", universalL);
             materials.put("screwsUniversal", screwsUniversals);
