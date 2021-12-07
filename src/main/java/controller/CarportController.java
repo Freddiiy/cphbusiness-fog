@@ -1,9 +1,15 @@
 package controller;
+import model.Material;
+import persistance.Database;
+
+import javax.xml.crypto.Data;
 import java.util.HashMap;
+import java.util.List;
 
 public class CarportController {
 
         int length, width;
+        MaterialController materialController = new MaterialController(new Database());
 
         public CarportController(int length, int width) {
             this.length = length;
@@ -83,9 +89,20 @@ public class CarportController {
             materials.put("squarePiece", packofSquarePiece);
             materials.put("universalR", universalR);
             materials.put("universalL", universalL);
-            materials.put("screwsUniversal", screwsUniversals);
             materials.put("packofScrews", packofScrewsUnivsersal);
 
             return materials;
         }
+
+        public void calcPriceFromComparedMaterials(MaterialController materialController, HashMap<String, Integer> materials)  {
+
+            // Instanciate materialController and get materials
+            this.materialController = materialController;
+            List materialPrice = materialController.getMaterials();
+
+            System.out.println(materialPrice);
+
+
+        }
+
     }
