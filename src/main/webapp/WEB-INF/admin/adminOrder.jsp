@@ -65,7 +65,7 @@
 
                                         <tr>
                                             <td>Carport bredde:</td>
-                                            <td><input type="number" name="carportWidth" value=""></td>
+                                            <td><select class="form-select flex-column" carportWidth" value=""></td>
                                         </tr>
 
                                         <tr>

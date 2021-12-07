@@ -97,7 +97,7 @@
                 </c:when>
                 <c:otherwise>
                     <div class="container" style="margin-top: 80px">
-                        <h1>Kunne ikke finde nogle ordre.</h1>
+                        <h1>Kunne ikke finde en ordre.</h1>
                     </div>
                 </c:otherwise>
             </c:choose>
