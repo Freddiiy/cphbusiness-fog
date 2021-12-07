@@ -7,33 +7,40 @@
         <jsp:body>
             <c:choose>
                 <c:when test="${requestScope.orderList != null}">
-                    <div class="container" style="margin-top: 80px">
-                        <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
-                            <h1 class="ps-4">Mine ordre</h1>
+                    <div class="container" style="margin-top: 20px">
+                        <div class="bg-light rounded-3 px-0 pt-2 p-md-2 mb-0">
+                            <h2 class="ps-4">Mine ordre</h2>
 
-                            <c:forEach var="item" items="${requestScope.orderList}">
-                                <div class="px-0 py-5 mb-5 bg-light border rounded shadow mx-3">
-                                    <div class="row text-start px-5">
-                                        <h4 class="col-6">Bund: ${item.getOrderItems().getBottom()}</h4>
-                                        <h4 class="col-6">${item.getOrderItems().getBottomPrice()} kr.</h4>
-                                        <hr class="mb-5">
+                            <table class="table table-striped table-borderless flex-column table-hover text-center">
+                                <thead>
+                                <th class="col">Ref. Nr.</th>
+                                <th class="col">Carport bredde.</th>
+                                <th class="col">Carport længde</th>
+                                <th class="col">Tag</th>
+                                <th class="col">Redskabsrum</th>
+                                <th class="col">Bestilt</th>
+                                <th class="col">Status</th>
+                                </thead>
 
-                                        <h4 class="col-6">Topping: ${item.getOrderItems().getTopping()}</>
-                                        <h4 class="col-6">${item.getOrderItems().getToppingPrice()} kr.</h4> <br>
-                                        <hr class="mb-5">
-
-                                        <h4 class="col-6">Antal: ${item.getOrderItems().getAmount()}</h4>
-                                        <h4 class="col-6">i alt: ${item.getOrderItems().getTotalPrice()} kr.</h4>
-                                        <hr class="mb-3">
-                                    </div>
-                                </div>
-                            </c:forEach>
+                                <c:forEach var="item" items="${requestScope.orderList}">
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.carport.width}</td>
+                                        <td>${item.carport.length}</td>
+                                        <td>${item.carport.idRoof}</td>
+                                        <td>${item.carport.hasShedString()}</td>
+                                        <td>${item.timestamp}</td>
+                                        <td>${item.status}</td>
+                                        <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/orders/orderId?userId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
                         </div>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="container" style="margin-top: 80px">
-                        <h1>Du har ingen ordre.</h1>
+                        <h1>Dine ordrer kunne ikke findes.</h1>
                     </div>
                 </c:otherwise>
             </c:choose>

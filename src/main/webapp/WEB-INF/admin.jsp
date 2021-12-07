@@ -29,9 +29,10 @@
                                     <td>${item.carport.width}</td>
                                     <td>${item.carport.length}</td>
                                     <td>${item.carport.idRoof}</td>
-                                    <td>${item.carport.hasShed()}</td>
+                                    <td>${item.carport.hasShedString()}</td>
                                     <td>${item.timestamp}</td>
-                                    <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/admin/order" class="btn btn-fog-primary">Se ordre</a></td>
+                                    <td>${item.status}</td>
+                                    <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/admin/order?userId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
                                 </tr>
                             </c:forEach>
                             </table>

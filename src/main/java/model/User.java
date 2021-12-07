@@ -16,18 +16,18 @@ public class User {
         this.sessionID = sessionID;
     }
 
+    public User(int id, String email, String fname, String lname, String role) {
+        this.id = id;
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+    }
+
     public User(String email, String fname, String lname, String password, String role, String sessionID) {
         this.email = email;
         this.fname = fname;
         this.lname = lname;
-        this.password = password;
-        this.role = role;
-        this.sessionID = sessionID;
-    }
-
-    public User(int id, String email, String password, String role, String sessionID) {
-        this.id = id;
-        this.email = email;
         this.password = password;
         this.role = role;
         this.sessionID = sessionID;

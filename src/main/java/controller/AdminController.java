@@ -51,9 +51,10 @@ public class AdminController {
 
     public List<Order> getOrders(String sessionId) {
         if (isAdmin(sessionId)) {
-            String sql = "SELECT  Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
+            String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                     "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
-                    "CarportMaterials.material_id, CarportMaterials.material_name, Users.id_user, Users.email FROM Orders " +
+                    "CarportMaterials.material_id, CarportMaterials.material_name, " +
+                    "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
                     "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                     "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
                     "JOIN Users ON Orders.id_user = Users.id_user";
@@ -66,8 +67,11 @@ public class AdminController {
                 ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     orderList.add(new Order(resultSet.getInt("Orders.id_order"),
-                            resultSet.getString("Users.email"),
-                            resultSet.getInt("Users.id_user"),
+                            new User(resultSet.getInt("Users.id_user"),
+                                    resultSet.getString("Users.email"),
+                                    resultSet.getString("Users.fname"),
+                                    resultSet.getString("Users.lname"),
+                                    resultSet.getString("Users.role")),
                             new Carport(resultSet.getInt("CarportRequest.id_carportRequest"),
                                     resultSet.getInt("CarportRequest.length"),
                                     resultSet.getInt("CarportRequest.width"),
@@ -91,6 +95,48 @@ public class AdminController {
         } else {
             return null;
         }
+    }
+
+    public Order getOrderById(int orderId, String sessionId) {
+        if (isAdmin(sessionId)) {
+            String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
+                    "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
+                    "CarportMaterials.material_id, CarportMaterials.material_name, " +
+                    "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
+                    "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
+                    "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
+                    "JOIN Users ON Orders.id_user = Users.id_user " +
+                    "WHERE Orders.id_order = ?";
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+
+                ps.setInt(1, orderId);
+
+                ResultSet resultSet = ps.executeQuery();
+                if (resultSet.next()) {
+                    return new Order(resultSet.getInt("Orders.id_order"),
+                            new User(resultSet.getInt("Users.id_user"),
+                                    resultSet.getString("Users.email"),
+                                    resultSet.getString("Users.fname"),
+                                    resultSet.getString("Users.lname"),
+                                    resultSet.getString("Users.role")),
+                            new Carport(resultSet.getInt("CarportRequest.id_carportRequest"),
+                                    resultSet.getInt("CarportRequest.length"),
+                                    resultSet.getInt("CarportRequest.width"),
+                                    resultSet.getInt("CarportRequest.id_roof"),
+                                    resultSet.getBoolean("CarportRequest.hasShed"),
+                                    resultSet.getInt("CarportRequest.shedLength"),
+                                    resultSet.getInt("CarportRequest.shedWidth")),
+                            resultSet.getString("Orders.status"),
+                            resultSet.getDouble("Orders.total_price"),
+                            resultSet.getTimestamp("Orders.timestamp"));
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public Carport getCarportByOrderId(int orderId, String sessionId) {

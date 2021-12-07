@@ -83,6 +83,10 @@ public class Carport {
         this.hasShed = hasShed;
     }
 
+    public String hasShedString() {
+        return this.hasShed ? "Ja" : "Nej";
+    }
+
     public int getShedLength() {
         return shedLength;
     }

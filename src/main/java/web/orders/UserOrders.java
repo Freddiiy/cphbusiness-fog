@@ -3,6 +3,7 @@ package web.orders;
 
 import controller.OrderController;
 import controller.UserController;
+import model.Order;
 import persistance.Database;
 
 import java.io.*;
@@ -12,7 +13,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "UserOrders", urlPatterns = {"/orders"})
+@WebServlet(name = "UserOrders", urlPatterns = {"/orders", "/orders/orderId"})
 public class UserOrders extends HttpServlet {
 
     @Override
@@ -20,15 +21,22 @@ public class UserOrders extends HttpServlet {
         UserController userController = new UserController();
         OrderController orderController = new OrderController();
         HttpSession session = request.getSession();
+        if(request.getServletPath().equals("/orders/orderId")) {
+            int orderId = Integer.parseInt(request.getParameter("userId"));
 
-        if(!userController.validateSession(session)) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            Order order = orderController.getOrderById(orderId, session.getId());
+
+            request.setAttribute("order", order);
+            request.getRequestDispatcher("/WEB-INF/userSpecificOrder.jsp").forward(request, response);
         } else {
-            String sessionID = request.getSession().getId();
-            //List orderList = orderController.getOrders(sessionID);
 
-            //request.setAttribute("orderList", orderList);
+            List<Order> orderList = orderController.getOrders(session.getId());
+
+            System.out.println(orderList.size());
+
+            request.setAttribute("orderList", orderList);
             request.getRequestDispatcher("/WEB-INF/userOrders.jsp").forward(request, response);
         }
+
     }
 }

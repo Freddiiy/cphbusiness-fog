@@ -2,6 +2,7 @@ package web.admin;
 
 
 import controller.AdminController;
+import model.Order;
 import persistance.Database;
 import controller.UserController;
 
@@ -17,9 +18,13 @@ public class AdminOrder extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        AdminController adminController = new AdminController();
+        HttpSession session = request.getSession();
 
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        Order order = adminController.getOrderById(userId, session.getId());
 
-
+        request.setAttribute("order", order);
         request.getRequestDispatcher("/WEB-INF/adminOrder.jsp").forward(request, response);
     }
 }

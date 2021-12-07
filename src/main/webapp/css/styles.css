@@ -7,10 +7,6 @@ body {
     background-color: #F8F8F8;
 }
 
-::selection {
-    background-color: #c4b6a1;
-}
-
 .navBar {
     margin: 0 50%;
     transform: translate(-50%, 0);

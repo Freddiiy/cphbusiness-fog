@@ -4,33 +4,30 @@ import java.sql.Timestamp;
 
 public class Order {
     private int id;
-    private String email;
-    private int userId;
+    private User user;
     private Carport carport;
     private String status;
     private double totalPrice;
     private Timestamp timestamp;
 
-    public Order(int id, int userId, Carport carport) {
+    public Order(int id, User user, Carport carport) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.carport = carport;
     }
 
-    public Order(int id, String email, int userId, Carport carport, String status, double totalPrice, Timestamp timestamp) {
+    public Order(int id, User user, Carport carport, String status, double totalPrice, Timestamp timestamp) {
         this.id = id;
-        this.email = email;
-        this.userId = userId;
+        this.user = user;
         this.carport = carport;
         this.status = status;
         this.totalPrice = totalPrice;
         this.timestamp = timestamp;
     }
 
-    public Order(int id, String email, int userId) {
+    public Order(int id, User user) {
         this.id = id;
-        this.email = email;
-        this.userId = userId;
+        this.user = user;
     }
 
     public int getId() {
@@ -41,20 +38,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Carport getCarport() {
