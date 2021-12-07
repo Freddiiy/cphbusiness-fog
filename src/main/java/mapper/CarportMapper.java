@@ -1,9 +1,12 @@
 package mapper;
+import persistance.Database;
+
 import java.util.HashMap;
 
 public class CarportMapper {
 
         int length, width;
+        MaterialMapper materialMapper = new MaterialMapper(new Database());
 
         public CarportMapper(int length, int width) {
             this.length = length;
@@ -39,6 +42,7 @@ public class CarportMapper {
             int packofScrewsUnivsersal = 250;
             int bolt = 0;
             int squarePiece = 0;
+            int packofSquarePiece = 50;
             int screw70mm = 400;
             int screw50mm = 300;
 
@@ -66,6 +70,9 @@ public class CarportMapper {
             // Buy this many packs of screws
             packofScrewsUnivsersal = packofScrewsUnivsersal/screwsUniversals;
 
+            // Buy this many packs of square pieces
+            packofSquarePiece = packofSquarePiece/squarePiece;
+
             System.out.println("Amount of holetape rolls: " + holetapeRolls);
             System.out.println("Amount of bolts: " + bolt);
             System.out.println("Amount of square pieces: " + squarePiece);
@@ -76,12 +83,23 @@ public class CarportMapper {
 
             materials.put("holetape", holetapeRolls);
             materials.put("bolt", bolt);
-            materials.put("squarePiece", squarePiece);
+            materials.put("squarePiece", packofSquarePiece);
             materials.put("universalR", universalR);
             materials.put("universalL", universalL);
-            materials.put("screwsUniversal", screwsUniversals);
             materials.put("packofScrews", packofScrewsUnivsersal);
 
             return materials;
         }
+
+        public void calcPriceFromComparedMaterials(MaterialMapper materialMapper, HashMap<String, Integer> materials)  {
+
+            // Instanciate materialController and get materials
+            this.materialMapper = materialMapper;
+            //List materialPrice = materialController.getMaterials();
+
+            //System.out.println(materialPrice);
+
+
+        }
+
     }
