@@ -1,13 +1,13 @@
 package controller;
 
+import mapper.MaterialMapper;
 import model.Material;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import persistance.Database;
 
 import java.util.HashMap;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.*;
 
 class CarportControllerTest {
 
@@ -25,9 +25,9 @@ class CarportControllerTest {
 
     @Test
     void calcPriceFromComparedMaterials() {
-        MaterialController materialController = new MaterialController(new Database());
+        MaterialMapper materialMapper = new MaterialMapper(new Database());
         // Instanciate materialController and get materials
-        HashMap materialDatabase = materialController.getMaterials();
+        HashMap materialDatabase = materialMapper.getMaterials();
 
 
 
