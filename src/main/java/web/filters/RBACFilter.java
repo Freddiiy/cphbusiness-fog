@@ -1,7 +1,6 @@
 package web.filters;
 
-import controller.UserController;
-import persistance.Database;
+import mapper.UserMapper;
 import util.ArrayHelpers;
 
 import javax.servlet.*;
@@ -63,8 +62,8 @@ public class RBACFilter implements Filter {
     }
 
     public boolean roleHasAccess(HttpServletRequest request) {
-        UserController userController = new UserController();
-        String role = userController.getUserRole(request.getSession().getId());
+        UserMapper userMapper = new UserMapper();
+        String role = userMapper.getUserRole(request.getSession().getId());
 
         if (role != null && role.equals(ADMIN)) return true;
 

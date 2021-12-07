@@ -1,8 +1,7 @@
 package web.admin;
 
 
-import controller.AdminController;
-import persistance.Database;
+import mapper.AdminMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -16,12 +15,12 @@ public class AdminRemoveOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        AdminController adminController = new AdminController();
+        AdminMapper adminMapper = new AdminMapper();
 
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         int userId = Integer.parseInt(request.getParameter("userId"));
 
-        adminController.removeOrder(orderId, session.getId());
+        adminMapper.removeOrder(orderId, session.getId());
         response.sendRedirect("/admin/orders?userId=" + userId);
     }
 }

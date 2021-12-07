@@ -1,8 +1,7 @@
 package web.auth;
 
 import model.User;
-import persistance.Database;
-import controller.UserController;
+import mapper.UserMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -15,10 +14,10 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController();
+        UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(userController.validateSession(session)) {
+        if(userMapper.validateSession(session)) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
@@ -34,13 +33,13 @@ public class Login extends HttpServlet {
         String sessionID = session.getId();
 
         try {
-            UserController userController = new UserController();
-            User user = userController.getUserFromDb(email, password);
+            UserMapper userMapper = new UserMapper();
+            User user = userMapper.getUserFromDb(email, password);
 
-            if(user != null && userController.emailExists(user.getEmail())) {
+            if(user != null && userMapper.emailExists(user.getEmail())) {
                 user.setSessionID(sessionID);
                 session.setAttribute("user", user);
-                userController.updateSessionID(user.getEmail(), user.getSessionID());
+                userMapper.updateSessionID(user.getEmail(), user.getSessionID());
 
                 response.sendRedirect(request.getContextPath() + "/");
             } else {

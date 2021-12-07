@@ -1,8 +1,7 @@
 package web.orders;
 
-import controller.OrderController;
+import mapper.OrderMapper;
 import model.Carport;
-import persistance.Database;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -30,12 +29,12 @@ public class AddOrder extends HttpServlet {
         int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
 
-        OrderController orderController = new OrderController();
+        OrderMapper orderMapper = new OrderMapper();
 
         if (shedWidth == 0 || shedLength == 0) {
-            orderController.addToOrder(new Carport(carportWidth, carportLength, roof, false), session.getId());
+            orderMapper.addToOrder(new Carport(carportWidth, carportLength, roof, false), session.getId());
         } else {
-            orderController.addToOrder(new Carport(carportWidth, carportLength, roof, true, shedWidth, shedLength), session.getId());
+            orderMapper.addToOrder(new Carport(carportWidth, carportLength, roof, true, shedWidth, shedLength), session.getId());
         }
 
     }

@@ -1,10 +1,6 @@
 package web.view;
 
-import persistance.Database;
-import controller.UserController;
-
 import java.io.*;
-import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

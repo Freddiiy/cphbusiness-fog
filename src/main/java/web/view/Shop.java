@@ -1,10 +1,8 @@
 package web.view;
 
-import persistance.Database;
-import controller.UserController;
+import mapper.UserMapper;
 
 import java.io.*;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -15,9 +13,9 @@ public class Shop extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserController userController = new UserController();
+        UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
-        if (userController.validateSession(session)) {
+        if (userMapper.validateSession(session)) {
             request.getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);
         } else {
             response.sendRedirect("/login");

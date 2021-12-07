@@ -1,11 +1,11 @@
-package controller;
+package mapper;
 import java.util.HashMap;
 
-public class CarportController {
+public class CarportMapper {
 
         int length, width;
 
-        public CarportController(int length, int width) {
+        public CarportMapper(int length, int width) {
             this.length = length;
             this.width = width;
         }
