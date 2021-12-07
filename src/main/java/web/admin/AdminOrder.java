@@ -25,6 +25,6 @@ public class AdminOrder extends HttpServlet {
         Order order = adminController.getOrderById(userId, session.getId());
 
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/WEB-INF/adminOrder.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/adminOrder.jsp").forward(request, response);
     }
 }

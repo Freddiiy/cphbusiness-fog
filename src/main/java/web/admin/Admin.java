@@ -23,7 +23,7 @@ public class Admin extends HttpServlet {
         List<Order> orderList = adminController.getOrders(sessionID);
 
         request.setAttribute("orderList", orderList);
-        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/admin.jsp").forward(request, response);
     }
 
     @Override
