@@ -206,6 +206,27 @@ public class AdminMapper {
     }
 */
 
+    public void updateOrder(int orderId, int width, int length, int shedWidth, int shedLength, String sessionId) {
+        if (isAdmin(sessionId)) {
+
+            String sql = "UPDATE Orders INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest SET CarportRequest.width = ?, CarportRequest.length = ?, CarportRequest.shedWidth = ?, CarportRequest.shedLength = ? " +
+                    "WHERE Orders.id_carportRequest = (SELECT Orders.id_carportRequest FROM Orders WHERE id_order = ?)";
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, width);
+                ps.setInt(2, length);
+                ps.setInt(3, shedLength);
+                ps.setInt(4, shedWidth);
+                ps.setInt(5, orderId);
+
+                ps.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
     public void removeOrder(int orderId, String sessionId) {
         if (isAdmin(sessionId)) {
 

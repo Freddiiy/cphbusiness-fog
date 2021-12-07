@@ -32,7 +32,7 @@
                                     <td>${item.carport.hasShedString()}</td>
                                     <td>${item.timestamp}</td>
                                     <td>${item.status}</td>
-                                    <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/admin/order?userId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
+                                    <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/admin/order?orderId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
                                 </tr>
                             </c:forEach>
                             </table>

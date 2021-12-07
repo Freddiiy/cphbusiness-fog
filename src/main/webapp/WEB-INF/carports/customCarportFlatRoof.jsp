@@ -39,7 +39,7 @@
                                 <h5 class="fw-light">Carport bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportWidth" required>
-                                        <option value="" selected="true" disabled="disabled">Vælg bredde</option>
+                                        <option value="" selected="selected" disabled="disabled">Vælg bredde</option>
                                         <c:forEach var="item" items="${requestScope.measurements.widthList}">
                                             <option value="${item}">${item} cm</option>
                                         </c:forEach>
@@ -49,7 +49,7 @@
                                 <h5 class="fw-light">Carport længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportLength" required>
-                                        <option value="" selected="true" disabled="disabled">Vælg længde</option>
+                                        <option value="" selected="selected" disabled="disabled">Vælg længde</option>
                                             <c:forEach var="item" items="${requestScope.measurements.lengthList}">
                                                 <option value="${item}">${item} cm</option>
                                             </c:forEach>
@@ -74,7 +74,7 @@
                                 <h5 class="fw-light">Redskabsrum bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="shedWidth" required>
-                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
+                                        <option value="0" selected="selected">Ønsker ikke redskabsrum</option>
                                         <c:forEach var="item" items="${requestScope.measurements.shedWidthList}">
                                             <option value="${item}">${item} cm</option>
                                         </c:forEach>
@@ -84,12 +84,13 @@
                                 <h5 class="fw-light">Redskabsrum længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="shedLength" id="choose-menu" required>
-                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
+                                        <option value="0" selected="selected">Ønsker ikke redskabsrum</option>
                                         <c:forEach var="item" items="${requestScope.measurements.shedLengthList}">
                                             <option value="${item}">${item} cm</option>
                                         </c:forEach>
                                     </select>
                                 </div>
+
                                 <c:choose>
                                     <c:when test="${sessionScope.user != null}">
                                         <div class="d-flex">

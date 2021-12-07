@@ -2,6 +2,8 @@ package web.admin;
 
 
 import mapper.AdminMapper;
+import mapper.MeasurementMapper;
+import model.Measurement;
 import model.Order;
 
 import java.io.*;
@@ -16,10 +18,14 @@ public class AdminOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AdminMapper adminMapper = new AdminMapper();
+        MeasurementMapper measurementMapper = new MeasurementMapper();
         HttpSession session = request.getSession();
 
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        Order order = adminMapper.getOrderById(userId, session.getId());
+        Measurement measurements = measurementMapper.getAllMeasurement();
+
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        request.setAttribute("measurements", measurements);
+        Order order = adminMapper.getOrderById(orderId, session.getId());
 
         request.setAttribute("order", order);
         request.getRequestDispatcher("/WEB-INF/admin/adminOrder.jsp").forward(request, response);

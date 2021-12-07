@@ -50,7 +50,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <form>
+                            <form action="${pageContext.request.contextPath}/admin/order/update" method="POST">
                                 <div class="col-6">
                                     <table class="table table-striped table-bordered flex-column table-hover">
                                         <thead class="table-active">
@@ -65,12 +65,26 @@
 
                                         <tr>
                                             <td>Carport bredde:</td>
-                                            <td><select class="form-select flex-column" carportWidth" value=""></td>
+                                            <td>
+                                                <select class="form-select flex-column" id="carportWidth" name="carportWidth" required>
+                                                    <option value="${requestScope.order.carport.width}" selected="selected">${requestScope.order.carport.width} cm</option>
+                                                    <c:forEach var="item" items="${requestScope.measurements.widthList}">
+                                                        <option value="${item}">${item} cm</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td>Carport længde:</td>
-                                            <td>${requestScope.order.carport.length} cm</td>
+                                            <td>
+                                                <select class="form-select flex-column" id="carportLength" name="carportLength" required>
+                                                    <option value="${requestScope.order.carport.length}" selected="selected">${requestScope.order.carport.length} cm</option>
+                                                    <c:forEach var="item" items="${requestScope.measurements.lengthList}">
+                                                        <option value="${item}">${item} cm</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
                                         </tr>
 
                                         <tr>
@@ -81,15 +95,29 @@
                                             <c:when test="${requestScope.order.carport.hasShed()}">
                                                 <tr>
                                                     <td>Redskabsrum:</td>
-                                                    <td>${requestScope.order.carport.hasShedString()}</td>
+
                                                 </tr>
                                                 <tr>
                                                     <td>Redskabsrum bredde:</td>
-                                                    <td>${requestScope.order.carport.shedWidth} cm</td>
+                                                    <td>
+                                                        <select class="form-select flex-column" id="carportShedWidth" name="carportShedWidth" required>
+                                                            <option value="${requestScope.order.carport.shedWidth}" selected="selected">${requestScope.order.carport.shedWidth} cm</option>
+                                                            <c:forEach var="item" items="${requestScope.measurements.shedWidthList}">
+                                                                <option value="${item}">${item} cm</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Redskabsrum længde:</td>
-                                                    <td>${requestScope.order.carport.shedLength} cm</td>
+                                                    <td>
+                                                        <select class="form-select flex-column" id="carportShedLength" name="carportShedLength" required>
+                                                            <option value="${requestScope.order.carport.shedLength}" selected="selected">${requestScope.order.carport.shedLength} cm</option>
+                                                            <c:forEach var="item" items="${requestScope.measurements.shedLengthList}">
+                                                                <option value="${item}">${item} cm</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             </c:when>
                                             <c:otherwise>
