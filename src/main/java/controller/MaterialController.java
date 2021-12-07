@@ -3,6 +3,7 @@ import model.Material;
 import persistance.Database;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MaterialController {
@@ -13,8 +14,8 @@ public class MaterialController {
         this.database = database;
     }
 
-    public List getMaterials() {
-        List<Material> materialsList = new ArrayList<>();
+    public HashMap<Integer, Double> getMaterials() {
+        HashMap<Integer, Double> materialHashMap = new HashMap();
         String sql = "SELECT * FROM CarportMaterials";
 
         try (Connection connection = database.connect()) {
@@ -22,22 +23,19 @@ public class MaterialController {
 
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                materialsList.add(new Material(
-                        resultSet.getInt("material_id"),
-                        resultSet.getString("material_name"),
-                        resultSet.getDouble("material_price"),
-                        resultSet.getInt("material_length")));
+                        int id = resultSet.getInt("material_id");
+                        String name = resultSet.getString("material_name");
+                        double price = resultSet.getDouble("material_price");
+                        int length = resultSet.getInt("material_length");
+                        String type = resultSet.getString("type");
+                        materialHashMap.put(id,price);
             }
-            if (materialsList.isEmpty()) {
-                return null;
-            }
-
 
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
-        return materialsList;
+        return materialHashMap;
     }
 
     public double calcPriceFromMaterials(List<Material> materialsList)    {

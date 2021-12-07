@@ -98,9 +98,9 @@ public class CarportController {
 
             // Instanciate materialController and get materials
             this.materialController = materialController;
-            List materialPrice = materialController.getMaterials();
+            //List materialPrice = materialController.getMaterials();
 
-            System.out.println(materialPrice);
+            //System.out.println(materialPrice);
 
 
         }

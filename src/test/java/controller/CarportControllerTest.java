@@ -27,12 +27,17 @@ class CarportControllerTest {
     void calcPriceFromComparedMaterials() {
         MaterialController materialController = new MaterialController(new Database());
         // Instanciate materialController and get materials
-        List materialPrice = materialController.getMaterials();
-
-        for (int i = 0; i < materialPrice.size(); i++) {
+        HashMap materialDatabase = materialController.getMaterials();
 
 
 
+
+
+        for (int i = 0; i < materialDatabase.size(); i++) {
+
+
+            Material material = (Material) materialDatabase.get(i);
+            System.out.println(material.getId());
         }
 
     }
