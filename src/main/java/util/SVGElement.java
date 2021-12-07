@@ -48,8 +48,6 @@ public abstract class SVGElement {
     }
 
     private String attributePair(Map.Entry<String, String> keyValuePair) {
-        System.out.println("key: " + keyValuePair.getKey());
-        System.out.println("val: " + keyValuePair.getValue());
         return String.format("%s = \"%s\"\n\t",
                 keyValuePair.getKey(),
                 keyValuePair.getValue());

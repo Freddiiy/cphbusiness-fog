@@ -1,9 +1,6 @@
 package web;
 
-import util.SVG;
-import util.SVGLine;
-import util.SVGMeasurementGuide;
-import util.SVGRect;
+import util.*;
 import util.drawing.svg.basicshapes.Rect;
 
 import java.io.*;
@@ -117,9 +114,70 @@ public class TestSVG extends HttpServlet {
             );
         }
 
+        // Pillars (for now)
+        /*  4 Pillars:
+            15% --- 85%
+
+            6 Pillars:
+            12.5% -- 50% -- 87.5%
+        */
+
+        int numPillars = 6;
+        SVGRect[] pillars = createPillars(supportBar0, supportBar1, numPillars);
+        svg.addElements(pillars);
+
+
         request.setAttribute("svg", svg.toString());
         request.getRequestDispatcher("/WEB-INF/testsvg.jsp")
                 .forward(request, response);
+    }
+
+    private SVGRect[] createPillars(SVGRect upperSupportBar, SVGRect lowerSupportBar, int numPillars) {
+        // Note to self: I think the pillars might actually be placed correctly,
+        // but it's the rafters that need to be pushed to the right a little.
+        int[] placementAlongXAxis = new int[numPillars]; // percentage
+        int carportWidth = upperSupportBar.getW();
+        switch (numPillars) {
+            case 4:
+                placementAlongXAxis = new int[] {
+                        pctToUnits(15.0, carportWidth),
+                        pctToUnits(85.0, carportWidth)};
+                break;
+            case 6:
+                placementAlongXAxis = new int[] {
+                        pctToUnits(12.5, carportWidth),
+                        pctToUnits(50, carportWidth),
+                        pctToUnits(87.5, carportWidth)};
+                break;
+            default:
+                System.out.println("Warning: You need to use either 4 or 6 pillars");
+                break;
+        }
+
+        SVGRect[] pillars = new SVGRect[numPillars];
+        int wPillar = upperSupportBar.getH();
+        int hPillar = upperSupportBar.getH();
+
+        for (int i = 0; i < numPillars / 2; i++) {
+            int xOffset = upperSupportBar.getX();
+            int xPillar = xOffset + placementAlongXAxis[i] - wPillar / 2;
+            SVGRect upperPillar = new SVGRect.Builder(
+                    xPillar, upperSupportBar.getY(), wPillar, hPillar)
+                    .fill("#D3D3D3")
+                    .build();
+            SVGRect lowerPillar = new SVGRect.Builder(
+                    xPillar, lowerSupportBar.getY(), wPillar, hPillar)
+                    .fill("#D3D3D3")
+                    .build();
+            pillars[i*2] = upperPillar;
+            pillars[i*2+1] = lowerPillar;
+        }
+        return pillars;
+    }
+
+    public static int pctToUnits(double pct, int totalUnits) {
+        double notRounded = (double) totalUnits / 100.0 * pct;
+        return (int) Math.round(notRounded);
     }
 }
 

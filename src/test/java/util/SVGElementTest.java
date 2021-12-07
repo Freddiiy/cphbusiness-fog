@@ -13,5 +13,4 @@ class SVGElementTest {
         System.out.println(rect.getAttributes());
         System.out.println(rect);
     }
-
 }
