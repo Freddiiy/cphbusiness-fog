@@ -113,7 +113,7 @@ public class OrderMapper {
         String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                 "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
                 "CarportMaterials.material_id, CarportMaterials.material_name, " +
-                "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
+                "Users.id_user, Users.email, Users.fname, Users.lname, Users.role, Users.address, Users.zipcode, Users.city, Users.phone FROM Orders " +
                 "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                 "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
                 "JOIN Users ON Orders.id_user = Users.id_user " +
@@ -132,7 +132,11 @@ public class OrderMapper {
                                 resultSet.getString("Users.email"),
                                 resultSet.getString("Users.fname"),
                                 resultSet.getString("Users.lname"),
-                                resultSet.getString("Users.role")),
+                                resultSet.getString("Users.role"),
+                                resultSet.getString("Users.address"),
+                                resultSet.getInt("Users.zipcode"),
+                                resultSet.getString("Users.city"),
+                                resultSet.getString("Users.phone")),
                         new Carport(resultSet.getInt("CarportRequest.id_carportRequest"),
                                 resultSet.getInt("CarportRequest.length"),
                                 resultSet.getInt("CarportRequest.width"),
