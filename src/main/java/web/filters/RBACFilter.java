@@ -29,15 +29,16 @@ public class RBACFilter implements Filter {
         restrictedPages.put("/admin/order/accept", ADMIN);
         restrictedPages.put("/admin/order/reject", ADMIN);
         restrictedPages.put("/admin/remove-user", ADMIN);
+        restrictedPages.put("/admin/users", ADMIN);
+        restrictedPages.put("/admin/users/user", ADMIN);
 
         restrictedPages.put("/orders", CUSTOMER);
+        restrictedPages.put("/orders/orderId", CUSTOMER);
         restrictedPages.put("/orders/add", CUSTOMER);
+        restrictedPages.put("/orders/remove", CUSTOMER);
 
         restrictedPages.put("/profile", CUSTOMER);
-        restrictedPages.put("/confirm-order", CUSTOMER);
-        restrictedPages.put("/shoppingcart", CUSTOMER);
-        restrictedPages.put("/thank-you", CUSTOMER);
-        restrictedPages.put("/view-orders", CUSTOMER);
+        restrictedPages.put("/profile/update", CUSTOMER);
     }
 
     @Override
