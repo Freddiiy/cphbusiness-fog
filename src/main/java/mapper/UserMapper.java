@@ -29,10 +29,10 @@ public class UserMapper {
 
             ps.setString(1, user.getEmail());
             ps.setString(2, hashPassword(user.getPassword()));
-            ps.setString(4, user.getRole());
-            ps.setString(5, user.getSessionID());
-            ps.setString(6, user.getFname());
-            ps.setString(7, user.getLname());
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getSessionID());
+            ps.setString(5, user.getFname());
+            ps.setString(6, user.getLname());
             ps.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -110,26 +110,23 @@ public class UserMapper {
 
     }
 
-    public void updateUser(String fname, String lname, String email, String address, int zipcode, String city, String phone, String sessionId) {
-        if (!emailExists(email)) {
-            String sql = "UPDATE Users SET fname = ?, lname = ?, email = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
+    public void updateUser(String fname, String lname, String address, int zipcode, String city, String phone, String sessionId) {
+        String sql = "UPDATE Users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
 
-            try (Connection connection = database.connect()) {
-                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
 
-                ps.setString(1, fname);
-                ps.setString(2, lname);
-                ps.setString(3, email);
-                ps.setString(4, address);
-                ps.setInt(5, zipcode);
-                ps.setString(6, city);
-                ps.setString(7, phone);
-                ps.setString(8, sessionId);
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, address);
+            ps.setInt(4, zipcode);
+            ps.setString(5, city);
+            ps.setString(6, phone);
+            ps.setString(7, sessionId);
 
-                ps.executeUpdate();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 

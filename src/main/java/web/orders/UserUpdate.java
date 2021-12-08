@@ -19,26 +19,22 @@ public class UserUpdate extends HttpServlet {
         HttpSession session = request.getSession();
 
         String fname = request.getParameter("fname");
-        String lname = request.getParameter("lname");
-        String email = request.getParameter("email");
+        String lname =  request.getParameter("lname");
         String address = request.getParameter("address");
         int zipcode = Integer.parseInt(request.getParameter("zipcode"));
         String city = request.getParameter("city");
         String phone = request.getParameter("phone");
 
-        System.out.println(fname + lname + email + address + zipcode + city + phone);
-
         User sessionUser = (User) session.getAttribute("user");
         sessionUser.setFname(fname);
         sessionUser.setLname(lname);
-        sessionUser.setEmail(email);
         sessionUser.setAddress(address);
         sessionUser.setZipcode(zipcode);
         sessionUser.setCity(city);
         sessionUser.setPhone(phone);
         session.setAttribute("user", sessionUser);
 
-        userMapper.updateUser(fname, lname, email, address, zipcode, city, phone, session.getId());
+        userMapper.updateUser(fname, lname, address, zipcode, city, phone, session.getId());
         response.sendRedirect("/profile");
     }
 }
