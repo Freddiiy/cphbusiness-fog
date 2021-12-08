@@ -5,28 +5,49 @@ import java.util.HashMap;
 
 public class CarportMapper {
 
-        int length, width;
+        private final int LENGTH, WIDTH;
         MaterialMapper materialMapper = new MaterialMapper(new Database());
 
-        public CarportMapper(int length, int width) {
-            this.length = length;
-            this.width = width;
+        public CarportMapper(int LENGTH, int WIDTH) {
+            this.LENGTH = LENGTH;
+            this.WIDTH = WIDTH;
         }
 
+        /** A carport should have n pairs of pillars, where n == (carport LENGTH / 300) cm. rounded up. */
+        public int numPillars() {
+            double breakpoint = 300;
+            int numSupportBars = 2;
+            return (int) Math.ceil((double) LENGTH / breakpoint) * numSupportBars;
+        }
+
+        /*
         public int returnCarportPillarLightRoofNoShed() {
             int pillarSpace = 300;
-            int amountPillars = (int) (Math.ceil(length/pillarSpace) + 1) * 2;
+            int amountPillars = (int) (Math.ceil(LENGTH/pillarSpace) + 1) * 2;
             if (amountPillars <= 4) amountPillars = 4;
 
             return amountPillars;
         }
+         */
 
+        public int numRafters() {
+            double maxDistBetweenRafters = 60.0;
+            return (int) Math.floor((double) LENGTH / maxDistBetweenRafters) + 1;
+        }
+
+        public int distBetweenRafters(int numRafters) {
+            return (int) Math.floor(((double) LENGTH / (double) numRafters));
+        }
+
+        /*
         public int returnCarportRaftersLightRoofNoShed() {
             int maxRafterSpace = 60;
-            int amountRafters = (int) Math.floor(length/maxRafterSpace) + 1;
+            int amountRafters = (int) Math.floor(LENGTH/maxRafterSpace) + 1;
 
             return amountRafters;
         }
+
+         */
 
         public HashMap<String, Integer> calcMaterials(int amountPillars, int amountRafters)    {
             // hashmap
@@ -47,7 +68,7 @@ public class CarportMapper {
             int screw50mm = 300;
 
             // For cirumference buy this many holetape rolls
-            holetapeRolls = (int) Math.ceil(2 * (length + width)/holetape);
+            holetapeRolls = (int) Math.ceil(2 * (LENGTH + WIDTH)/holetape);
 
             // For every pillar use these materials
             for (int i = 0; i < amountPillars; i++) {
@@ -102,4 +123,11 @@ public class CarportMapper {
 
         }
 
+    public int getLENGTH() {
+        return LENGTH;
     }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+}

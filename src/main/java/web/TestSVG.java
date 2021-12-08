@@ -1,7 +1,7 @@
 package web;
 
-import mapper.CarportMapper;
 import util.drawing.SVG;
+import util.drawing.SVGCarport;
 import util.drawing.SVGMeasurementGuide;
 import util.drawing.SVGRect;
 import util.drawing.svg.basicshapes.Rect;
@@ -86,7 +86,7 @@ public class TestSVG extends HttpServlet {
 
         /* Draw carport */
 
-        SVGRect[] supportBars = createSupportBars(carportRect, distPillars);
+        SVGRect[] supportBars = supportBars(carportRect, distPillars);
         svg.addElements(supportBars);
 
         // Rafters
@@ -106,10 +106,13 @@ public class TestSVG extends HttpServlet {
         }
 
         int numPillars = 6;
-        SVGRect[] pillars = createPillars(supportBars[0], supportBars[1], numPillars);
+        SVGRect[] pillars = pillars(supportBars[0], supportBars[1], numPillars);
         svg.addElements(pillars);
 
+        String svg1 = new SVGCarport(780, 600).toString();
+
         request.setAttribute("svg", svg.toString());
+        request.setAttribute("svg1", svg1);
         request.getRequestDispatcher("/WEB-INF/testsvg.jsp")
                 .forward(request, response);
     }
@@ -122,7 +125,7 @@ public class TestSVG extends HttpServlet {
      *                           to the lowest part of the lower support bar.
      * @return Two SVGRects
      */
-    private SVGRect[] createSupportBars(SVGRect carportRect, int yDeltaPillarsOuter) {
+    private SVGRect[] supportBars(SVGRect carportRect, int yDeltaPillarsOuter) {
         // Support bars (name?). The horizontal thingy the pillars are attached to.
         int hSupportBar = 20;
         int yUpper = carportRect.getY() + (carportRect.getH() - yDeltaPillarsOuter) / 2;
@@ -141,7 +144,7 @@ public class TestSVG extends HttpServlet {
         return new SVGRect[] { upperSupportBar, lowerSupportBar };
     }
 
-    private SVGRect[] createPillars(SVGRect upperSupportBar, SVGRect lowerSupportBar, int numPillars) {
+    private SVGRect[] pillars(SVGRect upperSupportBar, SVGRect lowerSupportBar, int numPillars) {
         // Note to self: I think the pillars might actually be placed correctly,
         // but it's the rafters that need to be pushed to the right a little.
         int[] placementAlongXAxis = new int[numPillars]; // percentage

@@ -15,13 +15,13 @@ Parts of a carport SVG as seen from above:
         w: Same as carport.w (still seen from above)
         h: Some number of cm, not too important.
     Rafters:
-        Amounts: depends on this.x
+        Amounts: depends on carport.w
         x values: Maximum 60 cm distance between the centers of two rafters.
         y: Same as carport.y
         w: Pretty arbitrary
         h: Same as carport.h
     Pillars:
-        Amount: Depends on carport.w
+        Amount: Depends on carport.w/support bar.w
         x positions: Spread out along the support bars
         y positions: Same as support bars'
         w and h: Same as support bar height
@@ -30,3 +30,21 @@ Parts of a carport SVG as seen from above:
         Carport h guide: Depends on carport.h
         yDeltaPillarsOuter guide: Depends on support bars' yDeltaPillarsOuter.
         Rafter guides: Depends on rafters
+
+Some pseudocode:
+
+function SVG(viewportRect, carportRect) {
+
+    carportRect = x, y, w, h;
+
+    supportBars[] = supportBars(carportRect);
+    pillars[] = pillars(supportBars[]);
+    rafters[] = rafters(carportRect);
+
+    carportHeightGuide = carportHeightGuide(carportRect);
+    supportBarDeltaGuide = supportBarDeltaGuide(supportBars[]);
+    rafterGuides[] = rafterGuides(rafters[]);
+
+    svg.addElements(all the above);
+
+}

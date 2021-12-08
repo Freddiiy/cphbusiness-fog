@@ -7,6 +7,7 @@
         <jsp:body>
 
                         ${requestScope.svg}
+                        ${requestScope.svg1}
 
         </jsp:body>
     </t:navbar>

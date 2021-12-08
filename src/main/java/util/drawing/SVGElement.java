@@ -42,12 +42,12 @@ public abstract class SVGElement {
     public String attributePairs() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : attributes.entrySet()) {
-            sb.append(attributePair(entry));
+            sb.append(attributePairToString(entry));
         }
         return sb.toString();
     }
 
-    private String attributePair(Map.Entry<String, String> keyValuePair) {
+    private String attributePairToString(Map.Entry<String, String> keyValuePair) {
         return String.format("%s = \"%s\"\n\t",
                 keyValuePair.getKey(),
                 keyValuePair.getValue());

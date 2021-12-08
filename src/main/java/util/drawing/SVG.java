@@ -80,6 +80,12 @@ public class SVG
         }
     }
 
+    public void addElements(SVGElement[]... elementLists) {
+        for (SVGElement[] elemList : elementLists) {
+            addElements(elemList);
+        }
+    }
+
     @Override
     public String toString() {
         return svg.toString() + "</svg>" ;
