@@ -48,72 +48,81 @@
                                 </table>
                             </div>
                             <div class="col-6"></div>
+
                             <h3>Ordrer:</h3>
                             <hr>
-                            <c:forEach var="item" items="${requestScope.orderList}">
-                                <div class="col-6">
-                                    <table class="table table-striped table-bordered flex-column table-hover">
-                                        <thead class="table-active">
-                                        <th>Ordre: ${item.id}</th>
-                                        <th></th>
-                                        </thead>
-                                        <tr>
-                                            <td>Carport bredde:</td>
-                                            <td>${item.carport.width} cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Carport længde:</td>
-                                            <td>${item.carport.length} cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Carport tag:</td>
-                                            <td>${item.carport.idRoof}</td>
-                                        </tr>
-                                        <c:choose>
-                                            <c:when test="${item.carport.hasShed()}">
+                            <c:choose>
+                                <c:when test="${requestScope.orderList != null}">
+                                    <c:forEach var="item" items="${requestScope.orderList}">
+                                        <div class="col-6">
+                                            <table class="table table-striped table-bordered flex-column table-hover">
+                                                <thead class="table-active">
+                                                <th>Ordre: ${item.id}</th>
+                                                <th></th>
+                                                </thead>
                                                 <tr>
-                                                    <td>Redskabsrum:</td>
-                                                    <td>${item.carport.hasShedString()}</td>
+                                                    <td>Carport bredde:</td>
+                                                    <td>${item.carport.width} cm</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Redskabsrum bredde:</td>
-                                                    <td>${item.carport.shedWidth} cm</td>
+                                                    <td>Carport længde:</td>
+                                                    <td>${item.carport.length} cm</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Redskabsrum længde:</td>
-                                                    <td>${item.carport.shedLength} cm</td>
+                                                    <td>Carport tag:</td>
+                                                    <td>${item.carport.idRoof}</td>
                                                 </tr>
-                                            </c:when>
-                                            <c:otherwise>
+                                                <c:choose>
+                                                    <c:when test="${item.carport.hasShed()}">
+                                                        <tr>
+                                                            <td>Redskabsrum:</td>
+                                                            <td>${item.carport.hasShedString()}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Redskabsrum bredde:</td>
+                                                            <td>${item.carport.shedWidth} cm</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Redskabsrum længde:</td>
+                                                            <td>${item.carport.shedLength} cm</td>
+                                                        </tr>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr>
+                                                            <td>Redskabsrum:</td>
+                                                            <td>${item.carport.hasShedString()}</td>
+                                                        </tr>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </table>
+                                        </div>
+                                        <div class="col-6">
+                                            <table class="table table-striped table-bordered flex-column table-hover">
+                                                <thead class="table-active">
+                                                <th>Ordredetaljer på ${item.id}</th>
+                                                <th></th>
+                                                </thead>
                                                 <tr>
-                                                    <td>Redskabsrum:</td>
-                                                    <td>${item.carport.hasShedString()}</td>
+                                                    <td>Ref nr.:</td>
+                                                    <td>${item.id}</td>
                                                 </tr>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </table>
-                                </div>
-                                <div class="col-6">
-                                    <table class="table table-striped table-bordered flex-column table-hover">
-                                        <thead class="table-active">
-                                        <th>Ordredetaljer på ${item.id}</th>
-                                        <th></th>
-                                        </thead>
-                                        <tr>
-                                            <td>Ref nr.:</td>
-                                            <td>${item.id}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bestilt:</td>
-                                            <td>${item.timestamp}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status:</td>
-                                            <td>${item.status}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </c:forEach>
+                                                <tr>
+                                                    <td>Bestilt:</td>
+                                                    <td>${item.timestamp}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status:</td>
+                                                    <td>${item.status}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4>Kunden har ingen ordrer</h4>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                     </div>
                 </c:when>
