@@ -23,11 +23,6 @@
                                         <div class="invalid-feedback">Venligst angiv et efternavn.</div>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input name="email" type="email" class="form-control" id="floatingInput" value="${sessionScope.user.email}" required>
-                                        <label for="floatingInput">Email adresse</label>
-                                        <div class="invalid-feedback">Venligst angiv en gyldig email.</div>
-                                    </div>
-                                    <div class="form-floating mb-3">
                                         <input name="phone" type="text" class="form-control" id="floatingPhone" value="${sessionScope.user.phone}" required>
                                         <label for="floatingPhone">Telefonnumer</label>
                                         <div class="invalid-feedback">Venligst angiv et telefonnummer.</div>
@@ -44,7 +39,7 @@
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input name="city" type="text" class="form-control" id="floatingCity" value="${sessionScope.user.city}" required>
-                                        <label for="floatingAddress">By</label>
+                                        <label for="floatingCity">By</label>
                                         <div class="invalid-feedback">Venligst angiv en by.</div>
                                     </div>
 
