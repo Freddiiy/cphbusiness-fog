@@ -93,6 +93,9 @@
 
                                 <c:choose>
                                     <c:when test="${sessionScope.user != null}">
+                                        <c:if test="${sessionScope.user.address == null}">
+                                            <form></form>
+                                        </c:if>
                                         <div class="d-flex">
                                             <div>
                                                 <input class="btn btn-outline-dark flex-shrink-0" type="submit"

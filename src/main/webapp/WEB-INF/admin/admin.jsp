@@ -14,6 +14,7 @@
                             <table class="table table-striped table-borderless flex-column table-hover text-center">
                                 <thead>
                                     <th class="col">Ref. Nr.</th>
+                                    <th class="col">Navn</th>
                                     <th class="col">Carport bredde.</th>
                                     <th class="col">Carport længde</th>
                                     <th class="col">Tag</th>
@@ -26,6 +27,7 @@
 
                                 <tr>
                                     <td>${item.id}</td>
+                                    <td class="text-truncate">${item.user.fname} ${item.user.lname}</td>
                                     <td>${item.carport.width}</td>
                                     <td>${item.carport.length}</td>
                                     <td>${item.carport.idRoof}</td>

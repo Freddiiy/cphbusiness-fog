@@ -8,6 +8,10 @@ public class User {
     private String password;
     private String role;
     private String sessionID;
+    private String address;
+    private int zipcode;
+    private String city;
+    private String phone;
 
     public User(String email, String password, String role, String sessionID) {
         this.email = email;
@@ -40,6 +44,19 @@ public class User {
         this.lname = lname;
         this.role = role;
         this.sessionID = sessionID;
+    }
+
+    public User(int id, String email, String fname, String lname, String role, String sessionID, String address, int zipcode, String city, String phone) {
+        this.id = id;
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+        this.sessionID = sessionID;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -96,5 +113,37 @@ public class User {
 
     public void setSessionID(String sessionID) {
         this.sessionID = sessionID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

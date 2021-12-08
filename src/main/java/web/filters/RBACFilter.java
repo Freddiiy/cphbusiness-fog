@@ -24,14 +24,11 @@ public class RBACFilter implements Filter {
 
         restrictedPages = new HashMap<>();
         restrictedPages.put("/admin", ADMIN);
-        restrictedPages.put("/admin/orders", ADMIN);
-        restrictedPages.put("/admin/add-balance", ADMIN);
-        restrictedPages.put("/admin/remove-order", ADMIN);
+        restrictedPages.put("/admin/order", ADMIN);
+        restrictedPages.put("/admin/order/update", ADMIN);
+        restrictedPages.put("/admin/order/accept", ADMIN);
+        restrictedPages.put("/admin/order/reject", ADMIN);
         restrictedPages.put("/admin/remove-user", ADMIN);
-
-        restrictedPages.put("/cart", CUSTOMER);
-        restrictedPages.put("/cart/add-to-cart", CUSTOMER);
-        restrictedPages.put("/cart/remove-from-cart", CUSTOMER);
 
         restrictedPages.put("/orders", CUSTOMER);
         restrictedPages.put("/orders/add", CUSTOMER);

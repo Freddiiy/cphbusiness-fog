@@ -97,6 +97,7 @@ public class OrderMapper {
                         resultSet.getString("Orders.status"),
                         resultSet.getDouble("Orders.total_price"),
                         resultSet.getTimestamp("Orders.timestamp")));
+
             }
             if (orderList.isEmpty()) {
                 return null;
@@ -147,5 +148,22 @@ public class OrderMapper {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    public void removeOrder(int orderId, String sessionId) {
+        UserMapper userMapper = new UserMapper();
+        if (userMapper.validateSession(sessionId)) {
+            String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(1, "REMOVED");
+                ps.setInt(2, orderId);
+
+                ps.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 }

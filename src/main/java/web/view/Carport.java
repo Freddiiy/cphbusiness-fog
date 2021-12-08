@@ -23,11 +23,7 @@ public class Carport extends HttpServlet {
 
         if (request.getServletPath().equals("/carport")) {
             Measurement measurements = measurementMapper.getAllMeasurement();
-
-            for (Integer integer : measurements.getLengthList()) {
-                System.out.println(integer);
-            }
-
+            
             request.setAttribute("measurements", measurements);
             request.getRequestDispatcher("/WEB-INF/carports/customCarportFlatRoof.jsp").forward(request, response);
         }

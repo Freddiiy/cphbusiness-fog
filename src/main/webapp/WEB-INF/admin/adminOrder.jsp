@@ -10,6 +10,7 @@
                     <div class="container" style="margin-top: 20px">
                         <div class="row bg-light rounded-3 p-0 p-md-2 mb-3 text-start">
                             <h1>Ordre ${requestScope.order.id}</h1>
+
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
@@ -57,7 +58,8 @@
                                         <th>Carport</th>
                                         <th>
                                             <div>
-                                                <input type="checkbox" id="carportLock" name="carportLock" checked>
+                                                <input type="checkbox" id="carportLock" name="carportLock"
+                                                       onclick="lockCarport()" checked>
                                                 <label for="carportLock">Lås carport</label>
                                             </div>
                                         </th>
@@ -66,9 +68,13 @@
                                         <tr>
                                             <td>Carport bredde:</td>
                                             <td>
-                                                <select class="form-select flex-column" id="carportWidth" name="carportWidth" required>
-                                                    <option value="${requestScope.order.carport.width}" selected="selected">${requestScope.order.carport.width} cm</option>
-                                                    <c:forEach var="item" items="${requestScope.measurements.widthList}">
+                                                <select class="form-select flex-column" id="carportWidth"
+                                                        name="carportWidth" disabled required>
+                                                    <option value="${requestScope.order.carport.width}"
+                                                            selected="selected">${requestScope.order.carport.width} cm
+                                                    </option>
+                                                    <c:forEach var="item"
+                                                               items="${requestScope.measurements.widthList}">
                                                         <option value="${item}">${item} cm</option>
                                                     </c:forEach>
                                                 </select>
@@ -78,9 +84,13 @@
                                         <tr>
                                             <td>Carport længde:</td>
                                             <td>
-                                                <select class="form-select flex-column" id="carportLength" name="carportLength" required>
-                                                    <option value="${requestScope.order.carport.length}" selected="selected">${requestScope.order.carport.length} cm</option>
-                                                    <c:forEach var="item" items="${requestScope.measurements.lengthList}">
+                                                <select class="form-select flex-column" id="carportLength"
+                                                        name="carportLength" disabled required>
+                                                    <option value="${requestScope.order.carport.length}"
+                                                            selected="selected">${requestScope.order.carport.length} cm
+                                                    </option>
+                                                    <c:forEach var="item"
+                                                               items="${requestScope.measurements.lengthList}">
                                                         <option value="${item}">${item} cm</option>
                                                     </c:forEach>
                                                 </select>
@@ -95,14 +105,19 @@
                                             <c:when test="${requestScope.order.carport.hasShed()}">
                                                 <tr>
                                                     <td>Redskabsrum:</td>
-
+                                                    <td>${requestScope.order.carport.hasShedString()}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Redskabsrum bredde:</td>
                                                     <td>
-                                                        <select class="form-select flex-column" id="carportShedWidth" name="carportShedWidth" required>
-                                                            <option value="${requestScope.order.carport.shedWidth}" selected="selected">${requestScope.order.carport.shedWidth} cm</option>
-                                                            <c:forEach var="item" items="${requestScope.measurements.shedWidthList}">
+                                                        <select class="form-select flex-column" id="carportShedWidth"
+                                                                name="carportShedWidth" disabled required>
+                                                            <option value="${requestScope.order.carport.shedWidth}"
+                                                                    selected="selected">${requestScope.order.carport.shedWidth}
+                                                                cm
+                                                            </option>
+                                                            <c:forEach var="item"
+                                                                       items="${requestScope.measurements.shedWidthList}">
                                                                 <option value="${item}">${item} cm</option>
                                                             </c:forEach>
                                                         </select>
@@ -111,9 +126,14 @@
                                                 <tr>
                                                     <td>Redskabsrum længde:</td>
                                                     <td>
-                                                        <select class="form-select flex-column" id="carportShedLength" name="carportShedLength" required>
-                                                            <option value="${requestScope.order.carport.shedLength}" selected="selected">${requestScope.order.carport.shedLength} cm</option>
-                                                            <c:forEach var="item" items="${requestScope.measurements.shedLengthList}">
+                                                        <select class="form-select flex-column" id="carportShedLength"
+                                                                name="carportShedLength" disabled required>
+                                                            <option value="${requestScope.order.carport.shedLength}"
+                                                                    selected="selected">${requestScope.order.carport.shedLength}
+                                                                cm
+                                                            </option>
+                                                            <c:forEach var="item"
+                                                                       items="${requestScope.measurements.shedLengthList}">
                                                                 <option value="${item}">${item} cm</option>
                                                             </c:forEach>
                                                         </select>
@@ -128,9 +148,47 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </table>
-                                    <div>
-                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                        <input type="submit" class="btn btn-fog-primary btn-sm" value="Opdatér værdier">
+                                    <div class="row p-2 pb-4 pe-0">
+                                        <div class="col-3">
+                                            <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                            <input type="submit" id="updateButton" class="btn btn-fog-primary btn-sm"
+                                                   disabled value="Opdatér værdier">
+                                        </div>
+                                        <c:if test="${requestScope.order.status == 'RECIEVED'}">
+                                            <div class="col-3">
+                                                <form action="${pageContext.request.contextPath}/admin/order/accept"
+                                                      method="post">
+                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                    <input type="submit" id="acceptButton" class="btn btn-success btn-sm"
+                                                           value="Acceptér ordre">
+                                                </form>
+                                            </div>
+                                            <div class="col-3">
+                                                <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
+                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                    <input type="submit" id="removeButton" class="btn btn-danger btn-sm"
+                                                           value="Afvis ordre">
+                                                </form>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${requestScope.order.status == 'ACCEPTED'}">
+                                            <div class="col-3">
+                                                <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
+                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                    <input type="submit" id="removeButton" class="btn btn-danger btn-sm"
+                                                           value="Annullér ordre">
+                                                </form>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${requestScope.order.status == 'REJECTED'}">
+                                            <div class="col-3">
+                                                <form action="${pageContext.request.contextPath}/admin/order/accept" method="post">
+                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                    <input type="submit" id="acceptButton" class="btn btn-success btn-sm"
+                                                           value="Acceptér ordre">
+                                                </form>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </form>
@@ -148,3 +206,4 @@
     <t:footer/>
 </t:head>
 
+<script defer src="${pageContext.request.contextPath}/js/lockForms.js"></script>

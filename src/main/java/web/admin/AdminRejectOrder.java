@@ -9,8 +9,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 
-@WebServlet(name = "AdminRemoveOrder", urlPatterns = {"/admin/remove-order"})
-public class AdminRemoveOrder extends HttpServlet {
+@WebServlet(name = "AdminRejectOrder", urlPatterns = {"/admin/order/reject"})
+public class AdminRejectOrder extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -18,9 +18,8 @@ public class AdminRemoveOrder extends HttpServlet {
         AdminMapper adminMapper = new AdminMapper();
 
         int orderId = Integer.parseInt(request.getParameter("orderId"));
-        int userId = Integer.parseInt(request.getParameter("userId"));
 
-        adminMapper.removeOrder(orderId, session.getId());
-        response.sendRedirect("/admin/orders?userId=" + userId);
+        adminMapper.rejectOrder(orderId, session.getId());
+        response.sendRedirect("/admin/order?orderId=" + orderId);
     }
 }
