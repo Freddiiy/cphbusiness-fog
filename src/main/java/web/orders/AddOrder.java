@@ -37,5 +37,6 @@ public class AddOrder extends HttpServlet {
             orderMapper.addToOrder(new Carport(carportWidth, carportLength, roof, true, shedWidth, shedLength), session.getId());
         }
 
+        response.sendRedirect("/orders?success=1");
     }
 }

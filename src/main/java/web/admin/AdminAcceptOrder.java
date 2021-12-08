@@ -8,14 +8,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "AdminAddBalance", urlPatterns = {"/admin/add-balance"})
-public class AdminAddBalance extends HttpServlet {
+
+@WebServlet(name = "AdminAcceptOrder", urlPatterns = {"/admin/order/accept"})
+public class AdminAcceptOrder extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         AdminMapper adminMapper = new AdminMapper();
 
-        response.sendRedirect("/admin");
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+
+        adminMapper.acceptOrder(orderId, session.getId());
+        response.sendRedirect("/admin/order?orderId=" + orderId);
     }
 }

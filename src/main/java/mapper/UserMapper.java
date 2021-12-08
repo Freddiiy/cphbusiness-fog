@@ -42,7 +42,7 @@ public class UserMapper {
     }
 
     public User getUserFromDb(String email, String password) {
-        String sql = "SELECT id_user, email, password, role, sessionID, fname, lname from Users WHERE email = ?";
+        String sql = "SELECT id_user, email, password, role, sessionID, fname, lname, address, zipcode, city, phone from Users WHERE email = ?";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -58,9 +58,14 @@ public class UserMapper {
                 String passwordFromDb = resultSet.getString("password");
                 String roleFromDb = resultSet.getString("role");
                 String sessionIDFromDb = resultSet.getString("sessionID");
+                String addressFromDb = resultSet.getString("address");
+                int zipcodeFromDb = resultSet.getInt("zipcode");
+                String cityFromDb = resultSet.getString("city");
+                String phoneFromDb = resultSet.getString("phone");
+
 
                 if (email.equals(emailFromDb) && matchHashedPassword(password, passwordFromDb)) {
-                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, roleFromDb, sessionIDFromDb);
+                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, roleFromDb, sessionIDFromDb, addressFromDb, zipcodeFromDb, cityFromDb, phoneFromDb);
                 }
 
             }
@@ -125,18 +130,17 @@ public class UserMapper {
         return true;
     }
 
-    public boolean validateSession(HttpSession session) {
-        String sessionID = session.getId();
+    public boolean validateSession(String sessionId) {
 
         String sql = "SELECT email, role, sessionID FROM Users WHERE sessionID = ?";
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setString(1, sessionID);
+            ps.setString(1, sessionId);
 
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                return sessionID.equals(resultSet.getString("sessionID"));
+                return sessionId.equals(resultSet.getString("sessionID"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

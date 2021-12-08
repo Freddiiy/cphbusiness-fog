@@ -91,13 +91,25 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </table>
+                                <div class="row p-2 pb-4 pe-0">
+                                    <c:if test="${requestScope.order.status == 'RECIEVED'}">
+                                        <div class="col-3">
+                                            <form action="${pageContext.request.contextPath}/orders/remove"
+                                                  method="post">
+                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                <input type="submit" id="acceptButton" class="btn btn-danger btn-sm"
+                                                       value="Annullér ordre">
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="container" style="margin-top: 80px">
-                        <h1>Kunne ikke finde nogle ordre.</h1>
+                        <h1>Kunne ikke finde en ordre.</h1>
                     </div>
                 </c:otherwise>
             </c:choose>

@@ -161,59 +161,53 @@ public class AdminMapper {
         }
         return null;
     }
-    /*
-    public List getOrdersByUserId(String sessionId, int userId) {
-        if (isAdmin(sessionId)) {
-            String sql = "SELECT Bottom.name, Bottom.bottomPrice, Topping.name, Topping.toppingPrice, ((Bottom.bottomPrice + Topping.toppingPrice) * Orderitems.amount) AS total_price, Orderitems.id_orderitems, Orderitems.amount, Orders.id_order, Users.id_user, Users.email FROM Orders " +
-                    "INNER JOIN Orderitems ON Orders.id_orderitems = Orderitems.id_orderitems" +
-                    " JOIN Bottom ON Orderitems.id_bottom = Bottom.id_bottom " +
-                    "INNER JOIN Topping ON Orderitems.id_topping = Topping.id_topping " +
-                    "INNER JOIN Users ON Orders.id_user = Users.id_user " +
-                    "WHERE Orders.id_user = ?";
 
-            List<Order> orderList = new ArrayList<>();
+    public void updateOrder(int orderId, int width, int length, int shedWidth, int shedLength, String sessionId) {
+        if (isAdmin(sessionId)) {
+
+            String sql = "UPDATE Orders INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest SET CarportRequest.width = ?, CarportRequest.length = ?, CarportRequest.shedWidth = ?, CarportRequest.shedLength = ? " +
+                    "WHERE Orders.id_carportRequest = (SELECT Orders.id_carportRequest FROM Orders WHERE id_order = ?)";
 
             try (Connection connection = database.connect()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, width);
+                ps.setInt(2, length);
+                ps.setInt(3, shedLength);
+                ps.setInt(4, shedWidth);
+                ps.setInt(5, orderId);
 
-                ps.setInt(1, userId);
-
-                ResultSet resultSet = ps.executeQuery();
-                while (resultSet.next() && !resultSet.wasNull()) {
-                    orderList.add(new Order(resultSet.getInt("Orders.id_order"),
-                            resultSet.getString("Users.email"),
-                            resultSet.getInt("Users.id_user"),
-                            new OrderItems(resultSet.getInt("Orderitems.id_orderitems"),
-                                    resultSet.getString("Bottom.name"),
-                                    resultSet.getDouble("Bottom.bottomPrice"),
-                                    resultSet.getString("Topping.name"),
-                                    resultSet.getDouble("Topping.toppingPrice"),
-                                    resultSet.getInt("Orderitems.amount"),
-                                    resultSet.getDouble("total_price"))));
-                }
-                if (orderList.isEmpty()) {
-                    return null;
-                }
-
+                ps.executeUpdate();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return orderList;
-
-        } else {
-            return null;
         }
     }
-*/
-
-    public void removeOrder(int orderId, String sessionId) {
+    public void acceptOrder(int orderId, String sessionId) {
         if (isAdmin(sessionId)) {
 
-            String sql = "DELETE FROM Orders WHERE id_order = ?";
+            String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
 
             try (Connection connection = database.connect()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
-                ps.setInt(1, orderId);
+                ps.setString(1, "ACCEPTED");
+                ps.setInt(2, orderId);
+
+                ps.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public void rejectOrder(int orderId, String sessionId) {
+        if (isAdmin(sessionId)) {
+
+            String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(1, "REJECTED");
+                ps.setInt(2, orderId);
 
                 ps.executeUpdate();
             } catch (SQLException throwables) {

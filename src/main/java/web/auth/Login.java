@@ -17,7 +17,7 @@ public class Login extends HttpServlet {
         UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(userMapper.validateSession(session)) {
+        if(userMapper.validateSession(session.getId())) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
