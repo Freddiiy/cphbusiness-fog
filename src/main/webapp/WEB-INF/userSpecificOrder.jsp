@@ -28,6 +28,23 @@
                                         <td>Email:</td>
                                         <td>${requestScope.order.user.email}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td>${requestScope.order.user.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adresse:</td>
+                                        <td>${requestScope.order.user.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Post nr.:</td>
+                                        <td>${requestScope.order.user.zipcode}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>By:</td>
+                                        <td>${requestScope.order.user.city}</td>
+                                    </tr>
+
                                 </table>
                             </div>
                             <div class="col-6">

@@ -16,14 +16,11 @@ public class Carport extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserMapper userMapper = new UserMapper();
         MeasurementMapper measurementMapper = new MeasurementMapper();
-        OrderMapper orderMapper = new OrderMapper();
-        HttpSession session = request.getSession();
 
         if (request.getServletPath().equals("/carport")) {
             Measurement measurements = measurementMapper.getAllMeasurement();
-            
+
             request.setAttribute("measurements", measurements);
             request.getRequestDispatcher("/WEB-INF/carports/customCarportFlatRoof.jsp").forward(request, response);
         }

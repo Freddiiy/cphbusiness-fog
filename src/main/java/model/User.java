@@ -59,6 +59,18 @@ public class User {
         this.phone = phone;
     }
 
+    public User(int id, String email, String fname, String lname, String role, String address, int zipcode, String city, String phone) {
+        this.id = id;
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.phone = phone;
+    }
+
     public String getEmail() {
         return email;
     }
