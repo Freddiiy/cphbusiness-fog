@@ -5,6 +5,7 @@ import mapper.AdminMapper;
 import mapper.MeasurementMapper;
 import model.Measurement;
 import model.Order;
+import util.drawing.SVGCarport;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -25,9 +26,13 @@ public class AdminOrder extends HttpServlet {
 
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         request.setAttribute("measurements", measurements);
-        Order order = adminMapper.getOrderById(orderId, session.getId());
 
+        Order order = adminMapper.getOrderById(orderId, session.getId());
         request.setAttribute("order", order);
+
+        String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+        request.setAttribute("svg", svg);
+
         request.getRequestDispatcher("/WEB-INF/admin/adminOrder.jsp").forward(request, response);
     }
 }

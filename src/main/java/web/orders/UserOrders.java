@@ -6,6 +6,7 @@ import mapper.OrderMapper;
 import mapper.UserMapper;
 import model.Measurement;
 import model.Order;
+import util.drawing.SVGCarport;
 
 import java.io.*;
 import java.util.List;
@@ -27,6 +28,9 @@ public class UserOrders extends HttpServlet {
             int orderId = Integer.parseInt(request.getParameter("orderId"));
 
             Order order = orderMapper.getOrderById(orderId, session.getId());
+
+            String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+            request.setAttribute("svg", svg);
 
             request.setAttribute("order", order);
             request.getRequestDispatcher("/WEB-INF/userSpecificOrder.jsp").forward(request, response);

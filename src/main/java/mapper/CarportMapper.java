@@ -39,16 +39,6 @@ public class CarportMapper {
             return (int) Math.floor(((double) LENGTH / (double) numRafters));
         }
 
-        /*
-        public int returnCarportRaftersLightRoofNoShed() {
-            int maxRafterSpace = 60;
-            int amountRafters = (int) Math.floor(LENGTH/maxRafterSpace) + 1;
-
-            return amountRafters;
-        }
-
-         */
-
         public HashMap<String, Integer> calcMaterials(int amountPillars, int amountRafters)    {
             // hashmap
             HashMap<String, Integer> materials = new HashMap<>();

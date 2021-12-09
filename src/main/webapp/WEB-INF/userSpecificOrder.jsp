@@ -108,9 +108,24 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </table>
-                                <div class="row p-2 pb-4 pe-0">
+                                <div class="row row-cols-auto p-2 pb-4 pe-0">
+                                    <c:if test="${requestScope.order.status == 'ACCEPTED'}">
+                                        <a class="btn btn-fog-primary btn-sm" data-bs-toggle="collapse"
+                                           href="#collapseSVG" role="button" aria-expanded="false"
+                                           aria-controls="collapseSVG">
+                                            Se tegning
+                                        </a>
+
+                                        <div class="collapse" id="collapseSVG">
+                                            <div class="text-start py-2">
+                                                    ${requestScope.svg}
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </div>
+                                <div class="row row-cols-auto p-2 pb-4 pe-0">
                                     <c:if test="${requestScope.order.status == 'RECIEVED'}">
-                                        <div class="col-3">
+                                        <div class="col">
                                             <form action="${pageContext.request.contextPath}/orders/remove"
                                                   method="post">
                                                 <input type="hidden" name="orderId" value="${requestScope.order.id}">

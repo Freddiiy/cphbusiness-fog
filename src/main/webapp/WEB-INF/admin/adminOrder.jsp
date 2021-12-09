@@ -12,7 +12,8 @@
                             <h1>Ordre ${requestScope.order.id}</h1>
 
                             <div class="row row-cols-auto">
-                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2" href="${pageContext.request.contextPath}/admin">Tilbage</a>
+                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2"
+                                   href="${pageContext.request.contextPath}/admin">Tilbage</a>
                             </div>
 
                             <div class="col-6">
@@ -168,11 +169,21 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </table>
-                                    <div class="row p-2 pb-4 pe-0">
-                                        <div class="col-3">
+                                    <div class="row row-cols-auto p-2 pb-4 pe-0">
+                                        <div class="col">
                                             <input type="hidden" name="orderId" value="${requestScope.order.id}">
                                             <input type="submit" id="updateButton" class="btn btn-fog-primary btn-sm"
                                                    disabled value="Opdatér værdier">
+                                        </div>
+                                        <a class="btn btn-fog-primary btn-sm" data-bs-toggle="collapse"
+                                           href="#collapseSVG" role="button" aria-expanded="false"
+                                           aria-controls="collapseSVG">
+                                            Se tegning
+                                        </a>
+                                    </div>
+                                    <div class="collapse" id="collapseSVG">
+                                        <div class="text-start py-2">
+                                                ${requestScope.svg}
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +194,9 @@
                                         <form action="${pageContext.request.contextPath}/admin/order/accept"
                                               method="post">
                                             <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                            <button type="submit" id="acceptButton" class="col btn btn-success">Acceptér ordre</button>
+                                            <button type="submit" id="acceptButton" class="col btn btn-success">Acceptér
+                                                ordre
+                                            </button>
                                         </form>
                                     </div>
                                     <div class="col">
@@ -196,20 +209,25 @@
                                     </div>
                                 </c:if>
                                 <c:if test="${requestScope.order.status == 'ACCEPTED'}">
-                                <div class="col">
-                                    <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
-                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                        <button type="submit" id="removeButton" class="btn btn-danger">Afvis ordre</button>
-                                    </form>
-                                </div>
+                                    <div class="col">
+                                        <form action="${pageContext.request.contextPath}/admin/order/reject"
+                                              method="post">
+                                            <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                            <button type="submit" id="removeButton" class="btn btn-danger">Afvis ordre
+                                            </button>
+                                        </form>
+                                    </div>
                                 </c:if>
                                 <c:if test="${requestScope.order.status == 'REJECTED'}">
-                                <div class="col">
-                                    <form action="${pageContext.request.contextPath}/admin/order/accept" method="post">
-                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                        <button type="submit" id="acceptButton" class="btn btn-success">Acceptér ordre</button>
-                                    </form>
-                                </div>
+                                    <div class="col">
+                                        <form action="${pageContext.request.contextPath}/admin/order/accept"
+                                              method="post">
+                                            <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                            <button type="submit" id="acceptButton" class="btn btn-success">Acceptér
+                                                ordre
+                                            </button>
+                                        </form>
+                                    </div>
                                 </c:if>
                             </div>
                         </div>
