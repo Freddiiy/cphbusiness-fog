@@ -1,41 +1,101 @@
-/*
 package persistance;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
+import java.util.*;
 
 public class ConnectionPool {
-    private List<Connection> connectionPool;
-    private List<Connection> usedConnections = new ArrayList<>();
-    private static final int POOL_SIZE = 10;
+    private int maxPoolSize = 10;
+    private int connectionNum = 0;
+    private Database database;
+    private static final String SQL_VERIFYCONN = "select 1";
 
-    public static ConnectionPool init() throws SQLException {
-        List<Connection> pool = new ArrayList<>(POOL_SIZE);
-        for (int i = 0; i < POOL_SIZE; i++) {
-            pool.add(createConnection());
-        }
-        return new ConnectionPool();
+    Stack<Connection> freePool = new Stack<>();
+    Set<Connection> usedPool = new HashSet<>();
+
+    public ConnectionPool(Database database, int maxPoolSize) {
+        this.database = database;
+        this.maxPoolSize = maxPoolSize;
     }
 
-    public Connection getConnection(){
-        Connection connection = connectionPool.remove(connectionPool.size() - 1);
-        usedConnections.add(connection);
+    public synchronized Connection getConnection() throws SQLException {
+        Connection connection = null;
+
+        if(isFull()) {
+            connection = createNewConnectionForPool();
+        }
+
+        connection = getConnectionFromPool();
+
+        if (connection == null) {
+            connection = createNewConnectionForPool();
+        }
+
+        connection = makeAvailable(connection);
         return connection;
     }
 
-    public boolean releaseConnection(Connection connection){
-        connectionPool.add(connection);
-        return usedConnections.remove(connection);
+    public synchronized void returnConnection(Connection connection)
+            throws SQLException {
+        if (connection == null) {
+            throw new NullPointerException();
+        }
+        if (!usedPool.remove(connection)) {
+            throw new SQLException(
+                    "The connection is returned already or it isn't for this pool");
+        }
+        freePool.push(connection);
     }
 
-    public static Connection createConnection() throws SQLException {
-        return new Database().connect();
+    private Connection createNewConnection() throws SQLException {
+        Connection connection = null;
+        connection = Database.getInstance().connect();
+        return connection;
     }
 
-    public int getPoolSize() {
-        return connectionPool.size() + usedConnections.size();
+    private Connection createNewConnectionForPool() throws SQLException {
+        Connection connection = createNewConnection();
+        connectionNum++;
+        usedPool.add(connection);
+        return connection;
+    }
+
+    private Connection getConnectionFromPool() {
+        Connection connection = null;
+        if (freePool.size() > 0) {
+            connection = freePool.pop();
+            usedPool.add(connection);
+        }
+        return connection;
+    }
+
+    private Connection makeAvailable(Connection connection) throws SQLException {
+        if (isConnectionAvailable(connection)) {
+            return connection;
+        }
+
+        // If the connection is't available, reconnect it.
+        usedPool.remove(connection);
+        connectionNum--;
+        connection.close();
+
+        connection = createNewConnection();
+        usedPool.add(connection);
+        connectionNum++;
+        return connection;
+    }
+
+    private boolean isConnectionAvailable(Connection conn) {
+        try (Statement st = conn.createStatement()) {
+            st.executeQuery(SQL_VERIFYCONN);
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    private synchronized boolean isFull() {
+        return ((freePool.size() == 0) && (connectionNum >= maxPoolSize));
     }
 }
-*/

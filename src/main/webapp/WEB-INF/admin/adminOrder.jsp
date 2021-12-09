@@ -11,6 +11,10 @@
                         <div class="row bg-light rounded-3 p-0 p-md-2 mb-3 text-start">
                             <h1>Ordre ${requestScope.order.id}</h1>
 
+                            <div class="row row-cols-auto">
+                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2" href="${pageContext.request.contextPath}/admin">Tilbage</a>
+                            </div>
+
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
@@ -170,44 +174,44 @@
                                             <input type="submit" id="updateButton" class="btn btn-fog-primary btn-sm"
                                                    disabled value="Opdatér værdier">
                                         </div>
-                                        <c:if test="${requestScope.order.status == 'RECIEVED'}">
-                                            <div class="col-3">
-                                                <form action="${pageContext.request.contextPath}/admin/order/accept"
-                                                      method="post">
-                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                    <input type="submit" id="acceptButton" class="btn btn-success btn-sm"
-                                                           value="Acceptér ordre">
-                                                </form>
-                                            </div>
-                                            <div class="col-3">
-                                                <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
-                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                    <input type="submit" id="removeButton" class="btn btn-danger btn-sm"
-                                                           value="Afvis ordre">
-                                                </form>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${requestScope.order.status == 'ACCEPTED'}">
-                                            <div class="col-3">
-                                                <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
-                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                    <input type="submit" id="removeButton" class="btn btn-danger btn-sm"
-                                                           value="Annullér ordre">
-                                                </form>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${requestScope.order.status == 'REJECTED'}">
-                                            <div class="col-3">
-                                                <form action="${pageContext.request.contextPath}/admin/order/accept" method="post">
-                                                    <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                    <input type="submit" id="acceptButton" class="btn btn-success btn-sm"
-                                                           value="Acceptér ordre">
-                                                </form>
-                                            </div>
-                                        </c:if>
                                     </div>
                                 </div>
                             </form>
+                            <div class="row row-cols-auto" role="group" aria-label="Accept and decline">
+                                <c:if test="${requestScope.order.status == 'RECIEVED'}">
+                                    <div class="col">
+                                        <form action="${pageContext.request.contextPath}/admin/order/accept"
+                                              method="post">
+                                            <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                            <button type="submit" id="acceptButton" class="col btn btn-success">Acceptér ordre</button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form action="${pageContext.request.contextPath}/admin/order/reject"
+                                              method="post">
+                                            <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                            <button type="submit" id="removeButton" class="btn btn-danger">Afvis ordre
+                                            </button>
+                                        </form>
+                                    </div>
+                                </c:if>
+                                <c:if test="${requestScope.order.status == 'ACCEPTED'}">
+                                <div class="col">
+                                    <form action="${pageContext.request.contextPath}/admin/order/reject" method="post">
+                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                        <button type="submit" id="removeButton" class="btn btn-danger">Afvis ordre</button>
+                                    </form>
+                                </div>
+                                </c:if>
+                                <c:if test="${requestScope.order.status == 'REJECTED'}">
+                                <div class="col">
+                                    <form action="${pageContext.request.contextPath}/admin/order/accept" method="post">
+                                        <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                        <button type="submit" id="acceptButton" class="btn btn-success">Acceptér ordre</button>
+                                    </form>
+                                </div>
+                                </c:if>
+                            </div>
                         </div>
                     </div>
                 </c:when>

@@ -11,6 +11,10 @@
                         <div class="row bg-light rounded-3 p-0 p-md-2 mb-3 text-start">
                             <h1>Kunde nr ${requestScope.user.id}</h1>
 
+                            <div class="row row-cols-auto">
+                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2" href="${pageContext.request.contextPath}/admin">Tilbage</a>
+                            </div>
+
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">

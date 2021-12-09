@@ -10,9 +10,9 @@
                     <div class="container" style="margin-top: 20px">
                         <div class="bg-light rounded-3 px-0 pt-2 p-md-2 mb-0">
                             <h2 class="ps-4">Vores ordrer</h2>
-                            <div class="row">
-                                <a class="col-2 btn btn-fog-primary m-3" href="${pageContext.request.contextPath}/admin/users">Kundeoversigt</a>
-                                <a class="col-2 btn btn-fog-primary m-3" href="${pageContext.request.contextPath}/admin">Ordreoversigt</a>
+                            <div class="row row-cols-auto">
+                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2" href="${pageContext.request.contextPath}/admin/users">Kundeoversigt</a>
+                                <a class="col btn btn-fog-primary btn-sm ms-3 mb-2" href="${pageContext.request.contextPath}/admin">Ordreoversigt</a>
                             </div>
 
                             <table class="table table-striped table-borderless flex-column table-hover text-center">
