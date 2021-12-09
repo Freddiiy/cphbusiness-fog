@@ -6,8 +6,11 @@
     <t:navbar>
         <jsp:body>
 
-                        ${requestScope.svg}
-                        ${requestScope.svg1}
+            ${requestScope.svg1}
+            ${requestScope.svg2}
+            ${requestScope.svg3}
+            ${requestScope.svg4}
+            ${requestScope.svg5}
 
         </jsp:body>
     </t:navbar>
