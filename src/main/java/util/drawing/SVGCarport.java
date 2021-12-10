@@ -211,19 +211,20 @@ public class SVGCarport {
                     .build()
         );
 
+        if (numPillars <= 4) {
+            return pillars.toArray(new SVGRect[0]);
+        }
+
         // System.out.println(pillars.get(2));
 
         // Other pillars here
         int distFirstToLastPair = pillars.get(2).getX() - pillars.get(0).getX();
-        // int distFirstToLastPair = pillars[numPillars-1].getX() - pillars[0].getX(); // circa
-        // System.out.println("Num pillars: " + numPillars);
-        // System.out.printf("first x: %d, last x: %d\n", pillars.get(0).getX(), pillars.get(2).getX());
 
         int remainingPillars = numPillars - 4;
         double xPct = breakpoint(numPillars);
         int spacing = pctToUnits(xPct, distFirstToLastPair);
         System.out.printf("%d, %.2f\n", remainingPillars, xPct);
-        for (int i = 0; i < remainingPillars / 2; i++) {
+        for (int i = 0; i < remainingPillars; i++) {
             /*
             System.out.println("i: " + i);
             System.out.println("breakpoint: " + breakpoint(numPillars));
@@ -231,12 +232,13 @@ public class SVGCarport {
             System.out.println("pctToUnits(): " + pctToUnits(breakpoint(numPillars), distFirstToLastPair));
 
              */
+            int index = i + 2;
             int x = pillars.get(0).getX();
             // System.out.println("x == " + x);
             pillars.add(
-                    (i+2)*2,
+                    index,
                     new SVGRect.Builder(
-                            x + spacing * Math.min(i, 1),
+                            x + spacing * Math.max(i, 1),
                             supportBars[0].getY(),
                             whPillar,
                             whPillar)
@@ -244,32 +246,16 @@ public class SVGCarport {
                             .build()
             );
             pillars.add(
-                    (i+2)*2+1,
+                    index + 1,
                     new SVGRect.Builder(
-                            x + spacing * Math.min(i, 1),
+                            x + spacing * Math.max(i, 1),
                             supportBars[1].getY(),
                             whPillar,
                             whPillar)
                             .fill("#D3D3D3")
                             .build()
             );
-            /*
-            pillars[i*2] = new SVGRect.Builder(
-                    x,
-                    supportBars[0].getY(),
-                    whPillar,
-                    whPillar)
-                    .build();
-            pillars[i*2+1] = new SVGRect.Builder(
-                    x,
-                    supportBars[1].getY(),
-                    whPillar,
-                    whPillar)
-                    .build();
-             */
         }
-        // System.out.println(pillars.get(2));
-        // System.out.println("Pillars arraylist size: " + pillars.size());
         return pillars.toArray(new SVGRect[0]);
     }
 
