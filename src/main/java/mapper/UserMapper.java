@@ -11,10 +11,10 @@ import java.security.SecureRandom;
 import java.sql.*;
 
 public class UserMapper {
-    private final ConnectionPool connectionPool;
+    private final Database database;
 
     public UserMapper() {
-        this.connectionPool = Database.getPool();
+        this.database = Database.getInstance();
     }
 
     public boolean isLoggedIn(HttpSession session, User user) {
@@ -25,7 +25,7 @@ public class UserMapper {
     public void insertUserToDb(User user) {
         String sql = "INSERT INTO Users (email, password, role, sessionID, fname, lname) VALUES(?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, user.getEmail());
@@ -45,7 +45,7 @@ public class UserMapper {
     public User getUserFromDb(String email, String password) {
         String sql = "SELECT id_user, email, password, role, sessionID, fname, lname, address, zipcode, city, phone from Users WHERE email = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, email);
@@ -80,7 +80,7 @@ public class UserMapper {
     public String getUserRole(String sessionId) {
         String sql = "SELECT (role) from Users WHERE sessionID = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, sessionId);
@@ -98,7 +98,7 @@ public class UserMapper {
     public void updateSessionID(String email, String sessionID) {
         String sql = "UPDATE Users SET sessionID = ? WHERE email = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, sessionID);
@@ -114,7 +114,7 @@ public class UserMapper {
     public void updateUser(String fname, String lname, String address, int zipcode, String city, String phone, String sessionId) {
         String sql = "UPDATE Users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, fname);
@@ -134,7 +134,7 @@ public class UserMapper {
     public void updateUserAddress(String address, int zipcode, String city, String phone, String sessionId) {
         String sql = "UPDATE Users SET address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, address);
@@ -153,7 +153,7 @@ public class UserMapper {
     public boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, email);
@@ -172,7 +172,7 @@ public class UserMapper {
     public boolean validateSession(String sessionId) {
 
         String sql = "SELECT email, role, sessionID FROM Users WHERE sessionID = ?";
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, sessionId);

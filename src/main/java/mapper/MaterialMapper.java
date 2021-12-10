@@ -9,17 +9,17 @@ import java.util.List;
 
 public class MaterialMapper {
 
-    private final ConnectionPool connectionPool;
+    private final Database database;
 
-    public MaterialMapper(Database database) {
-        this.connectionPool = Database.getPool();
+    public MaterialMapper() {
+        this.database = Database.getInstance();
     }
 
     public HashMap<Integer, Double> getMaterials() {
         HashMap<Integer, Double> materialHashMap = new HashMap();
         String sql = "SELECT * FROM CarportMaterials";
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();

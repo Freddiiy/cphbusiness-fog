@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class CarportMapper {
 
         private final int LENGTH, WIDTH;
-        MaterialMapper materialMapper = new MaterialMapper(new Database());
+        MaterialMapper materialMapper = new MaterialMapper();
 
         public CarportMapper(int LENGTH, int WIDTH) {
             this.LENGTH = LENGTH;
