@@ -4,6 +4,8 @@ import mapper.MaterialMapper;
 import persistance.Database;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CarportCalc {
 
@@ -53,9 +55,11 @@ public class CarportCalc {
         return amountRafters;
     }
 
-    public HashMap<Integer, Double> calcMaterials(int amountPillars, int amountRafters) {
+    public HashMap<Integer, Double> calcMaterials() {
         // hashmap
         HashMap<Integer, Double> materials = new HashMap<>();
+        int amountPillars = returnCarportPillarLightRoofNoShed();
+        int amountRafters = returnCarportRaftersLightRoofNoShed();
 
         double packOfScrewsBund = 200;
         double holetape = 1000;
@@ -113,15 +117,38 @@ public class CarportCalc {
         return materials;
     }
 
-    public void calcPriceFromComparedMaterials(MaterialMapper materialMapper, HashMap<String, Integer> materials) {
-
+    public double calcPriceFromComparedMaterials() {
+        MaterialMapper materialMapper = new MaterialMapper(new Database());
+        HashMap<Integer, Double> carportQuant = calcMaterials();
         // Instanciate materialController and get materials
-        this.materialMapper = materialMapper;
-        materialMapper.getMaterials();
-        //List materialPrice = materialController.getMaterials();
+        HashMap materialDatabase = materialMapper.getMaterials();
 
-        //System.out.println(materialPrice);
+        double totalSum = 0;
+
+
+        for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
+
+            double price = (double) materialDatabase.get(entry.getKey());
+            double quantity = entry.getValue();
+            double sum = price*quantity;
+
+
+            System.out.printf("%.0f x %.2f == %.2f dkk\n", quantity, price, sum);
+            totalSum += sum;
+        }
+        System.out.println("Sum: " + totalSum + " dkk");
+        return totalSum;
+    }
+
+    public void returnBillOfMaterials() {
+
+        List<Integer> billOfMaterials;
+
+
+
 
     }
+
+
 
 }

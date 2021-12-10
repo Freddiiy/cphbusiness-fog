@@ -10,6 +10,9 @@ import java.util.Map;
 
 class CarportCalcTest {
 
+    CarportCalc carportCalc = new CarportCalc(780, 440);
+
+
     @Test
     void returnCarportPillarLightRoofNoShed() {
     }
@@ -23,15 +26,11 @@ class CarportCalcTest {
     }
 
     @Test
-    void calcPriceFromComparedMaterials() {
+    void calcPriceFromComparedMaterials(CarportCalc carportCalc) {
         MaterialMapper materialMapper = new MaterialMapper(new Database());
-        CarportCalc carportCalc = new CarportCalc(780,440);
-        HashMap<Integer, Double> carportQuant = carportCalc.calcMaterials(6,14);
+        HashMap<Integer, Double> carportQuant = carportCalc.calcMaterials();
         // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();
-
-        System.out.println(materialDatabase);
-        System.out.println(carportQuant);
 
         double totalSum = 0;
 
@@ -39,11 +38,12 @@ class CarportCalcTest {
 
             double price = (double) materialDatabase.get(entry.getKey());
             double quantity = entry.getValue();
-            double sum = price*quantity;
+            double sum = price * quantity;
 
             System.out.printf("%.0f x %.2f == %.2f dkk\n", quantity, price, sum);
             totalSum += sum;
         }
         System.out.println("Sum: " + totalSum + " dkk");
+        //return totalSum;
     }
 }
