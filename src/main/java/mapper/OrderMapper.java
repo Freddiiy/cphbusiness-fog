@@ -1,6 +1,7 @@
 package mapper;
 
 import model.*;
+import persistance.ConnectionPool;
 import persistance.Database;
 
 import java.sql.*;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
-    private final Database database;
+    private final ConnectionPool connectionPool;
 
     public OrderMapper() {
-        this.database = Database.getInstance();
+        this.connectionPool = Database.getPool();
     }
 
     public void addToOrder(Carport carport, String sessionId) {
@@ -19,7 +20,7 @@ public class OrderMapper {
 
         String sql = "INSERT INTO CarportRequest (width, length, id_roof, hasShed, shedWidth, shedLength) VALUES(?, ?, (SELECT material_id FROM CarportMaterials WHERE material_id = ?), ?, ?, ?)";
 
-        try (Connection connection = database.connect()) {
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             int hasShed = (carport.hasShed()) ? 1 : 0;
@@ -49,7 +50,7 @@ public class OrderMapper {
         } else {
             String insertIdToCart = "INSERT INTO Orders (id_user, id_carportRequest, status) VALUES((SELECT id_user FROM Users WHERE sessionID = ?), ?, ?)";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(insertIdToCart);
                 ps.setString(1, sessionId);
                 ps.setInt(2, idKey);
@@ -74,7 +75,7 @@ public class OrderMapper {
 
         List<Order> orderList = new ArrayList<>();
 
-        try (Connection connection = database.connect()) {
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, sessionId);
@@ -119,7 +120,7 @@ public class OrderMapper {
                 "JOIN Users ON Orders.id_user = Users.id_user " +
                 "WHERE Orders.id_user = (SELECT id_user FROM Users WHERE sessionID = ?) AND Orders.id_order = ?";
 
-        try (Connection connection = database.connect()) {
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, sessionId);
@@ -159,7 +160,7 @@ public class OrderMapper {
         if (userMapper.validateSession(sessionId)) {
             String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setString(1, "REMOVED");
                 ps.setInt(2, orderId);

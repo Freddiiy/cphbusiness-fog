@@ -1,5 +1,6 @@
 package mapper;
 import model.Material;
+import persistance.ConnectionPool;
 import persistance.Database;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,17 +9,17 @@ import java.util.List;
 
 public class MaterialMapper {
 
-    private final Database database;
+    private final ConnectionPool connectionPool;
 
     public MaterialMapper(Database database) {
-        this.database = database;
+        this.connectionPool = Database.getPool();
     }
 
     public HashMap<Integer, Double> getMaterials() {
         HashMap<Integer, Double> materialHashMap = new HashMap();
         String sql = "SELECT * FROM CarportMaterials";
 
-        try (Connection connection = database.connect()) {
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();

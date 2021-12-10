@@ -3,6 +3,7 @@ package mapper;
 import model.Carport;
 import model.Order;
 import model.User;
+import persistance.ConnectionPool;
 import persistance.Database;
 
 import java.sql.*;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class AdminMapper {
 
-    private final Database database;
+    private final ConnectionPool connectionPool;
 
     public AdminMapper() {
-        this.database = Database.getInstance();
+        this.connectionPool = Database.getPool();
     }
 
     public List<User> getUsers(String sessionId) {
@@ -24,7 +25,7 @@ public class AdminMapper {
             List<User> userList = new ArrayList<>();
 
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ResultSet resultSet = ps.executeQuery();
@@ -59,7 +60,7 @@ public class AdminMapper {
             List<User> userList = new ArrayList<>();
 
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ps.setInt(1, userId);
@@ -95,7 +96,7 @@ public class AdminMapper {
 
             List<Order> orderList = new ArrayList<>();
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ResultSet resultSet = ps.executeQuery();
@@ -142,7 +143,7 @@ public class AdminMapper {
                     "JOIN Users ON Orders.id_user = Users.id_user " +
                     "WHERE Orders.id_order = ?";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ps.setInt(1, orderId);
@@ -190,7 +191,7 @@ public class AdminMapper {
 
             List<Order> orderList = new ArrayList<>();
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ps.setInt(1, userId);
@@ -238,7 +239,7 @@ public class AdminMapper {
                     "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                     "WHERE id_order = ? ";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
 
                 ps.setInt(1, orderId);
@@ -261,7 +262,7 @@ public class AdminMapper {
             String sql = "UPDATE Orders INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest SET CarportRequest.width = ?, CarportRequest.length = ?, CarportRequest.shedWidth = ?, CarportRequest.shedLength = ? " +
                     "WHERE Orders.id_carportRequest = (SELECT Orders.id_carportRequest FROM Orders WHERE id_order = ?)";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setInt(1, width);
                 ps.setInt(2, length);
@@ -280,7 +281,7 @@ public class AdminMapper {
 
             String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setString(1, "ACCEPTED");
                 ps.setInt(2, orderId);
@@ -297,7 +298,7 @@ public class AdminMapper {
 
             String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setString(1, "REJECTED");
                 ps.setInt(2, orderId);
@@ -314,7 +315,7 @@ public class AdminMapper {
 
             String sql = "DELETE FROM Users WHERE id_user = ?";
 
-            try (Connection connection = database.connect()) {
+            try (Connection connection = connectionPool.getConnection()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setInt(1, userId);
 
@@ -328,7 +329,7 @@ public class AdminMapper {
     public boolean isAdmin(String sessionId) {
 
         String sql = "SELECT role FROM Users WHERE sessionID = ?";
-        try (Connection connection = database.connect()) {
+        try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setString(1, sessionId);
