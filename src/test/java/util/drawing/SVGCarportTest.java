@@ -8,10 +8,15 @@ public class SVGCarportTest {
 
     @Test
     public void testBreakpoint() {
-        System.out.println(SVGCarport.breakpoint(6));
-        System.out.println(SVGCarport.breakpoint(8));
+        double errorMargin = 0.000001;
 
-        double breakpoint = SVGCarport.breakpoint(8);
-        System.out.println(SVGCarport.pctToUnits(breakpoint, 120));
+        assertThrows(ArithmeticException.class, () -> {
+            SVGCarport.breakpoint(4);
+            SVGCarport.breakpoint(5);
+            SVGCarport.breakpoint(7);
+        });
+        assertEquals(SVGCarport.breakpoint(6), 50);
+        assertEquals(SVGCarport.breakpoint(8), 25);
+        assertEquals(SVGCarport.breakpoint(10), 16.666666, errorMargin);
     }
 }

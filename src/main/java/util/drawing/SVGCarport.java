@@ -12,13 +12,15 @@ public class SVGCarport {
     private final SVGRect carportRect;
     private int wViewport = 0;
     private int hViewport = 0;
+
+    private final int MARGIN = 20;
     
     public SVGCarport(int LENGTH, int WIDTH) {
         carportMapper = new CarportMapper(LENGTH, WIDTH);
 
         // todo: Find x and y
         int xCarport = 140;
-        int yCarport = 60;
+        int yCarport = 80;
         carportRect = new SVGRect.Builder(xCarport, yCarport, LENGTH, WIDTH).build();
     }
 
@@ -46,19 +48,22 @@ public class SVGCarport {
         if (hViewport != 0) {
             h = hViewport;
         }
-        Rect viewBox = new Rect(0, 0, 1000, 1000);
-
-        /*
-        * biggest x: 1100
-        * biggest y: 1200
-        * */
-
-        SVG svg = new SVG(x, y, viewBox, w, h);
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
         SVGMeasurementGuide hCarportGuide = SVGMeasurementGuide.forCarportHeight(carportRect, supportBarsGuide);
         SVGMeasurementGuide[] rafterGuides = SVGMeasurementGuide.forRafters(rafters);
+
+        // Find the total width and height of the drawing
+        int wTotal = carportRect.getX()
+                + carportRect.getW()
+                + SVGMeasurementGuide.spaceNeeded() * 2;
+        int hTotal = carportRect.getY()
+                + carportRect.getH()
+                + SVGMeasurementGuide.spaceNeeded();
+
+        Rect viewBox = new Rect(0, 0, wTotal, hTotal);
+        SVG svg = new SVG(x, y, viewBox, w, h);
 
         svg.addElement(carportRect);
         svg.addElements(supportBarsGuide, hCarportGuide);
@@ -206,26 +211,32 @@ public class SVGCarport {
                     .build()
         );
 
-        System.out.println(pillars.get(2));
+        // System.out.println(pillars.get(2));
 
         // Other pillars here
         int distFirstToLastPair = pillars.get(2).getX() - pillars.get(0).getX();
         // int distFirstToLastPair = pillars[numPillars-1].getX() - pillars[0].getX(); // circa
-        System.out.println("Num pillars: " + numPillars);
-        System.out.printf("first x: %d, last x: %d\n", pillars.get(0).getX(), pillars.get(2).getX());
+        // System.out.println("Num pillars: " + numPillars);
+        // System.out.printf("first x: %d, last x: %d\n", pillars.get(0).getX(), pillars.get(2).getX());
+
         int remainingPillars = numPillars - 4;
+        double xPct = breakpoint(numPillars);
+        int spacing = pctToUnits(xPct, distFirstToLastPair);
+        System.out.printf("%d, %.2f\n", remainingPillars, xPct);
         for (int i = 0; i < remainingPillars / 2; i++) {
+            /*
             System.out.println("i: " + i);
             System.out.println("breakpoint: " + breakpoint(numPillars));
             System.out.println("distFirstToLastPair: " + distFirstToLastPair);
             System.out.println("pctToUnits(): " + pctToUnits(breakpoint(numPillars), distFirstToLastPair));
-            int x = pillars.get(0).getX()
-                    + pctToUnits(breakpoint(numPillars), distFirstToLastPair);
-            System.out.println("x == " + x);
+
+             */
+            int x = pillars.get(0).getX();
+            // System.out.println("x == " + x);
             pillars.add(
                     (i+2)*2,
                     new SVGRect.Builder(
-                            x,
+                            x + spacing * Math.min(i, 1),
                             supportBars[0].getY(),
                             whPillar,
                             whPillar)
@@ -235,7 +246,7 @@ public class SVGCarport {
             pillars.add(
                     (i+2)*2+1,
                     new SVGRect.Builder(
-                            x,
+                            x + spacing * Math.min(i, 1),
                             supportBars[1].getY(),
                             whPillar,
                             whPillar)
@@ -257,18 +268,26 @@ public class SVGCarport {
                     .build();
              */
         }
-        System.out.println(pillars.get(2));
-        System.out.println("Pillars arraylist size: " + pillars.size());
+        // System.out.println(pillars.get(2));
+        // System.out.println("Pillars arraylist size: " + pillars.size());
         return pillars.toArray(new SVGRect[0]);
     }
 
-    public static double breakpoint(int numPillars) {
+    public static double breakpoint(int numPillars) throws ArithmeticException {
+        if (numPillars <= 4 ||
+            numPillars % 2 != 0) {
+            // Consider not throwing this. It's a runtime exception
+            throw new ArithmeticException("Invalid number of pillars: " + numPillars);
+        }
         int pairsOfPillars = numPillars / 2;
         double largestPossiblePct = 50;
         return largestPossiblePct / (pairsOfPillars - 2);
     }
 
-    public static int pctToUnits(double pct, int totalUnits) {
+    public static int pctToUnits(double pct, int totalUnits) throws ArithmeticException {
+        if (pct == 0) {
+            throw new ArithmeticException("pct can't be zero as it is used as a divisor");
+        }
         double notRounded = (double) totalUnits / 100.0 * pct;
         return (int) Math.round(notRounded);
     }
