@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MeasurementMapper {
-    private final ConnectionPool connectionPool;
+    private final Database database;
 
     public MeasurementMapper() {
-        this.connectionPool = Database.getPool();
+        this.database = Database.getInstance();
     }
 
     public List<Integer> getLengthList() {
@@ -19,7 +19,7 @@ public class MeasurementMapper {
 
         List<Integer> list = new ArrayList<>();
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();
@@ -45,7 +45,7 @@ public class MeasurementMapper {
 
         List<Integer> list = new ArrayList<>();
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();
@@ -71,7 +71,7 @@ public class MeasurementMapper {
 
         List<Integer> list = new ArrayList<>();
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();
@@ -97,7 +97,7 @@ public class MeasurementMapper {
 
         List<Integer> list = new ArrayList<>();
 
-        try (Connection connection = connectionPool.getConnection()) {
+        try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet resultSet = ps.executeQuery();

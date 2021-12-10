@@ -70,7 +70,7 @@ public class CarportControllerTest {
 
     @Test
     void calcPriceFromComparedMaterials() {
-        MaterialMapper materialMapper = new MaterialMapper(new Database());
+        MaterialMapper materialMapper = new MaterialMapper();
         // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();
 

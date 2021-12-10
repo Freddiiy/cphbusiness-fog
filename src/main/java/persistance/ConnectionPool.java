@@ -12,7 +12,7 @@ public class ConnectionPool {
     private static final String SQL_VERIFYCONN = "select 1";
 
     Stack<Connection> freePool = new Stack<>();
-    Set<Connection> usedPool = new HashSet<>();
+    Set<Connection> occupiedPool = new HashSet<>();
 
     public ConnectionPool(Database database, int maxPoolSize) {
         this.database = database;
@@ -21,7 +21,7 @@ public class ConnectionPool {
 
     public synchronized Connection getConnection() {
         try {
-
+            
         Connection connection = null;
 
         if(isFull()) {
@@ -47,7 +47,7 @@ public class ConnectionPool {
         if (connection == null) {
             throw new NullPointerException();
         }
-        if (!usedPool.remove(connection)) {
+        if (!occupiedPool.remove(connection)) {
             throw new SQLException(
                     "The connection is returned already or it isn't for this pool");
         }
@@ -63,7 +63,7 @@ public class ConnectionPool {
     private Connection createNewConnectionForPool() throws SQLException {
         Connection connection = createNewConnection();
         connectionNum++;
-        usedPool.add(connection);
+        occupiedPool.add(connection);
         return connection;
     }
 
@@ -71,7 +71,7 @@ public class ConnectionPool {
         Connection connection = null;
         if (freePool.size() > 0) {
             connection = freePool.pop();
-            usedPool.add(connection);
+            occupiedPool.add(connection);
         }
         return connection;
     }
@@ -82,12 +82,12 @@ public class ConnectionPool {
         }
 
         // If the connection is't available, reconnect it.
-        usedPool.remove(connection);
+        occupiedPool.remove(connection);
         connectionNum--;
         connection.close();
 
         connection = createNewConnection();
-        usedPool.add(connection);
+        occupiedPool.add(connection);
         connectionNum++;
         return connection;
     }
