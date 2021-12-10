@@ -74,7 +74,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Carport tag:</td>
-                                                    <td>${item.carport.idRoof}</td>
+                                                    <td>${item.carport.roof}</td>
                                                 </tr>
                                                 <c:choose>
                                                     <c:when test="${item.carport.hasShed()}">

@@ -6,18 +6,14 @@ public class Material {
     private String name;
     private double price;
     private int length;
+    private String nickname;
 
-    public Material(int id, String name, double price, int length) {
+    public Material(int id, String name, double price, int length, String nickname) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.length = length;
-    }
-
-    public Material(int id, String name, double price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+        this.nickname = nickname;
     }
 
     public int getId() {
@@ -50,5 +46,13 @@ public class Material {
 
     public void setLength(int length) {
         this.length = length;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

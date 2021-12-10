@@ -83,7 +83,7 @@
                                     </tr>
                                     <tr>
                                         <td>Carport tag:</td>
-                                        <td>${requestScope.order.carport.idRoof}</td>
+                                        <td>${requestScope.order.carport.roof}</td>
                                     </tr>
                                     <c:choose>
                                         <c:when test="${requestScope.order.carport.hasShed()}">

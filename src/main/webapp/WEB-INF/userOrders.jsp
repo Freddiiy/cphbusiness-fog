@@ -27,7 +27,7 @@
                                         <td>${item.id}</td>
                                         <td>${item.carport.width}</td>
                                         <td>${item.carport.length}</td>
-                                        <td>${item.carport.idRoof}</td>
+                                        <td>${item.carport.roof}</td>
                                         <td>${item.carport.hasShedString()}</td>
                                         <td>${item.timestamp}</td>
                                         <td>${item.status}</td>

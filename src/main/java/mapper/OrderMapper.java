@@ -1,7 +1,6 @@
 package mapper;
 
 import model.*;
-import persistance.ConnectionPool;
 import persistance.Database;
 
 import java.sql.*;
@@ -66,7 +65,7 @@ public class OrderMapper {
     public List<Order> getOrders(String sessionId) {
         String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                 "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
-                "CarportMaterials.material_id, CarportMaterials.material_name, " +
+                "CarportMaterials.material_id, CarportMaterials.material_name, CarportMaterials.nickname, " +
                 "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
                 "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                 "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
@@ -92,6 +91,7 @@ public class OrderMapper {
                                 resultSet.getInt("CarportRequest.length"),
                                 resultSet.getInt("CarportRequest.width"),
                                 resultSet.getInt("CarportRequest.id_roof"),
+                                resultSet.getString("CarportMaterials.nickname"),
                                 resultSet.getBoolean("CarportRequest.hasShed"),
                                 resultSet.getInt("CarportRequest.shedLength"),
                                 resultSet.getInt("CarportRequest.shedWidth")),
@@ -113,7 +113,7 @@ public class OrderMapper {
     public Order getOrderById(int orderId, String sessionId) {
         String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                 "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
-                "CarportMaterials.material_id, CarportMaterials.material_name, " +
+                "CarportMaterials.material_id, CarportMaterials.material_name, CarportMaterials.nickname, " +
                 "Users.id_user, Users.email, Users.fname, Users.lname, Users.role, Users.address, Users.zipcode, Users.city, Users.phone FROM Orders " +
                 "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                 "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
@@ -142,6 +142,7 @@ public class OrderMapper {
                                 resultSet.getInt("CarportRequest.length"),
                                 resultSet.getInt("CarportRequest.width"),
                                 resultSet.getInt("CarportRequest.id_roof"),
+                                resultSet.getString("CarportMaterials.nickname"),
                                 resultSet.getBoolean("CarportRequest.hasShed"),
                                 resultSet.getInt("CarportRequest.shedLength"),
                                 resultSet.getInt("CarportRequest.shedWidth")),

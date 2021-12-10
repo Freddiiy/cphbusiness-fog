@@ -59,7 +59,7 @@
                                 <h5 class="fw-light">Tag</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="roof" required>
-                                        <option selected="selected" value="28">Plastmo Ecolite Tagplade</option>
+                                        <option selected="selected" value="28">${requestScope.materialList.get(27).nickname}</option>
                                     </select>
                                 </div>
 

@@ -67,23 +67,4 @@ public class CarportControllerTest {
         assertTrue(cm6.distBetweenRafters(cm6.numRafters()) <= 60);
         assertTrue(cm7.distBetweenRafters(cm7.numRafters()) <= 60);
     }
-
-    @Test
-    void calcPriceFromComparedMaterials() {
-        MaterialMapper materialMapper = new MaterialMapper();
-        // Instanciate materialController and get materials
-        HashMap materialDatabase = materialMapper.getMaterials();
-
-
-
-
-
-        for (int i = 0; i < materialDatabase.size(); i++) {
-
-
-            Material material = (Material) materialDatabase.get(i);
-            System.out.println(material.getId());
-        }
-
-    }
 }
