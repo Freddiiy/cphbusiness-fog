@@ -1,4 +1,5 @@
-package mapper;
+package util;
+import mapper.MaterialMapper;
 import persistance.Database;
 
 import java.util.HashMap;
@@ -7,6 +8,14 @@ public class CarportMapper {
 
         int length, width;
         MaterialMapper materialMapper = new MaterialMapper(new Database());
+
+        private final int HOLE_TAPE = 2;
+        private final int BOLT = 7;
+        private final int PACKOF_SQUAREPIECE = 8;
+        private final int UNIVERSAL_R = 3;
+        private final int UNIVERSAL_L = 4;
+        private final int PACKOF_SCREWSUNIVERSAL = 6;
+
 
         public CarportMapper(int length, int width) {
             this.length = length;
@@ -28,9 +37,9 @@ public class CarportMapper {
             return amountRafters;
         }
 
-        public HashMap<String, Integer> calcMaterials(int amountPillars, int amountRafters)    {
+        public HashMap<Integer, Integer> calcMaterials(int amountPillars, int amountRafters)    {
             // hashmap
-            HashMap<String, Integer> materials = new HashMap<>();
+            HashMap<Integer, Integer> materials = new HashMap<>();
 
             int packOfScrewsBund = 200;
             int holetape = 1000;
@@ -41,6 +50,7 @@ public class CarportMapper {
             int screwsUniversals = 0;
             int packofScrewsUnivsersal = 250;
             int bolt = 0;
+            int packofBolts = 25;
             int squarePiece = 0;
             int packofSquarePiece = 50;
             int screw70mm = 400;
@@ -71,22 +81,19 @@ public class CarportMapper {
             packofScrewsUnivsersal = packofScrewsUnivsersal/screwsUniversals;
 
             // Buy this many packs of square pieces
-            packofSquarePiece = packofSquarePiece/squarePiece;
+            packofSquarePiece = (int) Math.ceil(packofSquarePiece/squarePiece);
 
-            System.out.println("Amount of holetape rolls: " + holetapeRolls);
-            System.out.println("Amount of bolts: " + bolt);
-            System.out.println("Amount of square pieces: " + squarePiece);
-            System.out.println("Amount of univerals R: " + universalR);
-            System.out.println("Amount of univerals L: " + universalL);
-            System.out.println("Amount of screws: " + screwsUniversals);
-            System.out.println("Amount of pack of screws to buy: " + packofScrewsUnivsersal);
+            // Buy this many packs of bolts
+            packofBolts = (int) Math.ceil(packofBolts/bolt);
 
-            materials.put("holetape", holetapeRolls);
-            materials.put("bolt", bolt);
-            materials.put("squarePiece", packofSquarePiece);
-            materials.put("universalR", universalR);
-            materials.put("universalL", universalL);
-            materials.put("packofScrews", packofScrewsUnivsersal);
+
+
+            materials.put(HOLE_TAPE, holetapeRolls);
+            materials.put(BOLT, packofBolts);
+            materials.put(PACKOF_SQUAREPIECE, packofSquarePiece);
+            materials.put(UNIVERSAL_R, universalR);
+            materials.put(UNIVERSAL_L, universalL);
+            materials.put(PACKOF_SCREWSUNIVERSAL, packofScrewsUnivsersal);
 
             return materials;
         }
