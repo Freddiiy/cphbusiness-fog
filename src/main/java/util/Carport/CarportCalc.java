@@ -1,23 +1,23 @@
-package util;
+package util.Carport;
 import mapper.MaterialMapper;
 import persistance.Database;
 
 import java.util.HashMap;
 
-public class CarportMapper {
+public class CarportCalc {
 
         int length, width;
         MaterialMapper materialMapper = new MaterialMapper(new Database());
 
         private final int HOLE_TAPE = 2;
-        private final int BOLT = 7;
-        private final int PACKOF_SQUAREPIECE = 8;
         private final int UNIVERSAL_R = 3;
         private final int UNIVERSAL_L = 4;
         private final int PACKOF_SCREWSUNIVERSAL = 6;
+        private final int BOLT = 7;
+        private final int PACKOF_SQUAREPIECE = 8;
 
 
-        public CarportMapper(int length, int width) {
+        public CarportCalc(int length, int width) {
             this.length = length;
             this.width = width;
         }
@@ -37,27 +37,27 @@ public class CarportMapper {
             return amountRafters;
         }
 
-        public HashMap<Integer, Integer> calcMaterials(int amountPillars, int amountRafters)    {
+        public HashMap<Integer, Double> calcMaterials(int amountPillars, int amountRafters)    {
             // hashmap
-            HashMap<Integer, Integer> materials = new HashMap<>();
+            HashMap<Integer, Double> materials = new HashMap<>();
 
-            int packOfScrewsBund = 200;
-            int holetape = 1000;
-            int holetapeRolls = 0;
-            int universalR = 0;
-            int universalL = 0;
-            int packOfScrewsStern = 200;
-            int screwsUniversals = 0;
-            int packofScrewsUnivsersal = 250;
-            int bolt = 0;
-            int packofBolts = 25;
-            int squarePiece = 0;
-            int packofSquarePiece = 50;
-            int screw70mm = 400;
-            int screw50mm = 300;
+            double packOfScrewsBund = 200;
+            double holetape = 1000;
+            double holetapeRolls = 0;
+            double universalR = 0;
+            double universalL = 0;
+            double packOfScrewsStern = 200;
+            double screwsUniversals = 0;
+            double packofScrewsUnivsersal = 250;
+            double bolt = 0;
+            double packofBolts = 25;
+            double squarePiece = 0;
+            double packofSquarePiece = 50;
+            double screw70mm = 400;
+            double screw50mm = 300;
 
             // For cirumference buy this many holetape rolls
-            holetapeRolls = (int) Math.ceil(2 * (length + width)/holetape);
+            holetapeRolls = Math.ceil(2 * (length + width)/holetape);
 
             // For every pillar use these materials
             for (int i = 0; i < amountPillars; i++) {
@@ -78,13 +78,13 @@ public class CarportMapper {
             }
 
             // Buy this many packs of screws
-            packofScrewsUnivsersal = packofScrewsUnivsersal/screwsUniversals;
+            packofScrewsUnivsersal = Math.ceil(screwsUniversals/packofScrewsUnivsersal);
 
             // Buy this many packs of square pieces
-            packofSquarePiece = (int) Math.ceil(packofSquarePiece/squarePiece);
+            packofSquarePiece = Math.ceil(squarePiece/packofSquarePiece);
 
             // Buy this many packs of bolts
-            packofBolts = (int) Math.ceil(packofBolts/bolt);
+            packofBolts = Math.ceil(packofBolts/bolt);
 
 
 
@@ -102,10 +102,10 @@ public class CarportMapper {
 
             // Instanciate materialController and get materials
             this.materialMapper = materialMapper;
+            materialMapper.getMaterials();
             //List materialPrice = materialController.getMaterials();
 
             //System.out.println(materialPrice);
-
 
         }
 

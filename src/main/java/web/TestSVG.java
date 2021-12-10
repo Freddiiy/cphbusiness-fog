@@ -1,6 +1,5 @@
 package web;
 
-import mapper.CarportMapper;
 import util.SVG;
 import util.SVGMeasurementGuide;
 import util.SVGRect;
