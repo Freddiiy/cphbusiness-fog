@@ -9,6 +9,8 @@ public class CarportCalc {
         int length, width;
         MaterialMapper materialMapper = new MaterialMapper(new Database());
 
+        // Misc
+    private final int BUNDSCREW = 1;
         private final int HOLE_TAPE = 2;
         private final int UNIVERSAL_R = 3;
         private final int UNIVERSAL_L = 4;
@@ -16,8 +18,21 @@ public class CarportCalc {
         private final int BOLT = 7;
         private final int PACKOF_SQUAREPIECE = 8;
 
+        // Wood
+        private final int WOOD_360 = 14;
+        private final int WOOD_540 = 15;
+        private final int STERNWOOD_420 = 16;
+        private final int STERNWOOD_540 = 17;
+        private final int RAFTERWOOD_600 = 21;
+        private final int PILLAR = 23;
+        private final int STERNWOODREPLACE_210 = 24;
+        private final int STERNWOODSIDE_540 = 25;
+        private final int STERNWOODFOR_360 = 26;
+        private final int PLASTMO600 = 27;
+        private final int PLASTMO420 = 28;
 
-        public CarportCalc(int length, int width) {
+
+    public CarportCalc(int length, int width) {
             this.length = length;
             this.width = width;
         }
