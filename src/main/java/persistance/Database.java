@@ -11,6 +11,7 @@ public class Database {
     private final String PASSWORD;
     private final String URL;
     private static final Database instance = new Database();
+    private static final ConnectionPool pool = new ConnectionPool(new Database(), 2);
 
     public Database(String user, String password, String url) {
         String deployed = System.getenv("DEPLOYED");
@@ -60,6 +61,10 @@ public class Database {
 
     public static Database getInstance() {
         return instance;
+    }
+
+    public static ConnectionPool getPool() {
+        return pool;
     }
 
     public String getUSER() {

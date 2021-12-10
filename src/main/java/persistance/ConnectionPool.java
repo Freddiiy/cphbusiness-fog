@@ -19,7 +19,9 @@ public class ConnectionPool {
         this.maxPoolSize = maxPoolSize;
     }
 
-    public synchronized Connection getConnection() throws SQLException {
+    public synchronized Connection getConnection() {
+        try {
+
         Connection connection = null;
 
         if(isFull()) {
@@ -34,6 +36,10 @@ public class ConnectionPool {
 
         connection = makeAvailable(connection);
         return connection;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
     }
 
     public synchronized void returnConnection(Connection connection)
