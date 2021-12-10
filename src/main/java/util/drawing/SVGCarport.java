@@ -4,7 +4,6 @@ import mapper.CarportMapper;
 import util.drawing.svg.basicshapes.Rect;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SVGCarport {
     
@@ -38,7 +37,7 @@ public class SVGCarport {
     public String toString() {
         SVGRect[] supportBars = supportBars();
         SVGRect[] rafters = rafters();
-        SVGRect[] pillars = pillars2(carportMapper.numPillars(), supportBars); //pillars(supportBars[0], supportBars[1]);
+        SVGRect[] pillars = pillars(carportMapper.numPillars(), supportBars); //pillars(supportBars[0], supportBars[1]);
 
         int x = 0, y = 0;
         int w = 1000, h = 1000;
@@ -125,149 +124,73 @@ public class SVGCarport {
                 + i * carportMapper.distBetweenRafters(numRafters);
     }
 
-    private SVGRect[] pillars(SVGRect upperSupportBar, SVGRect lowerSupportBar) {
-        // Note to self: I think the pillars might actually be placed correctly,
-        // but it's the rafters that need to be pushed to the right a little.
-        int numPillars = carportMapper.numPillars();
+    /**
+     * Places the first and last pair of pillars statically, and the extra pairs
+     * of pillars between them dynamically (spaced out evenly).
+     * @param numPillars - The number of pillars in the carport
+     * @param supportBars - The two support bars in the carport
+     * @return - An array of SVGRects (pillars)
+     */
+    public SVGRect[] pillars(int numPillars, SVGRect[] supportBars) {
+        int distBetweenRafters = carportMapper.distBetweenRafters(carportMapper.numRafters());
+        SVGRect[] pillars = new SVGRect[numPillars];
 
-        int[] placementAlongXAxis = new int[numPillars]; // percentage
-        int carportWidth = upperSupportBar.getW();
-        switch (numPillars) {
-            case 4:
-                placementAlongXAxis = new int[] {
-                        pctToUnits(15.0, carportWidth),
-                        pctToUnits(85.0, carportWidth)};
-                break;
-            case 6:
-                placementAlongXAxis = new int[] {
-                        pctToUnits(12.5, carportWidth),
-                        pctToUnits(50, carportWidth),
-                        pctToUnits(87.5, carportWidth)};
-                break;
+        SVGRect topBar = supportBars[0];
+        SVGRect bottomBar = supportBars[1];
+
+        int xOffset = topBar.getX();
+        int whPillar = topBar.getH();
+        int xFirstPair = xOffset + distBetweenRafters;
+        int xLastPair = xOffset + topBar.getW() - distBetweenRafters - whPillar;
+        int yTopRow = topBar.getY();
+        int yBottomRow = bottomBar.getY();
+
+        // Place the first and last pairs of pillars a fixed length
+        // from the end of the carport
+        pillars[0] = pillar(xFirstPair, yTopRow, whPillar);
+        pillars[1] = pillar(xFirstPair, yBottomRow, whPillar);
+
+        pillars[numPillars-2] = pillar(xLastPair, yTopRow, whPillar);
+        pillars[numPillars-1] = pillar(xLastPair, yBottomRow, whPillar);
+
+        if (numPillars <= 4) {
+            return pillars;
         }
 
-        SVGRect[] pillars = new SVGRect[numPillars];
-        int wPillar = upperSupportBar.getH();
-        int hPillar = upperSupportBar.getH();
+        // Place the central pairs of pillars a fixed length from each other
+        int distFirstToLastPair = xLastPair - xFirstPair;
 
-        for (int i = 0; i < numPillars / 2; i++) {
-            int xOffset = upperSupportBar.getX();
-            int xPillar = xOffset + placementAlongXAxis[i] - wPillar / 2;
-            SVGRect upperPillar = new SVGRect.Builder(
-                    xPillar, upperSupportBar.getY(), wPillar, hPillar)
-                    .fill("#D3D3D3")
-                    .build();
-            SVGRect lowerPillar = new SVGRect.Builder(
-                    xPillar, lowerSupportBar.getY(), wPillar, hPillar)
-                    .fill("#D3D3D3")
-                    .build();
-            pillars[i*2] = upperPillar;
-            pillars[i*2+1] = lowerPillar;
+        int remainingPillars = numPillars - 4;
+        double deltaXPct = breakpointPct(numPillars);
+        int spacing = pctToUnits(deltaXPct, distFirstToLastPair);
+
+        // Iterate over the pairs of pillars that need to be placed dynamically
+        for (int i = 0; i < remainingPillars / 2; i++) {
+            int index = i * 2 + 2;
+
+            int x = xFirstPair + spacing + spacing * i;
+            pillars[index] = pillar(x, topBar.getY(), whPillar);
+            pillars[index + 1] = pillar(x, bottomBar.getY(), whPillar);
         }
         return pillars;
     }
 
-    /** Place the first and last pairs of pillars on the first and last rafter */
-    public SVGRect[] pillars2(int numPillars, SVGRect[] supportBars) {
-        int distBetweenRafters = carportMapper.distBetweenRafters(carportMapper.numRafters());
-        // SVGRect[] pillars = new SVGRect[numPillars];
-        ArrayList<SVGRect> pillars = new ArrayList<>();
-        int xOffset = supportBars[0].getX();
-        int whPillar = supportBars[0].getH();
-        pillars.add(
-                new SVGRect.Builder(
-                    xOffset + distBetweenRafters,
-                    supportBars[0].getY(),
-                    whPillar,
-                    whPillar)
-                    .fill("#D3D3D3")
-                    .build()
-        );
-        pillars.add(
-                new SVGRect.Builder(
-                    xOffset + distBetweenRafters,
-                    supportBars[1].getY(),
-                    whPillar, whPillar)
-                    .fill("#D3D3D3")
-                    .build()
-        );
-
-        pillars.add(
-                new SVGRect.Builder(
-                    xOffset + supportBars[0].getW() - distBetweenRafters - whPillar,
-                    supportBars[0].getY(),
-                    whPillar,
-                    whPillar)
-                    .fill("#D3D3D3")
-                    .build()
-        );
-        pillars.add(
-                new SVGRect.Builder(
-                    xOffset + supportBars[0].getW() - distBetweenRafters - whPillar,
-                    supportBars[1].getY(),
-                    whPillar,
-                    whPillar)
-                    .fill("#D3D3D3")
-                    .build()
-        );
-
-        if (numPillars <= 4) {
-            return pillars.toArray(new SVGRect[0]);
-        }
-
-        // System.out.println(pillars.get(2));
-
-        // Other pillars here
-        int distFirstToLastPair = pillars.get(2).getX() - pillars.get(0).getX();
-
-        int remainingPillars = numPillars - 4;
-        double xPct = breakpoint(numPillars);
-        int spacing = pctToUnits(xPct, distFirstToLastPair);
-        System.out.printf("%d, %.2f\n", remainingPillars, xPct);
-        for (int i = 0; i < remainingPillars; i++) {
-            /*
-            System.out.println("i: " + i);
-            System.out.println("breakpoint: " + breakpoint(numPillars));
-            System.out.println("distFirstToLastPair: " + distFirstToLastPair);
-            System.out.println("pctToUnits(): " + pctToUnits(breakpoint(numPillars), distFirstToLastPair));
-
-             */
-            int index = i + 2;
-            int x = pillars.get(0).getX();
-            // System.out.println("x == " + x);
-            pillars.add(
-                    index,
-                    new SVGRect.Builder(
-                            x + spacing * Math.max(i, 1),
-                            supportBars[0].getY(),
-                            whPillar,
-                            whPillar)
-                            .fill("#D3D3D3")
-                            .build()
-            );
-            pillars.add(
-                    index + 1,
-                    new SVGRect.Builder(
-                            x + spacing * Math.max(i, 1),
-                            supportBars[1].getY(),
-                            whPillar,
-                            whPillar)
-                            .fill("#D3D3D3")
-                            .build()
-            );
-        }
-        return pillars.toArray(new SVGRect[0]);
+    /** A pillar has the same width and height seen from above */
+    private SVGRect pillar(int x, int y, int wh) {
+        return new SVGRect.Builder(x, y, wh, wh)
+                .fill("#D3D3D3")
+                .build();
     }
 
-    public static double breakpoint(int numPillars) throws ArithmeticException {
+    public static double breakpointPct(int numPillars) throws ArithmeticException {
         if (numPillars <= 4 ||
             numPillars % 2 != 0) {
             // Consider not throwing this. It's a runtime exception
             throw new ArithmeticException("Invalid number of pillars: " + numPillars);
         }
         int pairsOfPillars = numPillars / 2;
-        double largestPossiblePct = 50;
-        return largestPossiblePct / (pairsOfPillars - 2);
+        double percentage = 100;
+        return percentage / (pairsOfPillars - 1);
     }
 
     public static int pctToUnits(double pct, int totalUnits) throws ArithmeticException {
