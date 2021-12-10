@@ -115,13 +115,12 @@
                                            aria-controls="collapseSVG">
                                             Se tegning
                                         </a>
-
-                                        <div class="collapse" id="collapseSVG">
-                                            <div class="text-start py-2">
-                                                    ${requestScope.svg}
-                                            </div>
-                                        </div>
                                     </c:if>
+                                </div>
+                                <div class="collapse" id="collapseSVG">
+                                    <div class="text-start py-2">
+                                            ${requestScope.svg}
+                                    </div>
                                 </div>
                                 <div class="row row-cols-auto p-2 pb-4 pe-0">
                                     <c:if test="${requestScope.order.status == 'RECIEVED'}">

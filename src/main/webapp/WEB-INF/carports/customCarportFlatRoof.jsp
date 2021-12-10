@@ -94,7 +94,27 @@
                                 <c:choose>
                                     <c:when test="${sessionScope.user != null}">
                                         <c:if test="${sessionScope.user.address == null}">
-                                            <form></form>
+                                            <h5 class="fw-light">Venligst indtast dine oplysninger</h5>
+                                            <div class="form-floating mb-3">
+                                                <input name="phone" type="text" class="form-control" id="floatingPhone" required>
+                                                <label for="floatingPhone">Telefonnummer</label>
+                                                <div class="invalid-feedback">Venligst angiv et telefonnummer.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="address" type="text" class="form-control" id="floatingAddress" required>
+                                                <label for="floatingAddress">Adresse</label>
+                                                <div class="invalid-feedback">Venligst angiv en adresse.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="zipcode" type="text" class="form-control" id="floatingZipcode" required>
+                                                <label for="floatingZipcode">Post nr.</label>
+                                                <div class="invalid-feedback">Venligst angiv et post nr.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="city" type="text" class="form-control" id="floatingCity" required>
+                                                <label for="floatingCity">By</label>
+                                                <div class="invalid-feedback">Venligst angiv en by.</div>
+                                            </div>
                                         </c:if>
                                         <div class="d-flex">
                                             <div>

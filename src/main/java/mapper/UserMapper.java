@@ -130,6 +130,24 @@ public class UserMapper {
         }
     }
 
+    public void updateUserAddress(String address, int zipcode, String city, String phone, String sessionId) {
+        String sql = "UPDATE Users SET address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, address);
+            ps.setInt(2, zipcode);
+            ps.setString(3, city);
+            ps.setString(4, phone);
+            ps.setString(5, sessionId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     // Checks
     public boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
