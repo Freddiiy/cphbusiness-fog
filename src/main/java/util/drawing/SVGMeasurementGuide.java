@@ -88,7 +88,11 @@ public class SVGMeasurementGuide extends SVGElement {
         return guides;
     }
 
-    /** Can be used for x or y */
+    /**
+     * Finds the space needed for a measurement guide on the short axis.
+     * @return The space needed on the y-axis if the guide is horizontal,
+     *          on the x-axis if the guide is vertical.
+     */
     public static int spaceNeeded() {
         int margin = 10;
         return margin + NORMAL_LENGTH;
@@ -207,6 +211,7 @@ public class SVGMeasurementGuide extends SVGElement {
         return normalStart.toString() + normalEnd.toString();
     }
 
+    /** The Euclidean distance formula */
     public static double distBetweenPoints(int x1, int y1, int x2, int y2) {
         return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }

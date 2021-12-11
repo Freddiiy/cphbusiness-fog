@@ -17,97 +17,6 @@ public class TestSVG extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int x = 0, y = 0;
-        int w = 1000, h = 1000;
-        SVG svg = new SVG(x, y, new Rect(x, y, w, h), w, h);
-
-        /* 1 cm == 1 SVG unit */
-
-        /* Carport measurements in cm*/
-        int xCarport = 140;
-        int yCarport = 60;
-        int wCarport = 780;
-        int hCarport = 600;
-
-        int wRafter = 3; // arbitrary
-        int numRafters = 15;
-
-        int margin = 10;
-
-        // Draw rect around carport
-        SVGRect carportRect = new SVGRect.Builder(
-                xCarport, yCarport, wCarport, hCarport).build();
-        svg.addElement(carportRect);
-
-        /* Draw carport scale guides */
-
-        // Height guide
-        int xHeightLineGuide = 40;
-        svg.addElement(
-                new SVGMeasurementGuide.Builder(
-                        xHeightLineGuide,
-                        yCarport,
-                        xHeightLineGuide,
-                        yCarport + hCarport)
-                        .text("auto")
-                        .build()
-        );
-
-        // Distance between pillars (edges furthest away)
-        int distPillars = 530; // see drawing
-        int xDistPillarsGuide = 100;
-        int yDistPillarsGuide = yCarport + (hCarport - distPillars) / 2;
-        svg.addElement(
-                new SVGMeasurementGuide.Builder(
-                        xDistPillarsGuide,
-                        yDistPillarsGuide,
-                        xDistPillarsGuide,
-                        yDistPillarsGuide + distPillars)
-                        .text("auto")
-                        .build()
-        );
-
-        // Rafter guides
-        int distBetweenRafters = 55;
-        int hLineGuide = 30;
-        int xHorizontalLine;
-        for (int i = 0; i < numRafters - 1; i++) {
-            xHorizontalLine = xCarport + wRafter + i * distBetweenRafters;
-            svg.addElement(
-                    new SVGMeasurementGuide.Builder(
-                            xHorizontalLine,
-                            margin + hLineGuide / 2,
-                            xHorizontalLine + distBetweenRafters,
-                            margin + hLineGuide / 2)
-                            .text("auto")
-                            .build()
-            );
-        }
-
-        /* Draw carport */
-
-        SVGRect[] supportBars = supportBars(carportRect, distPillars);
-        svg.addElements(supportBars);
-
-        // Rafters
-        int xRafter;
-        for (int i = 0; i < numRafters; i++) {
-            xRafter = xCarport
-                    + wRafter / 2
-                    + i * distBetweenRafters;
-            svg.addElement(
-                    new SVGRect.Builder(
-                            xRafter - wRafter / 2,
-                            yCarport,
-                            wRafter,
-                            hCarport)
-                            .build()
-            );
-        }
-
-        int numPillars = 6;
-        SVGRect[] pillars = pillars(supportBars[0], supportBars[1], numPillars);
-        svg.addElements(pillars);
 
         String svg1 = new SVGCarport(780, 600).toString();
         String svg2 = new SVGCarport(598, 600).toString();
@@ -115,7 +24,6 @@ public class TestSVG extends HttpServlet {
         String svg4 = new SVGCarport(1400, 600, 1600, 1000).toString();
         String svg5 = new SVGCarport(550, 600).toString();
 
-        request.setAttribute("svg", svg.toString());
         request.setAttribute("svg1", svg1);
         request.setAttribute("svg2", svg2);
         request.setAttribute("svg3", svg3);
