@@ -113,6 +113,7 @@ public class CarportCalc {
         // Buy this many packs of bolts
         packofBolts = Math.ceil(packofBolts / bolt);
 
+        // Add the values to the hashmap: (ID from database, amount calculated)
         materials.put(BUNDSCREW, packOfScrewsBund);
         materials.put(HOLE_TAPE, holetapeRolls);
         materials.put(BOLT, packofBolts);
@@ -128,17 +129,14 @@ public class CarportCalc {
     }
 
     public double calcPriceFromComparedMaterials() {
+        // Instanciate MaterialMontroller and get price materials from database
         MaterialMapper materialMapper = new MaterialMapper(new Database());
-        HashMap<Integer, Double> carportQuant = calcMaterials();
-        // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();
+        // Call calcMaterials to get amount of materials used
+        HashMap<Integer, Double> carportQuant = calcMaterials();
 
         double totalSum = 0;
-
-
-        System.out.println(carportQuant);
-        System.out.println(materialDatabase);
-
+        
         for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
 
             double price = (double) materialDatabase.get(entry.getKey());
