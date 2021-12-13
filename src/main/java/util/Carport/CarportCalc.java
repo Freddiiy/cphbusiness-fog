@@ -17,9 +17,12 @@ public class CarportCalc {
     private final int HOLE_TAPE = 2;
     private final int UNIVERSAL_R = 3;
     private final int UNIVERSAL_L = 4;
+    private final int PACKOF_SCREWSSTERN = 5;
     private final int PACKOF_SCREWSUNIVERSAL = 6;
     private final int BOLT = 7;
     private final int PACKOF_SQUAREPIECE = 8;
+    private final int PACKOF_SCREWS70MM = 9;
+    private final int PACKOF_SCREWS50MM = 10;
 
     // Wood
     private final int WOOD_360 = 14;
@@ -61,20 +64,24 @@ public class CarportCalc {
         int amountPillars = returnCarportPillarLightRoofNoShed();
         int amountRafters = returnCarportRaftersLightRoofNoShed();
 
-        double packOfScrewsBund = 200;
+        // Hardcode (calculate this)
+        double packOfScrewsBund = 3; // 200
+        double packOfScrewsStern = 1; // 200
+        double screw70mm = 2; // 400
+        double screw50mm = 2; // 300
+
+        // Actual code (good to go)
         double holetape = 1000;
         double holetapeRolls = 0;
         double universalR = 0;
         double universalL = 0;
-        double packOfScrewsStern = 200;
         double screwsUniversals = 0;
         double packofScrewsUnivsersal = 250;
         double bolt = 0;
         double packofBolts = 25;
         double squarePiece = 0;
         double packofSquarePiece = 50;
-        double screw70mm = 400;
-        double screw50mm = 300;
+
 
         // For cirumference buy this many holetape rolls
         holetapeRolls = Math.ceil(2 * (length + width) / holetape);
@@ -106,13 +113,16 @@ public class CarportCalc {
         // Buy this many packs of bolts
         packofBolts = Math.ceil(packofBolts / bolt);
 
-
+        materials.put(BUNDSCREW, packOfScrewsBund);
         materials.put(HOLE_TAPE, holetapeRolls);
         materials.put(BOLT, packofBolts);
         materials.put(PACKOF_SQUAREPIECE, packofSquarePiece);
         materials.put(UNIVERSAL_R, universalR);
         materials.put(UNIVERSAL_L, universalL);
         materials.put(PACKOF_SCREWSUNIVERSAL, packofScrewsUnivsersal);
+        materials.put(PACKOF_SCREWSSTERN, packOfScrewsStern);
+        materials.put(PACKOF_SCREWS70MM, screw70mm);
+        materials.put(PACKOF_SCREWS50MM, screw50mm);
 
         return materials;
     }
