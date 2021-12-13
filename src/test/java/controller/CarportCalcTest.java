@@ -4,7 +4,6 @@ import util.Carport.CarportCalc;
 import mapper.MaterialMapper;
 import org.junit.jupiter.api.Test;
 import persistance.Database;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ class CarportCalcTest {
 
     @Test
     void returnCarportPillarLightRoofNoShed() {
+        System.out.println(carportCalc.returnCarportPillarLightRoofNoShed());
     }
 
     @Test
@@ -26,7 +26,8 @@ class CarportCalcTest {
     }
 
     @Test
-    void calcPriceFromComparedMaterials(CarportCalc carportCalc) {
+    void calcPriceFromComparedMaterials() {
+        CarportCalc carportCalc = new CarportCalc(780, 440);
         MaterialMapper materialMapper = new MaterialMapper(new Database());
         HashMap<Integer, Double> carportQuant = carportCalc.calcMaterials();
         // Instanciate materialController and get materials

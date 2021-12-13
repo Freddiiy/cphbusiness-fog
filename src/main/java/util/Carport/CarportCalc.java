@@ -126,6 +126,9 @@ public class CarportCalc {
         double totalSum = 0;
 
 
+        System.out.println(carportQuant);
+        System.out.println(materialDatabase);
+
         for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
 
             double price = (double) materialDatabase.get(entry.getKey());
