@@ -43,6 +43,7 @@ public class SVGCarport {
         SVGRect[] supportBars = supportBars();
         SVGRect[] rafters = rafters();
         SVGRect[] pillars = pillars(carportMapper.numPillars(), supportBars);
+        SVGLine[] holeTape = holeTape(rafters, supportBars);
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
@@ -53,7 +54,7 @@ public class SVGCarport {
 
         svg.addElement(carportRect);
         svg.addElements(supportBarsGuide, hCarportGuide);
-        svg.addElements(supportBars, rafters, pillars, rafterGuides);
+        svg.addElements(supportBars, holeTape, rafters, pillars, rafterGuides);
         return svg.toString();
     }
 
@@ -222,6 +223,29 @@ public class SVGCarport {
         return new SVGRect.Builder(x, y, wh, wh)
                 .fill("#D3D3D3")
                 .build();
+    }
+
+    private SVGLine[] holeTape(SVGRect[] rafters, SVGRect[] supportBars) {
+        // Assumes there is no shed. todo: don't assume this
+        int secondToLast = rafters.length - 2;
+        int x1 = rafters[1].getX();
+        int y1 = supportBars[0].getY();
+        int x2 = rafters[secondToLast].getX();
+        int y2 = supportBars[1].getY();
+        int x3 = x1;
+        int y3 = y2;
+        int x4 = x2;
+        int y4 = y1;
+        SVGLine tape0 = new SVGLine.Builder(x1, y1, x2, y2)
+                .attr("stroke-width", "3")
+                .attr("stroke-dasharray", "10 4")
+                .build();
+        SVGLine tape1 = new SVGLine.Builder(x3, y3, x4, y4)
+                .attr("stroke-width", "3")
+                .attr("stroke-dasharray", "10 4")
+                .build();
+        // SVGLine tape1 = SVGLine.rotated90DegAroundCenter(tape0);
+        return new SVGLine[] { tape0, tape1 };
     }
 
     /**
