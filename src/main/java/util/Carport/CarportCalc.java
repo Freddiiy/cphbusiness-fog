@@ -66,11 +66,23 @@ public class CarportCalc {
     public double calcPricePerCM()  {
         MaterialMapper materialMapper = new MaterialMapper();
         double price = 0;
+        List<Integer> materialsToFindPriceOf = new ArrayList();
         HashMap<Integer, Double> priceOfMaterials = materialMapper.getMaterials();
 
+        materialsToFindPriceOf.add(WOOD_540);
+        materialsToFindPriceOf.add(STERNWOOD_540);
+        materialsToFindPriceOf.add(RAFTERWOOD_600);
+        materialsToFindPriceOf.add(PILLAR);
+        materialsToFindPriceOf.add(STERNWOODREPLACE_210);
+        materialsToFindPriceOf.add(STERNWOODSIDE_540);
+        materialsToFindPriceOf.add(STERNWOODFOR_360);
+        materialsToFindPriceOf.add(PLASTMO600);
 
+        for (int material:materialsToFindPriceOf) {
 
+            priceOfMaterials.entrySet();
 
+        }
 
         return price;
     }
@@ -167,11 +179,9 @@ public class CarportCalc {
             double quantity = entry.getValue();
             double sum = price*quantity;
 
-
-            System.out.printf("%.0f x %.2f == %.2f dkk\n", quantity, price, sum);
+            
             totalSum += sum;
         }
-        System.out.println("Sum: " + totalSum + " dkk");
         return totalSum;
     }
 
