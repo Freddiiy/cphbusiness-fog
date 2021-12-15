@@ -1,9 +1,7 @@
 package util.Carport;
 
-import com.google.protobuf.GeneratedMessage;
 import mapper.MaterialMapper;
 import model.Material;
-import persistance.Database;
 import util.Geometry;
 
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public class CarportCalc {
         return amountRafters;
     }
 
-    public HashMap<Integer, Double> calcPricePrWood()  {
+    public HashMap<Integer, Double> calcPricePrCmWood()  {
         List<Integer> materialsToFindPriceOfHori = new ArrayList();
         List<Integer> materialsToFindPriceOfVerti = new ArrayList();
         List<Material> materialInfoFromDB = materialMapper.getMaterialList();
@@ -80,18 +78,16 @@ public class CarportCalc {
         materialsToFindPriceOfHori.add(PLASTMO600);
 
 
-        HashMap<Integer, Double> pricePrWood = new HashMap<>();
+        HashMap<Integer, Double> pricePrCMWood = new HashMap<>();
 
         double pricePrCM = 0;
         for (int material:materialsToFindPriceOfHori) {
             double priceWood = materialInfoFromDB.get(material).getPrice();
             double lengthWood = materialInfoFromDB.get(material).getLength();
 
-            pricePrCM = priceWood/lengthWood;
+            pricePrCM = priceWood/ lengthWood;
 
-            double finalPrice = pricePrCM * length;
-
-            pricePrWood.put(material, finalPrice);
+            pricePrCMWood.put(material, pricePrCM);
         }
 
         for (int material:materialsToFindPriceOfVerti) {
@@ -100,11 +96,9 @@ public class CarportCalc {
 
             pricePrCM = priceWood/lengthWood;
 
-            double finalPrice = pricePrCM * width;
-
-            pricePrWood.put(material, finalPrice);
+            pricePrCMWood.put(material, pricePrCM);
         }
-        return pricePrWood;
+        return pricePrCMWood;
     }
 
     public HashMap<Integer, Integer> calcQuantMaterials() {
@@ -119,8 +113,6 @@ public class CarportCalc {
         int screw70mm = 2; // 400
         int screw50mm = 2; // 300
 
-
-
         // Actual code (good to go)
         int holetape = 1000;
         int holetapeRolls = 0;
@@ -132,10 +124,6 @@ public class CarportCalc {
         int packofBolts = 25;
         int squarePiece = 0;
         int packofSquarePiece = 50;
-
-
-
-
 
 
         // Length of holetape used
@@ -160,19 +148,6 @@ public class CarportCalc {
         // Buy this many packs of bolts
         packofBolts = (int) Math.ceil((double) packofBolts /(double) bolt);
 
-        // Calc horizontal wood usage in CM
-        int sternwood540 = length*2;
-        int sternwoodreplace210 = length*2;
-        int sternwoodside540 = length*2;
-        int plastmo600 = length;
-
-
-        // Calc vertical wood usage in CM
-        int wood540 = width*2;
-        int rafterwood600 = amountRafters*width;
-        int sternwoodfor360 = width*2;
-
-
         // Add the values to the hashmap: (ID from database, amount calculated)
         materialsQuant.put(BUNDSCREW, packOfScrewsBund);
         materialsQuant.put(HOLE_TAPE, holetapeRolls);
@@ -185,18 +160,52 @@ public class CarportCalc {
         materialsQuant.put(PACKOF_SCREWS70MM, screw70mm);
         materialsQuant.put(PACKOF_SCREWS50MM, screw50mm);
 
-        // Wood
-        materialsQuant.put(PILLAR, amountPillars);
-        materialsQuant.put(RAFTERWOOD_600, rafterwood600);
-        materialsQuant.put(WOOD_540, wood540);
-        materialsQuant.put(STERNWOODFOR_360, sternwoodfor360);
-
-        materialsQuant.put(STERNWOOD_540, sternwood540);
-        materialsQuant.put(STERNWOODREPLACE_210, sternwoodreplace210);
-        materialsQuant.put(STERNWOODSIDE_540, sternwoodside540);
-        materialsQuant.put(PLASTMO600, plastmo600);
-
         return materialsQuant;
+    }
+
+    public HashMap<Integer, Integer> calcWoodPrice()    {
+        HashMap<Integer, Integer> materialsWood = new HashMap<>();
+        HashMap<Integer, Double> pricePrCMWood = calcPricePrCmWood();
+        HashMap<Integer, Integer> priceOfWood = new HashMap<>();
+
+        int amountRafters = returnCarportRaftersLightRoofNoShed();
+        int amountPillars = returnCarportPillarLightRoofNoShed();
+
+        // Calc horizontal wood usage in CM
+        int sternwood540 = length*2;
+        int sternwoodreplace210 = length*2;
+        int sternwoodside540 = length*2;
+        int plastmo600 = length;
+
+
+        // Calc vertical wood usage in CM
+        int wood540 = width*2;
+        int rafterwood600 = amountRafters*width;
+        int sternwoodfor360 = width*2;
+
+        // Wood
+        materialsWood.put(RAFTERWOOD_600, rafterwood600);
+        materialsWood.put(WOOD_540, wood540);
+        materialsWood.put(STERNWOODFOR_360, sternwoodfor360);
+
+        materialsWood.put(STERNWOOD_540, sternwood540);
+        materialsWood.put(STERNWOODREPLACE_210,sternwoodreplace210);
+        materialsWood.put(STERNWOODSIDE_540, sternwoodside540);
+        materialsWood.put(PLASTMO600, plastmo600);
+
+        for (Map.Entry<Integer, Integer> entry:materialsWood.entrySet()) {
+
+            double pricepercmwood = pricePrCMWood.get(entry.getKey());
+            double amountofwood = entry.getValue();
+
+            double sum = pricepercmwood*amountofwood;
+            int intsum = (int) Math.ceil(sum);
+
+            priceOfWood.put((Integer) entry.getKey(), intsum);
+        }
+        System.out.println(priceOfWood);
+
+        return priceOfWood;
     }
 
     public double calcPriceFromComparedMaterials() {
@@ -226,8 +235,6 @@ public class CarportCalc {
         //      ID from DB, Quantity
         HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
 
-        // Match key fra carportQuant med Material.get(ID)
-        // billofMaterials = (Material (ID), value fra carportQuant)
 
         for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
 
@@ -236,5 +243,20 @@ public class CarportCalc {
             billOfMaterials.put(material, entry.getValue());
         }
         return billOfMaterials;
+    }
+
+    public HashMap<Material, Integer> returnWoodBill()  {
+
+        // Change woodprice to material
+        HashMap<Integer, Integer> woodPrice = calcWoodPrice();
+        HashMap<Material, Integer> woodBill = new HashMap<>();
+
+        for (Map.Entry<Integer, Integer> entry: woodPrice.entrySet()) {
+
+            Material material = materialMapper.getMaterialByid(entry.getKey());
+
+            woodBill.put(material,woodPrice.get(entry.getValue()));
+        }
+        return woodBill;
     }
 }
