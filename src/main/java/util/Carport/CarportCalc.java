@@ -2,9 +2,11 @@ package util.Carport;
 
 import com.google.protobuf.GeneratedMessage;
 import mapper.MaterialMapper;
+import model.Material;
 import persistance.Database;
 import util.Geometry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class CarportCalc {
 
     public int returnCarportPillarLightRoofNoShed() {
         int pillarSpace = 300;
-        int amountPillars = (int) (Math.ceil(length / pillarSpace) + 1) * 2;
+        int amountPillars = (int) (Math.ceil((double) length /(double) pillarSpace) + 1) * 2;
         if (amountPillars <= 4) amountPillars = 4;
 
         return amountPillars;
@@ -56,42 +58,42 @@ public class CarportCalc {
 
     public int returnCarportRaftersLightRoofNoShed() {
         int maxRafterSpace = 60;
-        int amountRafters = (int) Math.floor(length / maxRafterSpace) + 1;
+        int amountRafters = (int) Math.floor((double) length / (double) maxRafterSpace) + 1;
 
         return amountRafters;
     }
 
-    public HashMap<Integer, Double> calcQuantMaterials() {
+    public HashMap<Integer, Integer> calcQuantMaterials() {
         // hashmap
-        HashMap<Integer, Double> materials = new HashMap<>();
+        HashMap<Integer, Integer> materialsQuant = new HashMap<>();
         int amountPillars = returnCarportPillarLightRoofNoShed();
         int amountRafters = returnCarportRaftersLightRoofNoShed();
 
         // Hardcode (calculate this)
-        double packOfScrewsBund = 3; // 200
-        double packOfScrewsStern = 1; // 200
-        double screw70mm = 2; // 400
-        double screw50mm = 2; // 300
+        int packOfScrewsBund = 3; // 200
+        int packOfScrewsStern = 1; // 200
+        int screw70mm = 2; // 400
+        int screw50mm = 2; // 300
 
 
 
         // Actual code (good to go)
-        double holetape = 1000;
-        double holetapeRolls = 0;
-        double universalR = 0;
-        double universalL = 0;
-        double screwsUniversals = 0;
-        double packofScrewsUnivsersal = 250;
-        double bolt = 0;
-        double packofBolts = 25;
-        double squarePiece = 0;
-        double packofSquarePiece = 50;
+        int holetape = 1000;
+        int holetapeRolls = 0;
+        int universalR = 0;
+        int universalL = 0;
+        int screwsUniversals = 0;
+        int packofScrewsUnivsersal = 250;
+        int bolt = 0;
+        int packofBolts = 25;
+        int squarePiece = 0;
+        int packofSquarePiece = 50;
 
 
 
 
         // Length of holetape used
-        holetapeRolls = Geometry.distBetweenPoints(maxRafterSpace, 35, length - maxRafterSpace, width - 35) * 2;
+        holetapeRolls = (int) (Geometry.distBetweenPoints(maxRafterSpace, 35, length - maxRafterSpace, width - 35) * 2);
         holetapeRolls = holetapeRolls / holetape;
 
         // For every pillar use these materials
@@ -113,27 +115,27 @@ public class CarportCalc {
         }
 
         // Buy this many packs of screws
-        packofScrewsUnivsersal = Math.ceil(screwsUniversals / packofScrewsUnivsersal);
+        packofScrewsUnivsersal = (int) Math.ceil((double) screwsUniversals /(double) packofScrewsUnivsersal);
 
         // Buy this many packs of square pieces
-        packofSquarePiece = Math.ceil(squarePiece / packofSquarePiece);
+        packofSquarePiece = (int) Math.ceil((double) squarePiece /(double) packofSquarePiece);
 
         // Buy this many packs of bolts
-        packofBolts = Math.ceil(packofBolts / bolt);
+        packofBolts = (int) Math.ceil((double) packofBolts /(double) bolt);
 
         // Add the values to the hashmap: (ID from database, amount calculated)
-        materials.put(BUNDSCREW, packOfScrewsBund);
-        materials.put(HOLE_TAPE, holetapeRolls);
-        materials.put(BOLT, packofBolts);
-        materials.put(PACKOF_SQUAREPIECE, packofSquarePiece);
-        materials.put(UNIVERSAL_R, universalR);
-        materials.put(UNIVERSAL_L, universalL);
-        materials.put(PACKOF_SCREWSUNIVERSAL, packofScrewsUnivsersal);
-        materials.put(PACKOF_SCREWSSTERN, packOfScrewsStern);
-        materials.put(PACKOF_SCREWS70MM, screw70mm);
-        materials.put(PACKOF_SCREWS50MM, screw50mm);
+        materialsQuant.put(BUNDSCREW, packOfScrewsBund);
+        materialsQuant.put(HOLE_TAPE, holetapeRolls);
+        materialsQuant.put(BOLT, packofBolts);
+        materialsQuant.put(PACKOF_SQUAREPIECE, packofSquarePiece);
+        materialsQuant.put(UNIVERSAL_R, universalR);
+        materialsQuant.put(UNIVERSAL_L, universalL);
+        materialsQuant.put(PACKOF_SCREWSUNIVERSAL, packofScrewsUnivsersal);
+        materialsQuant.put(PACKOF_SCREWSSTERN, packOfScrewsStern);
+        materialsQuant.put(PACKOF_SCREWS70MM, screw70mm);
+        materialsQuant.put(PACKOF_SCREWS50MM, screw50mm);
 
-        return materials;
+        return materialsQuant;
     }
 
     public double calcPriceFromComparedMaterials() {
@@ -141,11 +143,11 @@ public class CarportCalc {
         MaterialMapper materialMapper = new MaterialMapper();
         HashMap materialDatabase = materialMapper.getMaterials();
         // Call calcMaterials to get amount of materials used
-        HashMap<Integer, Double> carportQuant = calcQuantMaterials();
+        HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
 
         double totalSum = 0;
 
-        for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet()) {
 
             double price = (double) materialDatabase.get(entry.getKey());
             double quantity = entry.getValue();
@@ -161,7 +163,15 @@ public class CarportCalc {
 
     public void returnBillOfMaterials() {
 
-        List<Integer> billOfMaterials;
+        //HashMap<Material, Double> billOfMaterial =
+       // List<Material> billOfMaterials = new ArrayList<>();
+        HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
+
+
+        // Match key fra carportQuant med Material.get(ID)
+        // billofMaterials = (Material (ID), value fra carportQuant)
+
+
 
 
 

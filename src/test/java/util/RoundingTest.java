@@ -14,11 +14,5 @@ public class RoundingTest {
         assertEquals(Math.round(2.6), 3);
     }
 
-    @Test
-    void pctToUnits() {
-        // Should round correctly
-        assertEquals(TestSVG.pctToUnits(25, 109), 27);
-        assertEquals(TestSVG.pctToUnits(31, 177), 55);
-    }
 
 }

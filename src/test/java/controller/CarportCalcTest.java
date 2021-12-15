@@ -35,19 +35,19 @@ class CarportCalcTest {
     @Test
     void calcPriceFromComparedMaterials() {
         MaterialMapper materialMapper = new MaterialMapper();
-        HashMap<Integer, Double> carportQuant = carportCalc.calcQuantMaterials();
+        HashMap<Integer, Integer> carportQuant = carportCalc.calcQuantMaterials();
         // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();
 
         double totalSum = 0;
 
-        for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet()) {
 
             double price = (double) materialDatabase.get(entry.getKey());
-            double quantity = entry.getValue();
+            int quantity = entry.getValue();
             double sum = price * quantity;
 
-            System.out.printf("%.0f x %.2f == %.2f dkk\n", quantity, price, sum);
+            System.out.printf("%d x %.2f == %.2f dkk\n", quantity, price, sum);
             totalSum += sum;
         }
         System.out.println("Sum: " + totalSum + " dkk");
