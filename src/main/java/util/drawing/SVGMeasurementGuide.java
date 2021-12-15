@@ -1,5 +1,7 @@
 package util.drawing;
 
+import util.Geometry;
+
 public class SVGMeasurementGuide extends SVGElement {
 
     // Obligatory instance variables
@@ -40,7 +42,7 @@ public class SVGMeasurementGuide extends SVGElement {
         public Builder text(String text) {
             this.text = text;
             if (text.equals("auto")) {
-                this.text = String.format("%.2f", distBetweenPoints(x1, y1, x2, y2) / 100);
+                this.text = String.format("%.2f", Geometry.distBetweenPoints(x1, y1, x2, y2) / 100);
             }
             return this;
         }
@@ -208,11 +210,6 @@ public class SVGMeasurementGuide extends SVGElement {
         normalEnd = new SVGLine.Builder(x1end, y1end, x2end, y2end).build();
 
         return normalStart.toString() + normalEnd.toString();
-    }
-
-    /** The Euclidean distance formula */
-    public static double distBetweenPoints(int x1, int y1, int x2, int y2) {
-        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 
     public int getX1() {

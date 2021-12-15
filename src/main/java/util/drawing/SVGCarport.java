@@ -39,7 +39,6 @@ public class SVGCarport {
     }
 
     public String toString() {
-
         SVGRect[] supportBars = supportBars();
         SVGRect[] rafters = rafters();
         SVGRect[] pillars = pillars(carportMapper.numPillars(), supportBars);
@@ -54,7 +53,7 @@ public class SVGCarport {
 
         svg.addElement(carportRect);
         svg.addElements(supportBarsGuide, hCarportGuide);
-        svg.addElements(supportBars, holeTape, rafters, pillars, rafterGuides);
+        svg.addElements(supportBars, rafters, pillars, holeTape, rafterGuides);
         return svg.toString();
     }
 
@@ -227,11 +226,11 @@ public class SVGCarport {
 
     private SVGLine[] holeTape(SVGRect[] rafters, SVGRect[] supportBars) {
         // Assumes there is no shed. todo: don't assume this
-        int secondToLast = rafters.length - 2;
-        int x1 = rafters[1].getX();
+        int last = rafters.length - 1;
+        int x1 = rafters[0].getX();
         int y1 = supportBars[0].getY();
-        int x2 = rafters[secondToLast].getX();
-        int y2 = supportBars[1].getY();
+        int x2 = rafters[last].getX() + rafters[last].getW();
+        int y2 = supportBars[1].getY() + supportBars[1].getH();
         int x3 = x1;
         int y3 = y2;
         int x4 = x2;
@@ -244,7 +243,6 @@ public class SVGCarport {
                 .attr("stroke-width", "3")
                 .attr("stroke-dasharray", "10 4")
                 .build();
-        // SVGLine tape1 = SVGLine.rotated90DegAroundCenter(tape0);
         return new SVGLine[] { tape0, tape1 };
     }
 
@@ -256,7 +254,7 @@ public class SVGCarport {
      * In a carport, the pair of pillars at either end should be placed
      * a fixed distance from the end of the carport.
      * However, if the carport is longer and needs more pillars,
-     * those should be placed with an equal width between them.
+     * those should be spaced out evenly.
      *
      * @param numPillars The total number of pillars for a given carport.
      * @return A percentage describing the x distance between two (pairs of) pillars.
