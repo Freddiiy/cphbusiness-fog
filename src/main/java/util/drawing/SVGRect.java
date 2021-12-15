@@ -11,8 +11,12 @@ public class SVGRect extends SVGElement {
     public static class Builder extends SVGElement.Builder<Builder> {
         private final Rect rect;
 
-        public Builder(int x, int y, int w, int h) {
-            this.rect = new Rect(x, y, w, h);
+        public Builder(int x, int y, int l, int w) {
+            rect = new Rect(x, y, l, w);
+        }
+
+        public Builder(Rect rect) {
+            this.rect = rect;
         }
 
         @Override
@@ -60,13 +64,13 @@ public class SVGRect extends SVGElement {
                 "/>";
         return String.format(
                 rectTemplate,
-                rect.getX(), rect.getY(), rect.getW(), rect.getH(),
+                rect.getX(), rect.getY(), rect.getL(), rect.getW(),
                 attributePairs()
         );
     }
 
-    public static SVGRect of(int x, int y, int w, int h) {
-        return new SVGRect.Builder(x, y, w, h).build();
+    public static SVGRect of(int x, int y, int l, int w) {
+        return new SVGRect.Builder(x, y, l, w).build();
     }
 
     /* Getters */
@@ -83,11 +87,11 @@ public class SVGRect extends SVGElement {
         return rect.getY();
     }
 
-    public int getW() {
-        return rect.getW();
+    public int getL() {
+        return rect.getL();
     }
 
-    public int getH() {
-        return rect.getH();
+    public int getW() {
+        return rect.getW();
     }
 }

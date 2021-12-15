@@ -53,7 +53,7 @@ public class SVGMeasurementGuide extends SVGElement {
     public static SVGMeasurementGuide forSupportBars(SVGRect[] supportBars) {
         int x = supportBars[0].getX() - spaceNeeded();
         int y1 = supportBars[0].getY();
-        int y2 = supportBars[1].getY() + supportBars[1].getH();
+        int y2 = supportBars[1].getY() + supportBars[1].getW();
         return new Builder(x, y1, x, y2)
                 .text("auto")
                 .build();
@@ -62,7 +62,7 @@ public class SVGMeasurementGuide extends SVGElement {
     public static SVGMeasurementGuide forCarportHeight(SVGRect carportRect, SVGMeasurementGuide supportBarsGuide) {
         int x = supportBarsGuide.getX1() - SVGMeasurementGuide.spaceNeeded();
         int y1 = carportRect.getY();
-        int y2 = carportRect.getY() + carportRect.getH();
+        int y2 = carportRect.getY() + carportRect.getW();
         return new SVGMeasurementGuide.Builder(x, y1, x, y2)
                 .text("auto")
                 .build();
@@ -73,7 +73,7 @@ public class SVGMeasurementGuide extends SVGElement {
 
         int y = rafters[0].getY() - spaceNeeded();
         for (int i = 1; i < rafters.length; i++) {
-            int x1 = rafters[i-1].getX() + rafters[i-1].getW();
+            int x1 = rafters[i-1].getX() + rafters[i-1].getL();
             int x2 = rafters[i].getX();
             guides[i-1] = new SVGMeasurementGuide.Builder(x1, y, x2, y)
                     .text("auto")

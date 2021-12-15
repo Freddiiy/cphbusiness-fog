@@ -1,6 +1,7 @@
 package util.drawing;
 
 import org.testng.annotations.Test;
+import util.Carport.Construction;
 
 public class LoopHowItWorks {
 
@@ -12,8 +13,8 @@ public class LoopHowItWorks {
 
         int distFirstToLastPair = 1000;
         int remainingPillars = numPillars - 4;
-        double xPct = SVGCarport.breakpointPct(numPillars);
-        int spacing = SVGCarport.pctToUnits(xPct, distFirstToLastPair);
+        double xPct = Construction.breakpointPct(numPillars);
+        int spacing = Construction.pctToUnits(xPct, distFirstToLastPair);
         int[] spacings = new int[remainingPillars / 2];
         for (int i = 1; i < spacings.length + 1; i++) {
             spacings[i-1] = spacing * i;

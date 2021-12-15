@@ -41,9 +41,9 @@ public class SVG
         svg.append(
                 String.format(
                         HEADER_TEMPLATE,
-                        viewport.getH(), viewport.getW(),
+                        viewport.getW(), viewport.getL(),
                         viewBox.getX(), viewBox.getY(),
-                        viewBox.getW(), viewBox.getH(),
+                        viewBox.getL(), viewBox.getW(),
                         viewport.getX(), viewport.getY(),
                         MARKER_WIDTH, MARKER_WIDTH,
                         MARKER_WIDTH, MARKER_WIDTH

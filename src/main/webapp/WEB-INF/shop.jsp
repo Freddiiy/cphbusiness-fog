@@ -16,7 +16,7 @@
                     <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
                         <c:forEach var="item" items="${requestScope.cupcakeData}">
                             <div class="col mb-5">
-                                <div class="card h-100">
+                                <div class="card w-100">
                                     <img class="card-img-top" src="resources/img/cupcakesShop/${item.getImageURL()}" alt="Cupcake Image" />
                                     <div class="card-body p-4">
                                         <div class="text-center">

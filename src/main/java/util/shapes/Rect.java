@@ -4,14 +4,14 @@ public class Rect {
 
     private final int x;
     private final int y;
+    private final int l;
     private final int w;
-    private final int h;
 
-    public Rect(int x, int y, int w, int h) {
+    public Rect(int x, int y, int l, int w) {
         this.x = x;
         this.y = y;
+        this.l = l;
         this.w = w;
-        this.h = h;
     }
 
     public int getX() {
@@ -22,11 +22,11 @@ public class Rect {
         return y;
     }
 
-    public int getW() {
-        return w;
+    public int getL() {
+        return l;
     }
 
-    public int getH() {
-        return h;
+    public int getW() {
+        return w;
     }
 }
