@@ -1,25 +1,18 @@
 package util.drawing;
 
+import util.shapes.Rect;
+
 import java.util.HashMap;
 
 public class SVGRect extends SVGElement {
 
-    private final int x;
-    private final int y;
-    private final int w;
-    private final int h;
+    private final Rect rect;
 
     public static class Builder extends SVGElement.Builder<Builder> {
-        private final int x;
-        private final int y;
-        private final int w;
-        private final int h;
+        private final Rect rect;
 
         public Builder(int x, int y, int w, int h) {
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
+            this.rect = new Rect(x, y, w, h);
         }
 
         @Override
@@ -52,10 +45,7 @@ public class SVGRect extends SVGElement {
 
     private SVGRect(Builder builder) {
         super(builder);
-        x = builder.x;
-        y = builder.y;
-        w = builder.w;
-        h = builder.h;
+        rect = builder.rect;
     }
 
     @Override
@@ -70,7 +60,7 @@ public class SVGRect extends SVGElement {
                 "/>";
         return String.format(
                 rectTemplate,
-                x, y, w, h,
+                rect.getX(), rect.getY(), rect.getW(), rect.getH(),
                 attributePairs()
         );
     }
@@ -86,18 +76,18 @@ public class SVGRect extends SVGElement {
     }
 
     public int getX() {
-        return x;
+        return rect.getX();
     }
 
     public int getY() {
-        return y;
+        return rect.getY();
     }
 
     public int getW() {
-        return w;
+        return rect.getW();
     }
 
     public int getH() {
-        return h;
+        return rect.getH();
     }
 }
