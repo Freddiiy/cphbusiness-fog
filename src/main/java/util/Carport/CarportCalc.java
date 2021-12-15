@@ -15,7 +15,8 @@ public class CarportCalc {
 
     int length, width;
     int maxRafterSpace = 60;
-    MaterialMapper materialMapper = new MaterialMapper();
+    MaterialMapper materialMapper;
+    Construction construction;
 
     // Misc
     private final int BUNDSCREW = 1;
@@ -46,6 +47,8 @@ public class CarportCalc {
     public CarportCalc(int length, int width) {
         this.length = length;
         this.width = width;
+        construction = new Construction(length, width);
+        materialMapper = new MaterialMapper();
     }
 
     public int returnCarportPillarLightRoofNoShed() {
@@ -64,27 +67,28 @@ public class CarportCalc {
     }
 
     public double calcPricePerCM()  {
-        MaterialMapper materialMapper = new MaterialMapper();
-        double price = 0;
         List<Integer> materialsToFindPriceOf = new ArrayList();
-        HashMap<Integer, Double> priceOfMaterials = materialMapper.getMaterials();
+        List<Material> priceOfMaterials = materialMapper.getMaterialList();
 
         materialsToFindPriceOf.add(WOOD_540);
         materialsToFindPriceOf.add(STERNWOOD_540);
         materialsToFindPriceOf.add(RAFTERWOOD_600);
-        materialsToFindPriceOf.add(PILLAR);
         materialsToFindPriceOf.add(STERNWOODREPLACE_210);
         materialsToFindPriceOf.add(STERNWOODSIDE_540);
         materialsToFindPriceOf.add(STERNWOODFOR_360);
         materialsToFindPriceOf.add(PLASTMO600);
 
+        double pricePrCM = 0;
         for (int material:materialsToFindPriceOf) {
+            Material materialToCalc = priceOfMaterials.get(material);
 
-            priceOfMaterials.entrySet();
+            double price = materialToCalc.getPrice();
+            double length = materialToCalc.getLength();
 
+            pricePrCM = price/length;
         }
 
-        return price;
+        return pricePrCM;
     }
 
     public HashMap<Integer, Integer> calcQuantMaterials() {
@@ -152,12 +156,16 @@ public class CarportCalc {
         materialsQuant.put(PACKOF_SCREWS70MM, screw70mm);
         materialsQuant.put(PACKOF_SCREWS50MM, screw50mm);
 
+        // Wood
+        materialsQuant.put(PILLAR, amountPillars);
+        materialsQuant.put(RAFTERWOOD_600, amountRafters);
+
+
         return materialsQuant;
     }
 
     public double calcPriceFromComparedMaterials() {
         // Instanciate MaterialMontroller and get price materials from database
-        MaterialMapper materialMapper = new MaterialMapper();
         HashMap materialDatabase = materialMapper.getMaterials();
         // Call calcMaterials to get amount of materials used
         HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
