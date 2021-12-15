@@ -162,14 +162,22 @@ public class CarportCalc {
     }
 
     public void returnBillOfMaterials() {
+        //      Material  Quantity
+        HashMap<Material, Integer> billOfMaterials = new HashMap<>();
 
-        //HashMap<Material, Double> billOfMaterial =
-       // List<Material> billOfMaterials = new ArrayList<>();
+        //      ID from DB, Quantity
         HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
 
 
         // Match key fra carportQuant med Material.get(ID)
         // billofMaterials = (Material (ID), value fra carportQuant)
+
+        for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
+
+            
+
+
+        }
 
 
 
