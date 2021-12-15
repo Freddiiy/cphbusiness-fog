@@ -123,22 +123,13 @@ public class CarportCalc {
         holetapeRolls = holetapeRolls / holetape;
 
         // For every pillar use these materials
-        for (int i = 0; i < amountPillars; i++) {
-            //
-            bolt += 2;
-            squarePiece++;
-        }
+        bolt = amountPillars*2;
+        squarePiece = amountPillars;
 
         // For every rafter use these materials
-        for (int i = 0; i < amountRafters; i++) {
-            // Universals + their screws
-            universalR++;
-            universalL++;
-            screwsUniversals = universalL * 3 + universalR * 3;
-
-            // Holetape screws
-            screwsUniversals += amountRafters * 4;
-        }
+        universalR = amountRafters;
+        universalL = amountRafters;
+        screwsUniversals = amountRafters*3 + amountRafters*3 + amountRafters*4;
 
         // Buy this many packs of screws
         packofScrewsUnivsersal = (int) Math.ceil((double) screwsUniversals /(double) packofScrewsUnivsersal);
@@ -179,7 +170,7 @@ public class CarportCalc {
             double quantity = entry.getValue();
             double sum = price*quantity;
 
-            
+
             totalSum += sum;
         }
         return totalSum;
