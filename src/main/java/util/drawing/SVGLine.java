@@ -64,4 +64,31 @@ public class SVGLine extends SVGElement {
                 attributePairs()
         );
     }
+
+    public static SVGLine rotated90DegAroundCenter(SVGLine orig) {
+        int cx = (orig.x1 + orig.x2) / 2;
+        int cy = (orig.y1 + orig.y2) / 2;
+
+        int x1 = orig.x1 - cx;
+        int y1 = orig.y1 - cy;
+        int x2 = orig.x2 - cx;
+        int y2 = orig.y2 - cy;
+
+        int xTemp = x1;
+        int yTemp = y1;
+        x1 = -yTemp;
+        y1 = xTemp;
+
+        xTemp = x2;
+        yTemp = y2;
+        x2 = -yTemp;
+        y2 = xTemp;
+
+        x1 += cx;
+        y1 += cy;
+        x2 += cx;
+        y2 += cy;
+
+        return new SVGLine.Builder(x1, y1, x2, y2).stroke("#00ff00").build();
+    }
 }

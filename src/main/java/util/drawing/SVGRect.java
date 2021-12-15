@@ -75,6 +75,10 @@ public class SVGRect extends SVGElement {
         );
     }
 
+    public static SVGRect of(int x, int y, int w, int h) {
+        return new SVGRect.Builder(x, y, w, h).build();
+    }
+
     /* Getters */
 
     public HashMap<String, String> getAttributes() {
