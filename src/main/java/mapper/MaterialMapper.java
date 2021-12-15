@@ -27,7 +27,7 @@ public class MaterialMapper {
                         String name = resultSet.getString("material_name");
                         double price = resultSet.getDouble("material_price");
                         int length = resultSet.getInt("material_length");
-                        String type = resultSet.getString("type");
+                        String nickname = resultSet.getString("nickname");
                         materialHashMap.put(id,price);
             }
 

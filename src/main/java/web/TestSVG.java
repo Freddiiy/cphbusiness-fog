@@ -1,8 +1,6 @@
 package web;
 
-import controller.CarportController;
 import util.SVG;
-import util.SVGLine;
 import util.SVGMeasurementGuide;
 import util.SVGRect;
 import util.drawing.svg.basicshapes.Rect;
