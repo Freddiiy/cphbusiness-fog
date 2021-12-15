@@ -4,11 +4,14 @@ package web.orders;
 import mapper.MeasurementMapper;
 import mapper.OrderMapper;
 import mapper.UserMapper;
+import model.Material;
 import model.Measurement;
 import model.Order;
+import util.Carport.CarportCalc;
 import util.drawing.SVGCarport;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -29,8 +32,18 @@ public class UserOrders extends HttpServlet {
 
             Order order = orderMapper.getOrderById(orderId, session.getId());
 
-            String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
-            request.setAttribute("svg", svg);
+
+            if (order.getStatus().equals("ACCEPTED")){
+                String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+                request.setAttribute("svg", svg);
+
+                CarportCalc carportCalc = new CarportCalc(order.getCarport().getLength(), order.getCarport().getWidth());
+                HashMap<Material, Integer> billOfMaterials = carportCalc.returnBillOfMaterials();
+                request.setAttribute("billOfMaterials", billOfMaterials);
+
+                double totalPrice = carportCalc.calcPriceFromComparedMaterials();
+                request.setAttribute("totalPrice", totalPrice);
+            }
 
             request.setAttribute("order", order);
             request.getRequestDispatcher("/WEB-INF/userSpecificOrder.jsp").forward(request, response);

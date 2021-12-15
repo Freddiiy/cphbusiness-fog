@@ -231,6 +231,31 @@
                                 </c:if>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <h4>Stykliste</h4>
+                            <table class="table table-striped table-bordered flex-column table-hover">
+                                <thead class="table-active">
+                                <th class="col">Id</th>
+                                <th class="col">Navn</th>
+                                <th class="col">Kvantitet</th>
+                                <th class="col">Pris</th>
+                                </thead>
+                                <c:forEach var="item" items="${requestScope.billOfMaterials}">
+                                    <tr>
+                                        <td>${item.key.id}</td>
+                                        <td>${item.key.name}</td>
+                                        <td>${item.value}</td>
+                                        <td>${item.key.price}</td>
+                                    </tr>
+                                </c:forEach>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>total</td>
+                                    <td>${requestScope.totalPrice}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </c:when>
                 <c:otherwise>

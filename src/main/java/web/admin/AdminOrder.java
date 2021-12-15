@@ -3,11 +3,14 @@ package web.admin;
 
 import mapper.AdminMapper;
 import mapper.MeasurementMapper;
+import model.Material;
 import model.Measurement;
 import model.Order;
+import util.Carport.CarportCalc;
 import util.drawing.SVGCarport;
 
 import java.io.*;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -30,8 +33,16 @@ public class AdminOrder extends HttpServlet {
         Order order = adminMapper.getOrderById(orderId, session.getId());
         request.setAttribute("order", order);
 
+
         String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
         request.setAttribute("svg", svg);
+
+        CarportCalc carportCalc = new CarportCalc(order.getCarport().getLength(), order.getCarport().getWidth());
+        HashMap<Material, Integer> billOfMaterials = carportCalc.returnBillOfMaterials();
+        request.setAttribute("billOfMaterials", billOfMaterials);
+
+        double totalPrice = carportCalc.calcPriceFromComparedMaterials();
+        request.setAttribute("totalPrice", totalPrice);
 
         request.getRequestDispatcher("/WEB-INF/admin/adminOrder.jsp").forward(request, response);
     }
