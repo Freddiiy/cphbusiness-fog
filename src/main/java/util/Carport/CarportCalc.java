@@ -174,7 +174,9 @@ public class CarportCalc {
 
         for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
 
+             Material material = materialMapper.getMaterialByid(entry.getKey());
 
+            billOfMaterials.put(material, entry.getValue());
 
 
         }
