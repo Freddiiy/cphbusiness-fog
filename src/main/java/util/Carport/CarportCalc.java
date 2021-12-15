@@ -174,7 +174,7 @@ public class CarportCalc {
 
         for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
 
-            
+
 
 
         }

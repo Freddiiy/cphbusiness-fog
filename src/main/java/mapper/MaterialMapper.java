@@ -68,7 +68,7 @@ public class MaterialMapper {
         return null;
     }
 
-    public Material getMaterialByid(int materialId) {
+    public Material getMaterialById(int materialId) {
         String sql = "SELECT * FROM CarportMaterials WHERE material_id = ?";
 
         List<Material> materialList = new ArrayList<>();
