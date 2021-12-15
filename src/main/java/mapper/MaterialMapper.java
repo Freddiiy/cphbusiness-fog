@@ -17,7 +17,7 @@ public class MaterialMapper {
     }
 
     public HashMap<Integer, Double> getMaterials() {
-        HashMap<Integer, Double> materialHashMap = new HashMap();
+        HashMap<Integer, Double> materialHashMap = new HashMap<>();
         String sql = "SELECT * FROM CarportMaterials";
 
         try (Connection connection = database.connect()) {
@@ -65,6 +65,28 @@ public class MaterialMapper {
             exception.printStackTrace();
         }
 
+        return null;
+    }
+
+    public Material getMaterialByid(int materialId) {
+        String sql = "SELECT * FROM CarportMaterials WHERE material_id = ?";
+
+        List<Material> materialList = new ArrayList<>();
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, materialId);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                return new Material(resultSet.getInt("material_id"), resultSet.getString("material_name"), resultSet.getDouble("material_price"), resultSet.getInt("material_length"), resultSet.getString("nickname"));
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
         return null;
     }
 
