@@ -4,12 +4,15 @@ import util.Carport.CarportCalc;
 import mapper.MaterialMapper;
 import org.junit.jupiter.api.Test;
 import persistance.Database;
+import util.Geometry;
+
 import java.util.HashMap;
 import java.util.Map;
+import static org.testng.Assert.*;
 
 class CarportCalcTest {
 
-    CarportCalc carportCalc = new CarportCalc(780, 440);
+    CarportCalc carportCalc = new CarportCalc(780, 600);
 
 
     @Test
@@ -24,12 +27,24 @@ class CarportCalcTest {
     @Test
     void calcMaterials() {
     }
+    
+    @Test
+    void calcDistance() {
+        
+        assertEquals(
+
+                Geometry.distBetweenPoints(60, 35, 780 - 60, 600 - 35)
+        );
+        
+    }
+
+    private void assertEquals(double distBetweenPoints) {
+    }
 
     @Test
     void calcPriceFromComparedMaterials() {
-        CarportCalc carportCalc = new CarportCalc(780, 440);
         MaterialMapper materialMapper = new MaterialMapper(new Database());
-        HashMap<Integer, Double> carportQuant = carportCalc.calcMaterials();
+        HashMap<Integer, Double> carportQuant = carportCalc.calcQuantMaterials();
         // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();
 

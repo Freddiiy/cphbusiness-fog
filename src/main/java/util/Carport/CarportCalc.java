@@ -1,7 +1,9 @@
 package util.Carport;
 
+import com.google.protobuf.GeneratedMessage;
 import mapper.MaterialMapper;
 import persistance.Database;
+import util.Geometry;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Map;
 public class CarportCalc {
 
     int length, width;
+    int maxRafterSpace = 60;
     MaterialMapper materialMapper = new MaterialMapper(new Database());
 
     // Misc
@@ -58,7 +61,7 @@ public class CarportCalc {
         return amountRafters;
     }
 
-    public HashMap<Integer, Double> calcMaterials() {
+    public HashMap<Integer, Double> calcQuantMaterials() {
         // hashmap
         HashMap<Integer, Double> materials = new HashMap<>();
         int amountPillars = returnCarportPillarLightRoofNoShed();
@@ -69,6 +72,8 @@ public class CarportCalc {
         double packOfScrewsStern = 1; // 200
         double screw70mm = 2; // 400
         double screw50mm = 2; // 300
+
+
 
         // Actual code (good to go)
         double holetape = 1000;
@@ -83,8 +88,11 @@ public class CarportCalc {
         double packofSquarePiece = 50;
 
 
-        // For cirumference buy this many holetape rolls
-        holetapeRolls = Math.ceil(2 * (length + width) / holetape);
+
+
+        // Length of holetape used
+        holetapeRolls = Geometry.distBetweenPoints(maxRafterSpace, 35, length - maxRafterSpace, width - 35) * 2;
+        holetapeRolls = holetapeRolls / holetape;
 
         // For every pillar use these materials
         for (int i = 0; i < amountPillars; i++) {
@@ -133,10 +141,10 @@ public class CarportCalc {
         MaterialMapper materialMapper = new MaterialMapper(new Database());
         HashMap materialDatabase = materialMapper.getMaterials();
         // Call calcMaterials to get amount of materials used
-        HashMap<Integer, Double> carportQuant = calcMaterials();
+        HashMap<Integer, Double> carportQuant = calcQuantMaterials();
 
         double totalSum = 0;
-        
+
         for (Map.Entry<Integer, Double> entry : carportQuant.entrySet()) {
 
             double price = (double) materialDatabase.get(entry.getKey());
