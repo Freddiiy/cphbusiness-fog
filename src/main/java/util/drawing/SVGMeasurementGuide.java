@@ -1,29 +1,23 @@
 package util.drawing;
 
+import util.Geometry;
+import util.shapes.Line;
+
 public class SVGMeasurementGuide extends SVGElement {
 
     // Obligatory instance variables
-    private final int x1;
-    private final int y1;
-    private final int x2;
-    private final int y2;
+    private final Line line;
     private final String text;
 
     private final int MARKER_WIDTH = 10;
     private static final int NORMAL_LENGTH = 30;
 
     public static class Builder extends SVGElement.Builder<Builder> {
-        private final int x1;
-        private final int y1;
-        private final int x2;
-        private final int y2;
+        private final Line line;
         private String text;
 
         public Builder(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
+            line = new Line(x1, y1, x2, y2);
         }
 
         @Override
@@ -40,7 +34,11 @@ public class SVGMeasurementGuide extends SVGElement {
         public Builder text(String text) {
             this.text = text;
             if (text.equals("auto")) {
-                this.text = String.format("%.2f", distBetweenPoints(x1, y1, x2, y2) / 100);
+                this.text = String.format(
+                        "%.2f",
+                        Geometry.distBetweenPoints(
+                                line.getX1(), line.getY1(),
+                                line.getX2(), line.getY2()) / 100);
             }
             return this;
         }
@@ -48,17 +46,14 @@ public class SVGMeasurementGuide extends SVGElement {
 
     private SVGMeasurementGuide(Builder builder) {
         super(builder);
-        x1 = builder.x1;
-        y1 = builder.y1;
-        x2 = builder.x2;
-        y2 = builder.y2;
+        line = builder.line;
         text = builder.text;
     }
 
     public static SVGMeasurementGuide forSupportBars(SVGRect[] supportBars) {
         int x = supportBars[0].getX() - spaceNeeded();
         int y1 = supportBars[0].getY();
-        int y2 = supportBars[1].getY() + supportBars[1].getH();
+        int y2 = supportBars[1].getY() + supportBars[1].getW();
         return new Builder(x, y1, x, y2)
                 .text("auto")
                 .build();
@@ -67,7 +62,7 @@ public class SVGMeasurementGuide extends SVGElement {
     public static SVGMeasurementGuide forCarportHeight(SVGRect carportRect, SVGMeasurementGuide supportBarsGuide) {
         int x = supportBarsGuide.getX1() - SVGMeasurementGuide.spaceNeeded();
         int y1 = carportRect.getY();
-        int y2 = carportRect.getY() + carportRect.getH();
+        int y2 = carportRect.getY() + carportRect.getW();
         return new SVGMeasurementGuide.Builder(x, y1, x, y2)
                 .text("auto")
                 .build();
@@ -78,7 +73,7 @@ public class SVGMeasurementGuide extends SVGElement {
 
         int y = rafters[0].getY() - spaceNeeded();
         for (int i = 1; i < rafters.length; i++) {
-            int x1 = rafters[i-1].getX() + rafters[i-1].getW();
+            int x1 = rafters[i-1].getX() + rafters[i-1].getL();
             int x2 = rafters[i].getX();
             guides[i-1] = new SVGMeasurementGuide.Builder(x1, y, x2, y)
                     .text("auto")
@@ -106,6 +101,10 @@ public class SVGMeasurementGuide extends SVGElement {
     }
 
     private boolean lineIsHorizontal() {
+        int x1 = line.getX1();
+        int y1 = line.getY1();
+        int x2 = line.getX2();
+        int y2 = line.getY2();
         if (y1 == y2 && x1 != x2) return true;
         if (x1 == x2 && y1 != y2) return false;
 
@@ -116,16 +115,16 @@ public class SVGMeasurementGuide extends SVGElement {
     }
 
     private String horizontalGuide() {
-        SVGLine line = new SVGLine.Builder(
-                x1 + MARKER_WIDTH,
-                y1,
-                x2 - MARKER_WIDTH,
-                y2)
+        SVGLine guide = new SVGLine.Builder(
+                line.getX1() + MARKER_WIDTH,
+                line.getY1(),
+                line.getX2() - MARKER_WIDTH,
+                line.getY2())
                 .attr("marker-start", "url(#startarrow)")
                 .attr("marker-end", "url(#endarrow)")
                 .build();
 
-        String lines = line.toString() + normals();//normalStart + normalEnd;
+        String lines = guide.toString() + normals();//normalStart + normalEnd;
         if (text != null) {
             return lines + textForHorizontalGuide();
         }
@@ -133,16 +132,16 @@ public class SVGMeasurementGuide extends SVGElement {
     }
 
     private String verticalGuide() {
-        SVGLine line = new SVGLine.Builder(
-                x1,
-                y1 + MARKER_WIDTH,
-                x2,
-                y2 - MARKER_WIDTH)
+        SVGLine guide = new SVGLine.Builder(
+                line.getX1(),
+                line.getY1() + MARKER_WIDTH,
+                line.getX2(),
+                line.getY2() - MARKER_WIDTH)
                 .attr("marker-start", "url(#startarrow)")
                 .attr("marker-end", "url(#endarrow)")
                 .build();
 
-        String lines = line.toString() + normals(); // normalStart + normalEnd;
+        String lines = guide.toString() + normals(); // normalStart + normalEnd;
         if (text != null) {
             return lines + textForVerticalGuide();
         }
@@ -153,8 +152,8 @@ public class SVGMeasurementGuide extends SVGElement {
         if (text == null) {
             return null;
         }
-        int xText = x1 + (x2 - x1) / 2;
-        int yText = y1 - 10;
+        int xText = line.getX1() + (line.getX2() - line.getX1()) / 2;
+        int yText = line.getY1() - 10;
         SVGText svgText = new SVGText.Builder(xText, yText, text)
                 .attr("text-anchor", "middle")
                 .build();
@@ -165,8 +164,8 @@ public class SVGMeasurementGuide extends SVGElement {
         if (text == null) {
             return null;
         }
-        int xText = x1 - MARKER_WIDTH;
-        int yText = y1 + (y2 - y1) / 2;
+        int xText = line.getX1() - MARKER_WIDTH;
+        int yText = line.getY1() + (line.getY2() - line.getY1()) / 2;
         SVGText svgText = new SVGText.Builder(xText, yText, text)
                 .attr("text-anchor", "end")
                 .attr("dominant-baseline", "middle")
@@ -176,6 +175,11 @@ public class SVGMeasurementGuide extends SVGElement {
 
     /** Draw the normals that are placed at each end of the measurement guide */
     private String normals() {
+        int x1 = line.getX1();
+        int y1 = line.getY1();
+        int x2 = line.getX2();
+        int y2 = line.getY2();
+
         SVGLine normalStart;
         SVGLine normalEnd;
         int x1start, y1start;
@@ -210,24 +214,19 @@ public class SVGMeasurementGuide extends SVGElement {
         return normalStart.toString() + normalEnd.toString();
     }
 
-    /** The Euclidean distance formula */
-    public static double distBetweenPoints(int x1, int y1, int x2, int y2) {
-        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-    }
-
     public int getX1() {
-        return x1;
+        return line.getX1();
     }
 
     public int getY1() {
-        return y1;
+        return line.getY1();
     }
 
     public int getX2() {
-        return x2;
+        return line.getX2();
     }
 
     public int getY2() {
-        return y2;
+        return line.getY2();
     }
 }

@@ -1,11 +1,11 @@
 package util.drawing;
 
+import util.Geometry;
+import util.shapes.Line;
+
 public class SVGLine extends SVGElement {
 
-    private final int x1;
-    private final int y1;
-    private final int x2;
-    private final int y2;
+    private final Line line;
 
     private final String TEMPLATE = "" +
             "<line\n" +
@@ -17,16 +17,14 @@ public class SVGLine extends SVGElement {
             "></line>";
 
     public static class Builder extends SVGElement.Builder<Builder> {
-        private final int x1;
-        private final int y1;
-        private final int x2;
-        private final int y2;
+        private final Line line;
 
         public Builder(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
+            line = new Line(x1, y1, x2, y2);
+        }
+
+        public Builder(Line line) {
+            this.line = line;
         }
 
         @Override
@@ -50,45 +48,16 @@ public class SVGLine extends SVGElement {
 
     private SVGLine(Builder builder) {
         super(builder);
-        x1 = builder.x1;
-        y1 = builder.y1;
-        x2 = builder.x2;
-        y2 = builder.y2;
+        line = builder.line;
     }
 
     @Override
     public String toString() {
         return String.format(
                 TEMPLATE,
-                x1, y1, x2, y2,
+                line.getX1(), line.getY1(),
+                line.getX2(), line.getY2(),
                 attributePairs()
         );
-    }
-
-    public static SVGLine rotated90DegAroundCenter(SVGLine orig) {
-        int cx = (orig.x1 + orig.x2) / 2;
-        int cy = (orig.y1 + orig.y2) / 2;
-
-        int x1 = orig.x1 - cx;
-        int y1 = orig.y1 - cy;
-        int x2 = orig.x2 - cx;
-        int y2 = orig.y2 - cy;
-
-        int xTemp = x1;
-        int yTemp = y1;
-        x1 = -yTemp;
-        y1 = xTemp;
-
-        xTemp = x2;
-        yTemp = y2;
-        x2 = -yTemp;
-        y2 = xTemp;
-
-        x1 += cx;
-        y1 += cy;
-        x2 += cx;
-        y2 += cy;
-
-        return new SVGLine.Builder(x1, y1, x2, y2).stroke("#00ff00").build();
     }
 }

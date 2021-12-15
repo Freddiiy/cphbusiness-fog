@@ -12,11 +12,11 @@ public class SVGMeasurementGuideTest {
         double errorMargin = 0.000001;
 
         assertEquals(
-                SVGMeasurementGuide.distBetweenPoints(-7, -4, 17, 6),
+                Geometry.distBetweenPoints(-7, -4, 17, 6),
                 26
         );
         assertEquals(
-                SVGMeasurementGuide.distBetweenPoints(9, 5, 18, 2),
+                Geometry.distBetweenPoints(9, 5, 18, 2),
                 9.486833,
                 errorMargin
         );

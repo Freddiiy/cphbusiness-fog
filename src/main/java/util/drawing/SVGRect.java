@@ -1,25 +1,22 @@
 package util.drawing;
 
+import util.shapes.Rect;
+
 import java.util.HashMap;
 
 public class SVGRect extends SVGElement {
 
-    private final int x;
-    private final int y;
-    private final int w;
-    private final int h;
+    private final Rect rect;
 
     public static class Builder extends SVGElement.Builder<Builder> {
-        private final int x;
-        private final int y;
-        private final int w;
-        private final int h;
+        private final Rect rect;
 
-        public Builder(int x, int y, int w, int h) {
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
+        public Builder(int x, int y, int l, int w) {
+            rect = new Rect(x, y, l, w);
+        }
+
+        public Builder(Rect rect) {
+            this.rect = rect;
         }
 
         @Override
@@ -52,10 +49,7 @@ public class SVGRect extends SVGElement {
 
     private SVGRect(Builder builder) {
         super(builder);
-        x = builder.x;
-        y = builder.y;
-        w = builder.w;
-        h = builder.h;
+        rect = builder.rect;
     }
 
     @Override
@@ -70,13 +64,13 @@ public class SVGRect extends SVGElement {
                 "/>";
         return String.format(
                 rectTemplate,
-                x, y, w, h,
+                rect.getX(), rect.getY(), rect.getL(), rect.getW(),
                 attributePairs()
         );
     }
 
-    public static SVGRect of(int x, int y, int w, int h) {
-        return new SVGRect.Builder(x, y, w, h).build();
+    public static SVGRect of(int x, int y, int l, int w) {
+        return new SVGRect.Builder(x, y, l, w).build();
     }
 
     /* Getters */
@@ -86,18 +80,18 @@ public class SVGRect extends SVGElement {
     }
 
     public int getX() {
-        return x;
+        return rect.getX();
     }
 
     public int getY() {
-        return y;
+        return rect.getY();
+    }
+
+    public int getL() {
+        return rect.getL();
     }
 
     public int getW() {
-        return w;
-    }
-
-    public int getH() {
-        return h;
+        return rect.getW();
     }
 }
