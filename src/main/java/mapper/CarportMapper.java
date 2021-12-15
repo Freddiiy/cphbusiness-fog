@@ -13,32 +13,6 @@ public class CarportMapper {
             this.WIDTH = WIDTH;
         }
 
-        /** A carport should have n pairs of pillars, where n == (carport LENGTH / 300) cm. rounded up. */
-        public int numPillars() {
-            double breakpoint = 300;
-            int numSupportBars = 2;
-            return (int) Math.ceil((double) LENGTH / breakpoint) * numSupportBars;
-        }
-
-        /*
-        public int returnCarportPillarLightRoofNoShed() {
-            int pillarSpace = 300;
-            int amountPillars = (int) (Math.ceil(LENGTH/pillarSpace) + 1) * 2;
-            if (amountPillars <= 4) amountPillars = 4;
-
-            return amountPillars;
-        }
-         */
-
-        public int numRafters() {
-            double maxDistBetweenRafters = 60.0;
-            return (int) Math.floor((double) LENGTH / maxDistBetweenRafters) + 1;
-        }
-
-        public int distBetweenRafters(int numRafters) {
-            return (int) Math.floor(((double) LENGTH / (double) numRafters));
-        }
-
         public HashMap<String, Integer> calcMaterials(int amountPillars, int amountRafters)    {
             // hashmap
             HashMap<String, Integer> materials = new HashMap<>();

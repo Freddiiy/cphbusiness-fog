@@ -1,50 +1,43 @@
 package util.drawing;
 
-import mapper.CarportMapper;
 import util.Carport.Construction;
 import util.shapes.Line;
 import util.shapes.Rect;
-
-import java.util.Arrays;
 
 public class SVGCarport {
 
     private final Construction construction;
 
-    private final CarportMapper carportMapper;
     private final SVGRect carportRect;
     private int wViewport = 0;
     private int hViewport = 0;
     
-    public SVGCarport(int LENGTH, int WIDTH) {
-        construction = new Construction(LENGTH, WIDTH);
-
-        carportMapper = new CarportMapper(LENGTH, WIDTH);
+    public SVGCarport(int length, int width) {
+        construction = new Construction(length, width);
 
         // todo: Find x and y
         int xCarport = 140;
         int yCarport = 80;
-        carportRect = new SVGRect.Builder(xCarport, yCarport, LENGTH, WIDTH).build();
+        carportRect = new SVGRect.Builder(xCarport, yCarport, length, width).build();
     }
 
-    public SVGCarport(int LENGTH, int WIDTH, int wViewport, int hViewport) {
-        construction = new Construction(LENGTH, WIDTH);
+    public SVGCarport(int length, int width, int wViewport, int hViewport) {
+        construction = new Construction(length, width);
 
-        carportMapper = new CarportMapper(LENGTH, WIDTH);
         this.wViewport = wViewport;
         this.hViewport = hViewport;
 
         // todo: Find x and y
         int xCarport = 140;
         int yCarport = 80;
-        carportRect = new SVGRect.Builder(xCarport, yCarport, LENGTH, WIDTH).build();
+        carportRect = new SVGRect.Builder(xCarport, yCarport, length, width).build();
     }
 
     public String toString() {
         SVGRect[] supportBars = supportBars();
         SVGRect[] rafters = rafters();
-        SVGRect[] pillars = pillars(carportMapper.numPillars(), supportBars);
-        SVGLine[] holeTape = holeTape(rafters, supportBars);
+        SVGRect[] pillars = pillars();
+        SVGLine[] holeTape = holeTape();
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
@@ -105,7 +98,7 @@ public class SVGCarport {
         return rafters;
     }
 
-    public SVGRect[] pillars(int numPillars, SVGRect[] supportBars) {
+    public SVGRect[] pillars() {
         Rect[] pillarRects = construction.getPillars();
         SVGRect[] pillars = new SVGRect[pillarRects.length];
         for (int i = 0; i < pillarRects.length; i++) {
@@ -116,7 +109,7 @@ public class SVGCarport {
         return pillars;
     }
 
-    private SVGLine[] holeTape(SVGRect[] rafters, SVGRect[] supportBars) {
+    private SVGLine[] holeTape() {
         Line[] holeTapeLines = construction.getHoleTape();
         return new SVGLine[] {
                 new SVGLine.Builder(holeTapeLines[0])

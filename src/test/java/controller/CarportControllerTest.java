@@ -1,10 +1,10 @@
 package controller;
 
-import mapper.CarportMapper;
 import mapper.MaterialMapper;
 import model.Material;
 import org.testng.annotations.Test;
 import persistance.Database;
+import util.Carport.Construction;
 
 import java.util.HashMap;
 
@@ -26,45 +26,45 @@ public class CarportControllerTest {
 
     @Test
     void equations() {
-        CarportMapper cm = new CarportMapper(780, 600);
-        int numRafters = cm.numRafters();
-        int distBetweenRafters = cm.distBetweenRafters(numRafters);
+        Construction construction = new Construction(780, 600);
+        int numRafters = construction.numRafters();
+        int distBetweenRafters = construction.distBetweenRafters(numRafters);
         System.out.printf("%d, %d\n", numRafters, distBetweenRafters);
     }
 
     @Test
     void numPillars() {
-        CarportMapper cm0 = new CarportMapper(780, 600);
-        CarportMapper cm1 = new CarportMapper(599, 600);
-        CarportMapper cm2 = new CarportMapper(600, 600);
-        CarportMapper cm3 = new CarportMapper(901, 600);
-        CarportMapper cm4 = new CarportMapper(1201, 600);
+        Construction constr0 = new Construction(780, 600);
+        Construction constr1 = new Construction(599, 600);
+        Construction constr2 = new Construction(600, 600);
+        Construction constr3 = new Construction(901, 600);
+        Construction constr4 = new Construction(1201, 600);
 
-        assertEquals(cm0.numPillars(), 6);
-        assertEquals(cm1.numPillars(), 4);
-        assertEquals(cm2.numPillars(), 4);
-        assertEquals(cm3.numPillars(), 8);
-        assertEquals(cm4.numPillars(), 10);
+        assertEquals(constr0.numPillars(), 6);
+        assertEquals(constr1.numPillars(), 4);
+        assertEquals(constr2.numPillars(), 4);
+        assertEquals(constr3.numPillars(), 8);
+        assertEquals(constr4.numPillars(), 10);
     }
 
     @Test
     void distBetweenRafters() {
-        CarportMapper cm0 = new CarportMapper(780, 600);
-        CarportMapper cm1 = new CarportMapper(478, 600);
-        CarportMapper cm2 = new CarportMapper(199, 600);
-        CarportMapper cm3 = new CarportMapper(980, 600);
-        CarportMapper cm4 = new CarportMapper(123, 600);
-        CarportMapper cm5 = new CarportMapper(71, 600);
-        CarportMapper cm6 = new CarportMapper(1999, 600);
-        CarportMapper cm7 = new CarportMapper(725, 600);
+        Construction constr0 = new Construction(780, 600);
+        Construction constr1 = new Construction(478, 600);
+        Construction constr2 = new Construction(199, 600);
+        Construction constr3 = new Construction(980, 600);
+        Construction constr4 = new Construction(123, 600);
+        Construction constr5 = new Construction(71, 600);
+        Construction constr6 = new Construction(1999, 600);
+        Construction constr7 = new Construction(725, 600);
 
-        assertTrue(cm0.distBetweenRafters(cm0.numRafters()) <= 60);
-        assertTrue(cm1.distBetweenRafters(cm1.numRafters()) <= 60);
-        assertTrue(cm2.distBetweenRafters(cm2.numRafters()) <= 60);
-        assertTrue(cm3.distBetweenRafters(cm3.numRafters()) <= 60);
-        assertTrue(cm4.distBetweenRafters(cm4.numRafters()) <= 60);
-        assertTrue(cm5.distBetweenRafters(cm5.numRafters()) <= 60);
-        assertTrue(cm6.distBetweenRafters(cm6.numRafters()) <= 60);
-        assertTrue(cm7.distBetweenRafters(cm7.numRafters()) <= 60);
+        assertTrue(constr0.distBetweenRafters(constr0.numRafters()) <= 60);
+        assertTrue(constr1.distBetweenRafters(constr1.numRafters()) <= 60);
+        assertTrue(constr2.distBetweenRafters(constr2.numRafters()) <= 60);
+        assertTrue(constr3.distBetweenRafters(constr3.numRafters()) <= 60);
+        assertTrue(constr4.distBetweenRafters(constr4.numRafters()) <= 60);
+        assertTrue(constr5.distBetweenRafters(constr5.numRafters()) <= 60);
+        assertTrue(constr6.distBetweenRafters(constr6.numRafters()) <= 60);
+        assertTrue(constr7.distBetweenRafters(constr7.numRafters()) <= 60);
     }
 }

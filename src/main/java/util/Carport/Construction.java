@@ -60,7 +60,7 @@ public class Construction {
     private Rect[] rafters() {
         int xRafter;
         int lRafter = 5; // pretty arbitrary number
-        int numRafters = carportMapper.numRafters();
+        int numRafters = numRafters();
 
         // Push rafters slightly to the right
         int lCarport = carportRect.getL();
@@ -93,7 +93,16 @@ public class Construction {
     private int xForRafter(int xOffset, int wRafter, int i, int numRafters) {
         return xOffset
                 + wRafter / 2
-                + i * carportMapper.distBetweenRafters(numRafters);
+                + i * distBetweenRafters(numRafters);
+    }
+
+    public int numRafters() {
+        double maxDistBetweenRafters = 60.0;
+        return (int) Math.floor((double) carportRect.getL() / maxDistBetweenRafters) + 1;
+    }
+
+    public int distBetweenRafters(int numRafters) {
+        return (int) Math.floor(((double) carportRect.getL() / (double) numRafters));
     }
 
     /**
@@ -103,9 +112,8 @@ public class Construction {
      * @return An array of pillars
      */
     public Rect[] pillars(Rect[] supportBars) {
-        int numPillars = carportMapper.numPillars();
-        int distBetweenRafters = carportMapper.distBetweenRafters(carportMapper.numRafters());
-        // SVGRect[] pillars = new SVGRect[numPillars];
+        int numPillars = numPillars();
+        int distBetweenRafters = distBetweenRafters(numRafters());
         Rect[] pillars = new Rect[numPillars];
 
         Rect topBar = supportBars[0];
@@ -157,6 +165,13 @@ public class Construction {
      */
     private Rect pillar(int x, int y, int lw) {
         return new Rect(x, y, lw, lw);
+    }
+
+    /** A carport should have n pairs of pillars, where n == (carport LENGTH / 300) cm. rounded up. */
+    public int numPillars() {
+        double breakpoint = 300;
+        int numSupportBars = 2;
+        return (int) Math.ceil((double) carportRect.getL() / breakpoint) * numSupportBars;
     }
 
     private Line[] holeTape(Rect[] rafters, Rect[] supportBars) {
