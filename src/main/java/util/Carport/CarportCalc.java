@@ -66,29 +66,45 @@ public class CarportCalc {
         return amountRafters;
     }
 
-    public double calcPricePerCM()  {
-        List<Integer> materialsToFindPriceOf = new ArrayList();
-        List<Material> priceOfMaterials = materialMapper.getMaterialList();
+    public HashMap<Integer, Double> calcPricePerCM()  {
+        List<Integer> materialsToFindPriceOfHori = new ArrayList();
+        List<Integer> materialsToFindPriceOfVerti = new ArrayList();
+        List<Material> materialInfoFromDB = materialMapper.getMaterialList();
 
-        materialsToFindPriceOf.add(WOOD_540);
-        materialsToFindPriceOf.add(STERNWOOD_540);
-        materialsToFindPriceOf.add(RAFTERWOOD_600);
-        materialsToFindPriceOf.add(STERNWOODREPLACE_210);
-        materialsToFindPriceOf.add(STERNWOODSIDE_540);
-        materialsToFindPriceOf.add(STERNWOODFOR_360);
-        materialsToFindPriceOf.add(PLASTMO600);
+        materialsToFindPriceOfVerti.add(WOOD_540);
+        materialsToFindPriceOfHori.add(STERNWOOD_540);
+        materialsToFindPriceOfVerti.add(RAFTERWOOD_600);
+        materialsToFindPriceOfHori.add(STERNWOODREPLACE_210);
+        materialsToFindPriceOfHori.add(STERNWOODSIDE_540);
+        materialsToFindPriceOfVerti.add(STERNWOODFOR_360);
+        materialsToFindPriceOfHori.add(PLASTMO600);
+
+
+        HashMap<Integer, Double> pricePrWood = new HashMap<>();
 
         double pricePrCM = 0;
-        for (int material:materialsToFindPriceOf) {
-            Material materialToCalc = priceOfMaterials.get(material);
+        for (int material:materialsToFindPriceOfHori) {
+            double priceWood = materialInfoFromDB.get(material).getPrice();
+            double lengthWood = materialInfoFromDB.get(material).getLength();
 
-            double price = materialToCalc.getPrice();
-            double length = materialToCalc.getLength();
+            pricePrCM = priceWood/lengthWood;
 
-            pricePrCM = price/length;
+            double finalPrice = pricePrCM * length;
+
+            pricePrWood.put(material, finalPrice);
         }
 
-        return pricePrCM;
+        for (int material:materialsToFindPriceOfVerti) {
+            double priceWood = materialInfoFromDB.get(material).getPrice();
+            double lengthWood = materialInfoFromDB.get(material).getLength();
+
+            pricePrCM = priceWood/lengthWood;
+
+            double finalPrice = pricePrCM * width;
+
+            pricePrWood.put(material, finalPrice);
+        }
+        return pricePrWood;
     }
 
     public HashMap<Integer, Integer> calcQuantMaterials() {

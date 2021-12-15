@@ -5,30 +5,27 @@ import util.Carport.CarportCalc;
 import mapper.MaterialMapper;
 import org.junit.jupiter.api.Test;
 import persistance.Database;
+import util.Carport.Construction;
 import util.Geometry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import static org.testng.Assert.*;
 
 class CarportCalcTest {
-
+    int length = 780;
+    int width = 600;
     CarportCalc carportCalc = new CarportCalc(780, 600);
     MaterialMapper materialMapper = new MaterialMapper();
+    Construction construction;
 
-    private final int WOOD_360 = 14;
     private final int WOOD_540 = 15;
-    private final int STERNWOOD_420 = 16;
     private final int STERNWOOD_540 = 17;
     private final int RAFTERWOOD_600 = 21;
-    private final int PILLAR = 23;
     private final int STERNWOODREPLACE_210 = 24;
     private final int STERNWOODSIDE_540 = 25;
     private final int STERNWOODFOR_360 = 26;
     private final int PLASTMO600 = 27;
-    private final int PLASTMO420 = 28;
 
 
     @Test
@@ -42,10 +39,6 @@ class CarportCalcTest {
 
     @Test
     void calcMaterials() {
-    }
-
-
-    private void assertEquals(double distBetweenPoints) {
     }
 
     @Test
@@ -96,29 +89,43 @@ class CarportCalcTest {
 
     @Test
     public void calcPricePerCM()  {
-        List<Integer> materialsToFindPriceOf = new ArrayList();
-        List<Material> priceOfMaterials = materialMapper.getMaterialList();
+        List<Integer> materialsToFindPriceOfHori = new ArrayList();
+        List<Integer> materialsToFindPriceOfVerti = new ArrayList();
+        List<Material> materialInfoFromDB = materialMapper.getMaterialList();
 
-        materialsToFindPriceOf.add(WOOD_540);
-        materialsToFindPriceOf.add(STERNWOOD_540);
-        materialsToFindPriceOf.add(RAFTERWOOD_600);
-        materialsToFindPriceOf.add(STERNWOODREPLACE_210);
-        materialsToFindPriceOf.add(STERNWOODSIDE_540);
-        materialsToFindPriceOf.add(STERNWOODFOR_360);
-        materialsToFindPriceOf.add(PLASTMO600);
+        materialsToFindPriceOfVerti.add(WOOD_540);
+        materialsToFindPriceOfHori.add(STERNWOOD_540);
+        materialsToFindPriceOfVerti.add(RAFTERWOOD_600);
+        materialsToFindPriceOfHori.add(STERNWOODREPLACE_210);
+        materialsToFindPriceOfHori.add(STERNWOODSIDE_540);
+        materialsToFindPriceOfVerti.add(STERNWOODFOR_360);
+        materialsToFindPriceOfHori.add(PLASTMO600);
+
+
+        HashMap<Integer, Double> pricePrWood = new HashMap<>();
 
         double pricePrCM = 0;
-        for (int material:materialsToFindPriceOf) {
-            Material materialToCalc = priceOfMaterials.get(material);
+        for (int material:materialsToFindPriceOfHori) {
+            double priceWood = materialInfoFromDB.get(material).getPrice();
+            double lengthWood = materialInfoFromDB.get(material).getLength();
 
-            double price = materialToCalc.getPrice();
-            double length = materialToCalc.getLength();
+            pricePrCM = priceWood/lengthWood;
 
-            pricePrCM = price/length;
+            double finalPrice = pricePrCM * length;
 
-            System.out.println(materialToCalc.getName() + ": " + pricePrCM);
+            pricePrWood.put(material, finalPrice);
         }
 
-        System.out.println(pricePrCM);
+        for (int material:materialsToFindPriceOfVerti) {
+            double priceWood = materialInfoFromDB.get(material).getPrice();
+            double lengthWood = materialInfoFromDB.get(material).getLength();
+
+            pricePrCM = priceWood/lengthWood;
+
+            double finalPrice = pricePrCM * width;
+
+            pricePrWood.put(material, finalPrice);
+        }
+        System.out.println(pricePrWood);
     }
 }
