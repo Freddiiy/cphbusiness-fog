@@ -2,7 +2,10 @@ package web.admin;
 
 
 import mapper.AdminMapper;
+import mapper.MeasurementMapper;
+import model.Measurement;
 import model.Order;
+import util.drawing.SVGCarport;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -16,12 +19,20 @@ public class AdminOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AdminMapper adminMapper = new AdminMapper();
+        MeasurementMapper measurementMapper = new MeasurementMapper();
         HttpSession session = request.getSession();
 
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        Order order = adminMapper.getOrderById(userId, session.getId());
+        Measurement measurements = measurementMapper.getAllMeasurement();
 
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        request.setAttribute("measurements", measurements);
+
+        Order order = adminMapper.getOrderById(orderId, session.getId());
         request.setAttribute("order", order);
+
+        String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+        request.setAttribute("svg", svg);
+
         request.getRequestDispatcher("/WEB-INF/admin/adminOrder.jsp").forward(request, response);
     }
 }

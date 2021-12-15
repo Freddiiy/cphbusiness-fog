@@ -13,7 +13,7 @@ public class CarportCalc {
 
     int length, width;
     int maxRafterSpace = 60;
-    MaterialMapper materialMapper = new MaterialMapper(new Database());
+    MaterialMapper materialMapper = new MaterialMapper();
 
     // Misc
     private final int BUNDSCREW = 1;
@@ -138,7 +138,7 @@ public class CarportCalc {
 
     public double calcPriceFromComparedMaterials() {
         // Instanciate MaterialMontroller and get price materials from database
-        MaterialMapper materialMapper = new MaterialMapper(new Database());
+        MaterialMapper materialMapper = new MaterialMapper();
         HashMap materialDatabase = materialMapper.getMaterials();
         // Call calcMaterials to get amount of materials used
         HashMap<Integer, Double> carportQuant = calcQuantMaterials();

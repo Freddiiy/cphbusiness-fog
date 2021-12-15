@@ -28,6 +28,23 @@
                                         <td>Email:</td>
                                         <td>${requestScope.order.user.email}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td>${requestScope.order.user.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adresse:</td>
+                                        <td>${requestScope.order.user.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Post nr.:</td>
+                                        <td>${requestScope.order.user.zipcode}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>By:</td>
+                                        <td>${requestScope.order.user.city}</td>
+                                    </tr>
+
                                 </table>
                             </div>
                             <div class="col-6">
@@ -66,7 +83,7 @@
                                     </tr>
                                     <tr>
                                         <td>Carport tag:</td>
-                                        <td>${requestScope.order.carport.idRoof}</td>
+                                        <td>${requestScope.order.carport.roof}</td>
                                     </tr>
                                     <c:choose>
                                         <c:when test="${requestScope.order.carport.hasShed()}">
@@ -91,13 +108,39 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </table>
+                                <div class="row row-cols-auto p-2 pb-4 pe-0">
+                                    <c:if test="${requestScope.order.status == 'ACCEPTED'}">
+                                        <a class="btn btn-fog-primary btn-sm" data-bs-toggle="collapse"
+                                           href="#collapseSVG" role="button" aria-expanded="false"
+                                           aria-controls="collapseSVG">
+                                            Se tegning
+                                        </a>
+                                    </c:if>
+                                </div>
+                                <div class="collapse" id="collapseSVG">
+                                    <div class="text-start py-2">
+                                            ${requestScope.svg}
+                                    </div>
+                                </div>
+                                <div class="row row-cols-auto p-2 pb-4 pe-0">
+                                    <c:if test="${requestScope.order.status == 'RECIEVED'}">
+                                        <div class="col">
+                                            <form action="${pageContext.request.contextPath}/orders/remove"
+                                                  method="post">
+                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                <input type="submit" id="acceptButton" class="btn btn-danger btn-sm"
+                                                       value="Annullér ordre">
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="container" style="margin-top: 80px">
-                        <h1>Kunne ikke finde nogle ordre.</h1>
+                        <h1>Kunne ikke finde en ordre.</h1>
                     </div>
                 </c:otherwise>
             </c:choose>

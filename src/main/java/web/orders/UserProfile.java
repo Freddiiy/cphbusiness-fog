@@ -2,6 +2,7 @@ package web.orders;
 
 
 import mapper.UserMapper;
+import model.User;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ public class UserProfile extends HttpServlet {
         UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(!userMapper.validateSession(session)) {
+        if(!userMapper.validateSession(session.getId())) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             request.getRequestDispatcher("/WEB-INF/userProfile.jsp").forward(request, response);

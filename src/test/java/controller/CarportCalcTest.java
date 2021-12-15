@@ -34,7 +34,7 @@ class CarportCalcTest {
 
     @Test
     void calcPriceFromComparedMaterials() {
-        MaterialMapper materialMapper = new MaterialMapper(new Database());
+        MaterialMapper materialMapper = new MaterialMapper();
         HashMap<Integer, Double> carportQuant = carportCalc.calcQuantMaterials();
         // Instanciate materialController and get materials
         HashMap materialDatabase = materialMapper.getMaterials();

@@ -39,53 +39,27 @@
                                 <h5 class="fw-light">Carport bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportWidth" required>
-                                        <option value="" selected="true" disabled="disabled">Vælg bredde</option>
-                                        <option value="240">240 cm</option>
-                                        <option value="270">270 cm</option>
-                                        <option value="300">300 cm</option>
-                                        <option value="330">330 cm</option>
-                                        <option value="360">360 cm</option>
-                                        <option value="390">390 cm</option>
-                                        <option value="420">420 cm</option>
-                                        <option value="450">450 cm</option>
-                                        <option value="480">480 cm</option>
-                                        <option value="510">510 cm</option>
-                                        <option value="540">540 cm</option>
-                                        <option value="570">570 cm</option>
-                                        <option value="600">600 cm</option>
+                                        <option value="" selected="selected" disabled="disabled">Vælg bredde</option>
+                                        <c:forEach var="item" items="${requestScope.measurements.widthList}">
+                                            <option value="${item}">${item} cm</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <h5 class="fw-light">Carport længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="carportLength" required>
-                                        <option value="" selected="true" disabled="disabled">Vælg længde</option>
-                                        <option value="240">240 cm</option>
-                                        <option value="270">270 cm</option>
-                                        <option value="300">300 cm</option>
-                                        <option value="330">330 cm</option>
-                                        <option value="360">360 cm</option>
-                                        <option value="390">390 cm</option>
-                                        <option value="420">420 cm</option>
-                                        <option value="450">450 cm</option>
-                                        <option value="480">480 cm</option>
-                                        <option value="510">510 cm</option>
-                                        <option value="540">540 cm</option>
-                                        <option value="570">570 cm</option>
-                                        <option value="600">600 cm</option>
-                                        <option value="630">630 cm</option>
-                                        <option value="660">660 cm</option>
-                                        <option value="690">690 cm</option>
-                                        <option value="720">720 cm</option>
-                                        <option value="750">750 cm</option>
-                                        <option value="780">780 cm</option>
+                                        <option value="" selected="selected" disabled="disabled">Vælg længde</option>
+                                            <c:forEach var="item" items="${requestScope.measurements.lengthList}">
+                                                <option value="${item}">${item} cm</option>
+                                            </c:forEach>
                                     </select>
                                 </div>
 
                                 <h5 class="fw-light">Tag</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="roof" required>
-                                        <option selected="selected" value="28">Plastmo Ecolite Tagplade</option>
+                                        <option selected="selected" value="28">${requestScope.materialList.get(27).nickname}</option>
                                     </select>
                                 </div>
 
@@ -100,55 +74,48 @@
                                 <h5 class="fw-light">Redskabsrum bredde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="shedWidth" required>
-                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
-                                        <option value="210">210 cm</option>
-                                        <option value="240">240 cm</option>
-                                        <option value="270">270 cm</option>
-                                        <option value="300">300 cm</option>
-                                        <option value="330">330 cm</option>
-                                        <option value="360">360 cm</option>
-                                        <option value="390">390 cm</option>
-                                        <option value="420">420 cm</option>
-                                        <option value="450">450 cm</option>
-                                        <option value="480">480 cm</option>
-                                        <option value="510">510 cm</option>
-                                        <option value="540">540 cm</option>
-                                        <option value="570">570 cm</option>
-                                        <option value="600">600 cm</option>
-                                        <option value="630">630 cm</option>
-                                        <option value="660">660 cm</option>
-                                        <option value="690">690 cm</option>
-                                        <option value="720">720 cm</option>
+                                        <option value="0" selected="selected">Ønsker ikke redskabsrum</option>
+                                        <c:forEach var="item" items="${requestScope.measurements.shedWidthList}">
+                                            <option value="${item}">${item} cm</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <h5 class="fw-light">Redskabsrum længde</h5>
                                 <div class="col-12 col-md-7 mb-3">
                                     <select class="form-select flex-column" name="shedLength" id="choose-menu" required>
-                                        <option value="0" selected="true">Ønsker ikke redskabsrum</option>
-                                        <option value="150">150 cm</option>
-                                        <option value="180">180 cm</option>
-                                        <option value="210">210 cm</option>
-                                        <option value="240">240 cm</option>
-                                        <option value="270">270 cm</option>
-                                        <option value="300">300 cm</option>
-                                        <option value="330">330 cm</option>
-                                        <option value="360">360 cm</option>
-                                        <option value="390">390 cm</option>
-                                        <option value="420">420 cm</option>
-                                        <option value="450">450 cm</option>
-                                        <option value="480">480 cm</option>
-                                        <option value="510">510 cm</option>
-                                        <option value="540">540 cm</option>
-                                        <option value="570">570 cm</option>
-                                        <option value="600">600 cm</option>
-                                        <option value="630">630 cm</option>
-                                        <option value="660">660 cm</option>
-                                        <option value="690">690 cm</option>
+                                        <option value="0" selected="selected">Ønsker ikke redskabsrum</option>
+                                        <c:forEach var="item" items="${requestScope.measurements.shedLengthList}">
+                                            <option value="${item}">${item} cm</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
+
                                 <c:choose>
                                     <c:when test="${sessionScope.user != null}">
+                                        <c:if test="${sessionScope.user.address == null}">
+                                            <h5 class="fw-light">Venligst indtast dine oplysninger</h5>
+                                            <div class="form-floating mb-3">
+                                                <input name="phone" type="text" class="form-control" id="floatingPhone" required>
+                                                <label for="floatingPhone">Telefonnummer</label>
+                                                <div class="invalid-feedback">Venligst angiv et telefonnummer.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="address" type="text" class="form-control" id="floatingAddress" required>
+                                                <label for="floatingAddress">Adresse</label>
+                                                <div class="invalid-feedback">Venligst angiv en adresse.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="zipcode" type="text" class="form-control" id="floatingZipcode" required>
+                                                <label for="floatingZipcode">Post nr.</label>
+                                                <div class="invalid-feedback">Venligst angiv et post nr.</div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input name="city" type="text" class="form-control" id="floatingCity" required>
+                                                <label for="floatingCity">By</label>
+                                                <div class="invalid-feedback">Venligst angiv en by.</div>
+                                            </div>
+                                        </c:if>
                                         <div class="d-flex">
                                             <div>
                                                 <input class="btn btn-outline-dark flex-shrink-0" type="submit"

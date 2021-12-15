@@ -2,6 +2,7 @@ package mapper;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import model.*;
+import persistance.ConnectionPool;
 import persistance.Database;
 
 import javax.servlet.http.HttpSession;
@@ -29,10 +30,10 @@ public class UserMapper {
 
             ps.setString(1, user.getEmail());
             ps.setString(2, hashPassword(user.getPassword()));
-            ps.setString(4, user.getRole());
-            ps.setString(5, user.getSessionID());
-            ps.setString(6, user.getFname());
-            ps.setString(7, user.getLname());
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getSessionID());
+            ps.setString(5, user.getFname());
+            ps.setString(6, user.getLname());
             ps.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -42,7 +43,7 @@ public class UserMapper {
     }
 
     public User getUserFromDb(String email, String password) {
-        String sql = "SELECT id_user, email, password, role, sessionID, fname, lname from Users WHERE email = ?";
+        String sql = "SELECT id_user, email, password, role, sessionID, fname, lname, address, zipcode, city, phone from Users WHERE email = ?";
 
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -58,9 +59,14 @@ public class UserMapper {
                 String passwordFromDb = resultSet.getString("password");
                 String roleFromDb = resultSet.getString("role");
                 String sessionIDFromDb = resultSet.getString("sessionID");
+                String addressFromDb = resultSet.getString("address");
+                int zipcodeFromDb = resultSet.getInt("zipcode");
+                String cityFromDb = resultSet.getString("city");
+                String phoneFromDb = resultSet.getString("phone");
+
 
                 if (email.equals(emailFromDb) && matchHashedPassword(password, passwordFromDb)) {
-                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, roleFromDb, sessionIDFromDb);
+                    return new User(id, emailFromDb, fnameFromDb, lnameFromDb, roleFromDb, sessionIDFromDb, addressFromDb, zipcodeFromDb, cityFromDb, phoneFromDb);
                 }
 
             }
@@ -105,6 +111,44 @@ public class UserMapper {
 
     }
 
+    public void updateUser(String fname, String lname, String address, int zipcode, String city, String phone, String sessionId) {
+        String sql = "UPDATE Users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, address);
+            ps.setInt(4, zipcode);
+            ps.setString(5, city);
+            ps.setString(6, phone);
+            ps.setString(7, sessionId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void updateUserAddress(String address, int zipcode, String city, String phone, String sessionId) {
+        String sql = "UPDATE Users SET address = ?, zipcode = ?, city = ?, phone = ? WHERE sessionID = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, address);
+            ps.setInt(2, zipcode);
+            ps.setString(3, city);
+            ps.setString(4, phone);
+            ps.setString(5, sessionId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     // Checks
     public boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
@@ -125,18 +169,17 @@ public class UserMapper {
         return true;
     }
 
-    public boolean validateSession(HttpSession session) {
-        String sessionID = session.getId();
+    public boolean validateSession(String sessionId) {
 
         String sql = "SELECT email, role, sessionID FROM Users WHERE sessionID = ?";
         try (Connection connection = database.connect()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setString(1, sessionID);
+            ps.setString(1, sessionId);
 
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                return sessionID.equals(resultSet.getString("sessionID"));
+                return sessionId.equals(resultSet.getString("sessionID"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

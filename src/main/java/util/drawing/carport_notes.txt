@@ -1,0 +1,50 @@
+Spelling it out to see what needs to be done and what needs to be renamed (such as yDeltaPillarsOuter).
+
+Parts of a carport SVG as seen from above:
+    Viewport Rect:
+        As large as possible while still fitting comfortably on the screen.
+    Viewbox Rect:
+        Scaled up if rect(carport + guides) is too large to fit within the viewport.
+
+    Carport Rect - x, y, w and h of carport. Depends on:
+        Viewport rect (we want to center the carport within the viewport)
+    Horizontal Support Bars:
+        x: Depends on carport.x
+        yDeltaPillarsOuter: The distance from the uppermost part of the upper support bar
+                            to the lowest part of the lower support bar. Depends on carport size.
+        w: Same as carport.w (still seen from above)
+        h: Some number of cm, not too important.
+    Rafters:
+        Amounts: depends on carport.w
+        x values: Maximum 60 cm distance between the centers of two rafters.
+        y: Same as carport.y
+        w: Pretty arbitrary
+        h: Same as carport.h
+    Pillars:
+        Amount: Depends on carport.w/support bar.w
+        x positions: Spread out along the support bars
+        y positions: Same as support bars'
+        w and h: Same as support bar height
+
+    Measurement guides:
+        Carport h guide: Depends on carport.h
+        yDeltaPillarsOuter guide: Depends on support bars' yDeltaPillarsOuter.
+        Rafter guides: Depends on rafters
+
+Some pseudocode:
+
+function SVG(viewportRect, carportRect) {
+
+    carportRect = x, y, w, h;
+
+    supportBars[] = supportBars(carportRect);
+    pillars[] = pillars(supportBars[]);
+    rafters[] = rafters(carportRect);
+
+    carportHeightGuide = carportHeightGuide(carportRect);
+    supportBarDeltaGuide = supportBarDeltaGuide(supportBars[]);
+    rafterGuides[] = rafterGuides(rafters[]);
+
+    svg.addElements(all the above);
+
+}

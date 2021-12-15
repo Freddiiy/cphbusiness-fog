@@ -16,7 +16,7 @@ public class Logout extends HttpServlet {
         UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
 
-        if(userMapper.validateSession(session)) {
+        if(userMapper.validateSession(session.getId())) {
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/");
             return;

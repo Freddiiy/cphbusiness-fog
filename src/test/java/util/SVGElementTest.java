@@ -1,6 +1,7 @@
 package util;
 
 import org.testng.annotations.Test;
+import util.drawing.SVGRect;
 
 class SVGElementTest {
 
@@ -13,5 +14,4 @@ class SVGElementTest {
         System.out.println(rect.getAttributes());
         System.out.println(rect);
     }
-
 }

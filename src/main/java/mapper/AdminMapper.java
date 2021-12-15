@@ -3,8 +3,10 @@ package mapper;
 import model.Carport;
 import model.Order;
 import model.User;
+import persistance.ConnectionPool;
 import persistance.Database;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,10 @@ public class AdminMapper {
                             resultSet.getString("fname"),
                             resultSet.getString("lname"),
                             resultSet.getString("role"),
-                            resultSet.getString("sessionID")));
+                            resultSet.getString("address"),
+                            resultSet.getInt("zipcode"),
+                            resultSet.getString("city"),
+                            resultSet.getString("phone")));
                 }
                 if (userList.isEmpty()) {
                     return null;
@@ -49,11 +54,42 @@ public class AdminMapper {
         }
     }
 
+    public User getUserById(int userId, String sessionId) {
+        if (isAdmin(sessionId)) {
+            String sql = "SELECT * FROM Users WHERE id_user = ?";
+
+            List<User> userList = new ArrayList<>();
+
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+
+                ps.setInt(1, userId);
+
+                ResultSet resultSet = ps.executeQuery();
+                if (resultSet.next()) {
+                    return new User(resultSet.getInt("id_user"),
+                            resultSet.getString("email"),
+                            resultSet.getString("fname"),
+                            resultSet.getString("lname"),
+                            resultSet.getString("role"),
+                            resultSet.getString("address"),
+                            resultSet.getInt("zipcode"),
+                            resultSet.getString("city"),
+                            resultSet.getString("phone"));
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public List<Order> getOrders(String sessionId) {
         if (isAdmin(sessionId)) {
             String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                     "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
-                    "CarportMaterials.material_id, CarportMaterials.material_name, " +
+                    "CarportMaterials.material_id, CarportMaterials.material_name, CarportMaterials.nickname, " +
                     "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
                     "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                     "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
@@ -76,6 +112,7 @@ public class AdminMapper {
                                     resultSet.getInt("CarportRequest.length"),
                                     resultSet.getInt("CarportRequest.width"),
                                     resultSet.getInt("CarportRequest.id_roof"),
+                                    resultSet.getString("CarportMaterials.nickname"),
                                     resultSet.getBoolean("CarportRequest.hasShed"),
                                     resultSet.getInt("CarportRequest.shedLength"),
                                     resultSet.getInt("CarportRequest.shedWidth")),
@@ -101,8 +138,8 @@ public class AdminMapper {
         if (isAdmin(sessionId)) {
             String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
                     "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
-                    "CarportMaterials.material_id, CarportMaterials.material_name, " +
-                    "Users.id_user, Users.email, Users.fname, Users.lname, Users.role FROM Orders " +
+                    "CarportMaterials.material_id, CarportMaterials.material_name, CarportMaterials.nickname, " +
+                    "Users.id_user, Users.email, Users.fname, Users.lname, Users.role, Users.address, Users.zipcode, Users.city, Users.phone FROM Orders " +
                     "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
                     "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
                     "JOIN Users ON Orders.id_user = Users.id_user " +
@@ -120,11 +157,16 @@ public class AdminMapper {
                                     resultSet.getString("Users.email"),
                                     resultSet.getString("Users.fname"),
                                     resultSet.getString("Users.lname"),
-                                    resultSet.getString("Users.role")),
+                                    resultSet.getString("Users.role"),
+                                    resultSet.getString("Users.address"),
+                                    resultSet.getInt("Users.zipcode"),
+                                    resultSet.getString("Users.city"),
+                                    resultSet.getString("Users.phone")),
                             new Carport(resultSet.getInt("CarportRequest.id_carportRequest"),
                                     resultSet.getInt("CarportRequest.length"),
                                     resultSet.getInt("CarportRequest.width"),
                                     resultSet.getInt("CarportRequest.id_roof"),
+                                    resultSet.getString("CarportMaterials.nickname"),
                                     resultSet.getBoolean("CarportRequest.hasShed"),
                                     resultSet.getInt("CarportRequest.shedLength"),
                                     resultSet.getInt("CarportRequest.shedWidth")),
@@ -137,6 +179,62 @@ public class AdminMapper {
             }
         }
         return null;
+    }
+
+    public List<Order> getOrdersByUserId(int userId ,String sessionId) {
+        if (isAdmin(sessionId)) {
+            String sql = "SELECT Orders.id_order, Orders.id_user, Orders.id_carportRequest, Orders.status, Orders.total_price, Orders.timestamp, " +
+                    "CarportRequest.id_carportRequest, CarportRequest.width, CarportRequest.length, CarportRequest.id_roof, CarportRequest.hasShed, CarportRequest.shedWidth, CarportRequest.shedLength, " +
+                    "CarportMaterials.material_id, CarportMaterials.material_name, CarportMaterials.nickname, " +
+                    "Users.id_user, Users.email, Users.fname, Users.lname, Users.role, Users.address, Users.zipcode, Users.city, Users.phone FROM Orders " +
+                    "INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest " +
+                    "INNER JOIN CarportMaterials ON CarportRequest.id_roof = CarportMaterials.material_id " +
+                    "JOIN Users ON Orders.id_user = Users.id_user " +
+                    "WHERE Users.id_user = ?";
+
+            List<Order> orderList = new ArrayList<>();
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+
+                ps.setInt(1, userId);
+
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    orderList.add(new Order(resultSet.getInt("Orders.id_order"),
+                            new User(resultSet.getInt("Users.id_user"),
+                                    resultSet.getString("Users.email"),
+                                    resultSet.getString("Users.fname"),
+                                    resultSet.getString("Users.lname"),
+                                    resultSet.getString("Users.role"),
+                                    resultSet.getString("Users.address"),
+                                    resultSet.getInt("Users.zipcode"),
+                                    resultSet.getString("Users.city"),
+                                    resultSet.getString("Users.phone")),
+                            new Carport(resultSet.getInt("CarportRequest.id_carportRequest"),
+                                    resultSet.getInt("CarportRequest.length"),
+                                    resultSet.getInt("CarportRequest.width"),
+                                    resultSet.getInt("CarportRequest.id_roof"),
+                                    resultSet.getString("CarportMaterials.nickname"),
+                                    resultSet.getBoolean("CarportRequest.hasShed"),
+                                    resultSet.getInt("CarportRequest.shedLength"),
+                                    resultSet.getInt("CarportRequest.shedWidth")),
+                            resultSet.getString("Orders.status"),
+                            resultSet.getDouble("Orders.total_price"),
+                            resultSet.getTimestamp("Orders.timestamp")));
+                }
+                if (orderList.isEmpty()) {
+                    return null;
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            return orderList;
+
+        } else {
+            return null;
+        }
     }
 
     public Carport getCarportByOrderId(int orderId, String sessionId) {
@@ -161,59 +259,53 @@ public class AdminMapper {
         }
         return null;
     }
-    /*
-    public List getOrdersByUserId(String sessionId, int userId) {
-        if (isAdmin(sessionId)) {
-            String sql = "SELECT Bottom.name, Bottom.bottomPrice, Topping.name, Topping.toppingPrice, ((Bottom.bottomPrice + Topping.toppingPrice) * Orderitems.amount) AS total_price, Orderitems.id_orderitems, Orderitems.amount, Orders.id_order, Users.id_user, Users.email FROM Orders " +
-                    "INNER JOIN Orderitems ON Orders.id_orderitems = Orderitems.id_orderitems" +
-                    " JOIN Bottom ON Orderitems.id_bottom = Bottom.id_bottom " +
-                    "INNER JOIN Topping ON Orderitems.id_topping = Topping.id_topping " +
-                    "INNER JOIN Users ON Orders.id_user = Users.id_user " +
-                    "WHERE Orders.id_user = ?";
 
-            List<Order> orderList = new ArrayList<>();
+    public void updateOrder(int orderId, int width, int length, int shedWidth, int shedLength, String sessionId) {
+        if (isAdmin(sessionId)) {
+
+            String sql = "UPDATE Orders INNER JOIN CarportRequest ON Orders.id_carportRequest = CarportRequest.id_carportRequest SET CarportRequest.width = ?, CarportRequest.length = ?, CarportRequest.shedWidth = ?, CarportRequest.shedLength = ? " +
+                    "WHERE Orders.id_carportRequest = (SELECT Orders.id_carportRequest FROM Orders WHERE id_order = ?)";
 
             try (Connection connection = database.connect()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, width);
+                ps.setInt(2, length);
+                ps.setInt(3, shedLength);
+                ps.setInt(4, shedWidth);
+                ps.setInt(5, orderId);
 
-                ps.setInt(1, userId);
-
-                ResultSet resultSet = ps.executeQuery();
-                while (resultSet.next() && !resultSet.wasNull()) {
-                    orderList.add(new Order(resultSet.getInt("Orders.id_order"),
-                            resultSet.getString("Users.email"),
-                            resultSet.getInt("Users.id_user"),
-                            new OrderItems(resultSet.getInt("Orderitems.id_orderitems"),
-                                    resultSet.getString("Bottom.name"),
-                                    resultSet.getDouble("Bottom.bottomPrice"),
-                                    resultSet.getString("Topping.name"),
-                                    resultSet.getDouble("Topping.toppingPrice"),
-                                    resultSet.getInt("Orderitems.amount"),
-                                    resultSet.getDouble("total_price"))));
-                }
-                if (orderList.isEmpty()) {
-                    return null;
-                }
-
+                ps.executeUpdate();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return orderList;
-
-        } else {
-            return null;
         }
     }
-*/
-
-    public void removeOrder(int orderId, String sessionId) {
+    public void acceptOrder(int orderId, String sessionId) {
         if (isAdmin(sessionId)) {
 
-            String sql = "DELETE FROM Orders WHERE id_order = ?";
+            String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
 
             try (Connection connection = database.connect()) {
                 PreparedStatement ps = connection.prepareStatement(sql);
-                ps.setInt(1, orderId);
+                ps.setString(1, "ACCEPTED");
+                ps.setInt(2, orderId);
+
+                ps.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public void rejectOrder(int orderId, String sessionId) {
+        if (isAdmin(sessionId)) {
+
+            String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
+
+            try (Connection connection = database.connect()) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(1, "REJECTED");
+                ps.setInt(2, orderId);
 
                 ps.executeUpdate();
             } catch (SQLException throwables) {

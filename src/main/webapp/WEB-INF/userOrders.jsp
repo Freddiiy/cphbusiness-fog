@@ -27,11 +27,11 @@
                                         <td>${item.id}</td>
                                         <td>${item.carport.width}</td>
                                         <td>${item.carport.length}</td>
-                                        <td>${item.carport.idRoof}</td>
+                                        <td>${item.carport.roof}</td>
                                         <td>${item.carport.hasShedString()}</td>
                                         <td>${item.timestamp}</td>
                                         <td>${item.status}</td>
-                                        <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/orders/orderId?userId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
+                                        <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/orders/orderId?orderId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

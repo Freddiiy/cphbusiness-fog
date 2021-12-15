@@ -15,7 +15,7 @@ public class Shop extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserMapper userMapper = new UserMapper();
         HttpSession session = request.getSession();
-        if (userMapper.validateSession(session)) {
+        if (userMapper.validateSession(session.getId())) {
             request.getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);
         } else {
             response.sendRedirect("/login");
