@@ -27,17 +27,8 @@ class CarportCalcTest {
     @Test
     void calcMaterials() {
     }
+
     
-    @Test
-    void calcDistance() {
-        
-        assertEquals(
-
-                Geometry.distBetweenPoints(60, 35, 780 - 60, 600 - 35)
-        );
-        
-    }
-
     private void assertEquals(double distBetweenPoints) {
     }
 
