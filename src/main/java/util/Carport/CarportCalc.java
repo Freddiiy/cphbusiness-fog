@@ -63,6 +63,18 @@ public class CarportCalc {
         return amountRafters;
     }
 
+    public double calcPricePerCM()  {
+        MaterialMapper materialMapper = new MaterialMapper();
+        double price = 0;
+        HashMap<Integer, Double> priceOfMaterials = materialMapper.getMaterials();
+
+
+
+
+
+        return price;
+    }
+
     public HashMap<Integer, Integer> calcQuantMaterials() {
         // hashmap
         HashMap<Integer, Integer> materialsQuant = new HashMap<>();
@@ -88,6 +100,8 @@ public class CarportCalc {
         int packofBolts = 25;
         int squarePiece = 0;
         int packofSquarePiece = 50;
+
+
 
 
 
@@ -161,13 +175,12 @@ public class CarportCalc {
         return totalSum;
     }
 
-    public void returnBillOfMaterials() {
+    public HashMap<Material, Integer> returnBillOfMaterials() {
         //      Material  Quantity
         HashMap<Material, Integer> billOfMaterials = new HashMap<>();
 
         //      ID from DB, Quantity
         HashMap<Integer, Integer> carportQuant = calcQuantMaterials();
-
 
         // Match key fra carportQuant med Material.get(ID)
         // billofMaterials = (Material (ID), value fra carportQuant)
@@ -177,17 +190,7 @@ public class CarportCalc {
              Material material = materialMapper.getMaterialByid(entry.getKey());
 
             billOfMaterials.put(material, entry.getValue());
-
-
         }
-
-
-
-
-
-
+        return billOfMaterials;
     }
-
-
-
 }
