@@ -11,12 +11,13 @@ public class SVGCarportTest {
         double errorMargin = 0.000001;
 
         assertThrows(ArithmeticException.class, () -> {
-            SVGCarport.breakpoint(4);
-            SVGCarport.breakpoint(5);
-            SVGCarport.breakpoint(7);
+            SVGCarport.breakpointPct(4);
+            SVGCarport.breakpointPct(5);
+            SVGCarport.breakpointPct(7);
         });
-        assertEquals(SVGCarport.breakpoint(6), 50);
-        assertEquals(SVGCarport.breakpoint(8), 25);
-        assertEquals(SVGCarport.breakpoint(10), 16.666666, errorMargin);
+        assertEquals(SVGCarport.breakpointPct(6), 50);
+        assertEquals(SVGCarport.breakpointPct(8), 33.333333, errorMargin);
+        assertEquals(SVGCarport.breakpointPct(10), 25);
+        assertEquals(SVGCarport.breakpointPct(12), 20);
     }
 }
