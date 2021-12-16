@@ -31,10 +31,6 @@ public class Index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-
-        CarportCalc carportCalc = new CarportCalc(780, 600);
-        carportCalc.returnWoodBill();
-
     }
 
     @Override
