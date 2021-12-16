@@ -3431,7 +3431,7 @@
    * --------------------------------------------------------------------------
    */
   const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
-  const ARIA_ATTRIBUTE_PATTERN = /^aria-[\l-]*$/i;
+  const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
   /**
    * A pattern that recognizes a commonly useful subset of URLs that are safe.
    *
