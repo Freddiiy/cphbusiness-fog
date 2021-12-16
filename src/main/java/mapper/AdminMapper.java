@@ -280,6 +280,7 @@ public class AdminMapper {
             }
         }
     }
+
     public void acceptOrder(int orderId, String sessionId) {
         if (isAdmin(sessionId)) {
 

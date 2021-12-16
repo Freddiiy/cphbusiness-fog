@@ -31,10 +31,19 @@
                                         <td>${item.carport.hasShedString()}</td>
                                         <td>${item.timestamp}</td>
                                         <td>${item.status}</td>
-                                        <td class="p-0 m-0"><a type="button" href="${pageContext.request.contextPath}/orders/orderId?orderId=${item.id}" class="btn btn-fog-primary">Se ordre</a></td>
+                                        <td class="p-0 m-0"><a type="button"
+                                                               href="${pageContext.request.contextPath}/orders/orderId?orderId=${item.id}"
+                                                               class="btn btn-fog-primary">Se ordre</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
+                        </div>
+                        <div>
+                            <c:if test="${param.success==1}">
+                                <div class="alert alert-success" role="alert">
+                                    Din ordrer er modtaget.
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </c:when>

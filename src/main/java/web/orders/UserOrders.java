@@ -33,7 +33,7 @@ public class UserOrders extends HttpServlet {
             Order order = orderMapper.getOrderById(orderId, session.getId());
 
 
-            if (order.getStatus().equals("ACCEPTED")){
+            if (order.getStatus().equals("PAID")){
                 String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
                 request.setAttribute("svg", svg);
 

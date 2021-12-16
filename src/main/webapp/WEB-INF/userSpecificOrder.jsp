@@ -13,8 +13,8 @@
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
-                                        <th class="col">Kundeoplysninger</th>
-                                        <th class="col"></th>
+                                    <th class="col">Kundeoplysninger</th>
+                                    <th class="col"></th>
                                     </thead>
                                     <tr>
                                         <td>Kunde nummer:</td>
@@ -50,8 +50,8 @@
                             <div class="col-6">
                                 <table class="table table-striped table-bordered flex-column table-hover">
                                     <thead class="table-active">
-                                        <th>Ordredetaljer</th>
-                                        <th></th>
+                                    <th>Ordredetaljer</th>
+                                    <th></th>
                                     </thead>
                                     <tr>
                                         <td>Ref nr.:</td>
@@ -110,17 +110,16 @@
                                 </table>
                                 <div class="row row-cols-auto p-2 pb-4 pe-0">
                                     <c:if test="${requestScope.order.status == 'ACCEPTED'}">
-                                        <a class="btn btn-fog-primary btn-sm" data-bs-toggle="collapse"
-                                           href="#collapseSVG" role="button" aria-expanded="false"
-                                           aria-controls="collapseSVG">
-                                            Se tegning
-                                        </a>
+                                        <div class="col">
+                                            <form action="${pageContext.request.contextPath}/orders/pay"
+                                                  method="post">
+                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                <input type="submit" id="payButton" class="btn btn-success btn-sm"
+                                                       value="Betal">
+                                            </form>
+                                        </div>
                                     </c:if>
-                                </div>
-                                <div class="collapse" id="collapseSVG">
-                                    <div class="text-start py-2">
-                                            ${requestScope.svg}
-                                    </div>
+
                                 </div>
                                 <div class="row row-cols-auto p-2 pb-4 pe-0">
                                     <c:if test="${requestScope.order.status == 'RECIEVED'}">
@@ -132,10 +131,32 @@
                                                        value="Annullér ordre">
                                             </form>
                                         </div>
+                                        <div class="col">
+                                            <form action="${pageContext.request.contextPath}/orders/remove"
+                                                  method="post">
+                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
+                                                <input type="submit" id="acceptButton" class="btn btn-danger btn-sm"
+                                                       value="Annullér ordre">
+                                            </form>
+                                        </div>
                                     </c:if>
                                 </div>
                             </div>
-                            <c:if test="${requestScope.order.status == 'ACCEPTED'}">
+                            <c:if test="${requestScope.order.status == 'PAID'}">
+                                <div class="row row-cols-auto p-2 pb-4 pe-0">
+                                    <div class="col">
+                                        <a class="btn btn-fog-primary btn-sm" data-bs-toggle="collapse"
+                                           href="#collapseSVG" role="button" aria-expanded="false"
+                                           aria-controls="collapseSVG">
+                                            Se tegning
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapseSVG">
+                                    <div class="text-start py-2">
+                                            ${requestScope.svg}
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <h4>Stykliste</h4>
                                     <table class="table table-striped table-bordered flex-column table-hover">

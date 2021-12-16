@@ -172,4 +172,19 @@ public class OrderMapper {
             }
         }
     }
+
+    public void payOrder(int orderId) {
+
+        String sql = "UPDATE Orders SET status = ? WHERE id_order = ?";
+
+        try (Connection connection = database.connect()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "PAID");
+            ps.setInt(2, orderId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
