@@ -44,7 +44,7 @@
                                     </div>
 
                                     <input type="hidden" name="userId" value="${sessionScope.user.id}">
-                                    <button class="w-100 btn btn-lg btn-fog-primary" type="submit" id="sendButton">Opdatér oplysninger</button>
+                                    <button class="l-100 btn btn-lg btn-fog-primary" type="submit" id="sendButton">Opdatér oplysninger</button>
                                 </form>
                             </div>
                         </div>

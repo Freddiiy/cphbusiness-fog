@@ -9,9 +9,9 @@
 
             <div class="video-overlay"></div>
 
-            <div class="container h-100">
-                <div class="d-flex h-100 text-center align-items-center">
-                    <div class="landing-container text-white w-100">
+            <div class="container w-100">
+                <div class="d-flex w-100 text-center align-items-center">
+                    <div class="landing-container text-white l-100">
                         <h1 class="display-3 text-shadow">Johannes Fog Carportbygger</h1>
                         <p class="lead mb-0 text-shadow">Byg din drømmecarport i dag!</p>
                     </div>

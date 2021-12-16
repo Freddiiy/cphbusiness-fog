@@ -3407,7 +3407,7 @@ defineJQueryPlugin(Offcanvas);
  * --------------------------------------------------------------------------
  */
 const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
-const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+const ARIA_ATTRIBUTE_PATTERN = /^aria-[\l-]*$/i;
 /**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
