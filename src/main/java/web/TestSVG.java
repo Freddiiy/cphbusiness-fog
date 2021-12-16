@@ -1,11 +1,7 @@
 package web;
 
 
-import util.drawing.SVG;
 import util.drawing.SVGCarport;
-import util.drawing.SVGMeasurementGuide;
-import util.drawing.SVGRect;
-import util.drawing.svg.basicshapes.Rect;
 
 import java.io.*;
 import javax.servlet.ServletException;

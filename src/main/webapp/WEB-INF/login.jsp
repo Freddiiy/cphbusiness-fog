@@ -41,7 +41,7 @@
                                     <div class="invalid-feedback">Venligst angiv et gyldigt kodeord</div>
                                 </div>
                                 <hr class="my-4">
-                                <button class="l-100 btn btn-lg btn-fog-primary" type="submit" id="sendButton">Log ind</button>
+                                <button class="w-100 btn btn-lg btn-fog-primary" type="submit" id="sendButton">Log ind</button>
                                 <div class="py-2">
                                     <small class="text-muted"><a class="text-fog text-decoration-none" href="${pageContext.request.contextPath}/register">Registrer</a> | <a class="text-fog text-decoration-none" href="${pageContext.request.contextPath}/forgotPassword">Glemt kodeord</a></small>
                                 </div>

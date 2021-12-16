@@ -20,15 +20,15 @@
                             <ul class="nav nav-pills flex-column justify-content-center">
                                 <li>
                                     <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport/flat-roof">Carport med fladt tag</a>
-                                    <hr class="l-100">
+                                    <hr class="w-100">
                                 </li>
                                 <li>
                                     <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport/raised-roof">Carport med rejsning</a>
-                                    <hr class="l-100">
+                                    <hr class="w-100">
                                 </li>
                                 <li>
                                     <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport">Standard carport</a>
-                                    <hr class="l-100">
+                                    <hr class="w-100">
                                 </li>
                             </ul>
                         </div>

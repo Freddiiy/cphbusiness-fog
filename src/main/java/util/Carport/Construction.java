@@ -19,6 +19,7 @@ public class Construction {
     private final Rect[] rafters;
     private final Rect[] pillars;
     private final Line[] holeTape;
+    private final Rect shed;
 
     public Construction(int length, int width) {
         carportMapper = new CarportMapper(length, width);
@@ -28,6 +29,7 @@ public class Construction {
         rafters = rafters();
         pillars = pillars(supportBars);
         holeTape = holeTape(rafters, supportBars);
+        shed = shed(300, 240, pillars);
     }
 
     /**
@@ -181,14 +183,20 @@ public class Construction {
         int y1 = supportBars[0].getY();
         int x2 = rafters[last].getX() + rafters[last].getL();
         int y2 = supportBars[1].getY() + supportBars[1].getW();
-        int x3 = x1;
-        int y3 = y2;
-        int x4 = x2;
-        int y4 = y1;
         return new Line[] {
                 new Line(x1, y1, x2, y2),
-                new Line(x3, y3, x4, y4)
+                new Line(x1, y2, x2, y1)
         };
+    }
+
+    private Rect shed(int l, int w, Rect[] pillars) {
+        int secondToLast = pillars.length - 2;
+        Rect referencePillar = pillars[secondToLast];
+
+        int xPillarTopRight = referencePillar.getX() + referencePillar.getL();
+        int x = xPillarTopRight - l;
+        int y = referencePillar.getY();
+        return new Rect(x, y, l, w);
     }
 
     /**
@@ -245,5 +253,9 @@ public class Construction {
 
     public Line[] getHoleTape() {
         return holeTape;
+    }
+
+    public Rect getShed() {
+        return shed;
     }
 }

@@ -38,6 +38,7 @@ public class SVGCarport {
         SVGRect[] rafters = rafters();
         SVGRect[] pillars = pillars();
         SVGLine[] holeTape = holeTape();
+        SVGRect shed = shed();
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
@@ -49,6 +50,7 @@ public class SVGCarport {
         svg.addElement(carportRect);
         svg.addElements(supportBarsGuide, hCarportGuide);
         svg.addElements(supportBars, rafters, pillars, holeTape, rafterGuides);
+        svg.addElement(shed);
         return svg.toString();
     }
 
@@ -121,6 +123,15 @@ public class SVGCarport {
                         .attr("stroke-dasharray", "10 4")
                         .build()
         };
+    }
+
+    private SVGRect shed() {
+        Rect shedRect = construction.getShed();
+        return new SVGRect.Builder(shedRect)
+                .fill("#D3D3D3")
+                .attr("stroke-width", "3")
+                .attr("fill-opacity", "0.5")
+                .build();
     }
 
     /**
