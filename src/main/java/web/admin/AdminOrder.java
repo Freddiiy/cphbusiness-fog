@@ -41,6 +41,9 @@ public class AdminOrder extends HttpServlet {
         HashMap<Material, Integer> billOfMaterials = carportCalc.returnBillOfMaterials();
         request.setAttribute("billOfMaterials", billOfMaterials);
 
+        HashMap<Material, Double> woodBillOfMaterials = carportCalc.calcWoodPrice();
+        request.setAttribute("woodBillOfMaterials", woodBillOfMaterials);
+
         double totalPrice = carportCalc.calcPriceFromComparedMaterials();
         request.setAttribute("totalPrice", totalPrice);
 
