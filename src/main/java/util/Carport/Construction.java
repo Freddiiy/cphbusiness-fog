@@ -1,6 +1,5 @@
 package util.Carport;
 
-import mapper.CarportMapper;
 import util.shapes.Line;
 import util.shapes.Rect;
 
@@ -12,7 +11,6 @@ import util.shapes.Rect;
  */
 public class Construction {
 
-    private final CarportMapper carportMapper;
     private final Rect carportRect;
 
     private final Rect[] supportBars;
@@ -22,7 +20,6 @@ public class Construction {
     private final Rect shed;
 
     public Construction(int length, int width) {
-        carportMapper = new CarportMapper(length, width);
         carportRect = new Rect(140, 80, length, width);
 
         supportBars = supportBars();
