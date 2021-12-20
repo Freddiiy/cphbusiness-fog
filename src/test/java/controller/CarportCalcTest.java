@@ -1,4 +1,4 @@
-package controller;
+/*package controller;
 
 import model.Material;
 import util.Carport.CarportCalc;
@@ -56,35 +56,35 @@ class CarportCalcTest {
         //return totalSum;
     }
 
-    @Test
-    public void returnBillOfMaterials() {
-        //      Material  Quantity
-        HashMap<Material, Integer> billOfMaterials = new HashMap<>();
-
-        //      ID from DB, Quantity
-        HashMap<Integer, Integer> carportQuant = carportCalc.calcQuantMaterials();
-
-        // Change woodprice to material
-        HashMap<Integer, Integer> woodPrice = carportCalc.calcWoodPrice();
-        HashMap<Material, Integer> woodBill = new HashMap<>();
-
-
-        for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
-
-            Material material = materialMapper.getMaterialByid(entry.getKey());
-
-            billOfMaterials.put(material, entry.getValue());
-        }
-
-        for (Map.Entry<Integer, Integer> entry: woodPrice.entrySet()) {
-
-            Material material = materialMapper.getMaterialByid(entry.getKey());
-
-            woodBill.put(material,woodPrice.get(entry.getValue()));
-        }
-        System.out.println(billOfMaterials);
-        //return billOfMaterials;
-    }
+//    @Test
+//    public void returnBillOfMaterials() {
+//        //      Material  Quantity
+//        HashMap<Material, Integer> billOfMaterials = new HashMap<>();
+//
+//        //      ID from DB, Quantity
+//        HashMap<Integer, Integer> carportQuant = carportCalc.calcQuantMaterials();
+//
+//        // Change woodprice to material
+//        HashMap<Integer, Integer> woodPrice = carportCalc.calcWoodPrice();
+//        HashMap<Material, Integer> woodBill = new HashMap<>();
+//
+//
+//        for (Map.Entry<Integer, Integer> entry : carportQuant.entrySet())   {
+//
+//            Material material = materialMapper.getMaterialByid(entry.getKey());
+//
+//            billOfMaterials.put(material, entry.getValue());
+//        }
+//
+//        for (Map.Entry<Integer, Integer> entry: woodPrice.entrySet()) {
+//
+//            Material material = materialMapper.getMaterialByid(entry.getKey());
+//
+//            woodBill.put(material,woodPrice.get(entry.getValue()));
+//        }
+//        System.out.println(billOfMaterials);
+//        //return billOfMaterials;
+//    }
 
     @Test
     public void returnBillOfWood()  {
@@ -138,23 +138,23 @@ class CarportCalcTest {
 
     }
 
-    @Test
-    public void returnWoodBill()  {
-
-        // Change woodprice to material
-        HashMap<Integer, Integer> woodPrice = carportCalc.calcWoodPrice();
-        HashMap<Material, Integer> woodBill = new HashMap<>();
-
-        for (Map.Entry<Integer, Integer> entry: woodPrice.entrySet()) {
-
-            Material material = materialMapper.getMaterialByid(entry.getKey());
-            int valueWoodPrice = woodPrice.get(entry.getValue());
-
-            woodBill.put(material,valueWoodPrice);
-        }
-        System.out.println(woodBill);
-
-    }
+//    @Test
+//    public void returnWoodBill()  {
+//
+//        // Change woodprice to material
+//        HashMap<Integer, Integer> woodPrice = carportCalc.calcWoodPrice();
+//        HashMap<Material, Integer> woodBill = new HashMap<>();
+//
+//        for (Map.Entry<Integer, Integer> entry: woodPrice.entrySet()) {
+//
+//            Material material = materialMapper.getMaterialByid(entry.getKey());
+//            int valueWoodPrice = woodPrice.get(entry.getValue());
+//
+//            woodBill.put(material,valueWoodPrice);
+//        }
+//        System.out.println(woodBill);
+//
+//    }
 
     @Test
     public void calcPricePerCM()  {
@@ -246,3 +246,4 @@ class CarportCalcTest {
     }
 
 }
+*/

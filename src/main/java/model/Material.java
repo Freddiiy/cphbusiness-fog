@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Material {
 
     private int id;
@@ -14,6 +16,19 @@ public class Material {
         this.price = price;
         this.length = length;
         this.nickname = nickname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Material material = (Material) o;
+        return id == material.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
