@@ -1,5 +1,6 @@
 package util.drawing;
 
+import model.Carport;
 import util.Carport.Construction;
 import util.shapes.Line;
 import util.shapes.Rect;
@@ -11,6 +12,10 @@ public class SVGCarport {
     private final SVGRect carportRect;
     private int wViewport = 0;
     private int hViewport = 0;
+
+    public SVGCarport(Carport carport) {
+        this(carport.getLength(), carport.getWidth());
+    }
     
     public SVGCarport(int length, int width) {
         construction = new Construction(length, width);
@@ -38,7 +43,6 @@ public class SVGCarport {
         SVGRect[] rafters = rafters();
         SVGRect[] pillars = pillars();
         SVGLine[] holeTape = holeTape();
-        SVGRect shed = shed();
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
@@ -50,7 +54,6 @@ public class SVGCarport {
         svg.addElement(carportRect);
         svg.addElements(supportBarsGuide, hCarportGuide);
         svg.addElements(supportBars, rafters, pillars, holeTape, rafterGuides);
-        svg.addElement(shed);
         return svg.toString();
     }
 
@@ -123,15 +126,6 @@ public class SVGCarport {
                         .attr("stroke-dasharray", "10 4")
                         .build()
         };
-    }
-
-    private SVGRect shed() {
-        Rect shedRect = construction.getShed();
-        return new SVGRect.Builder(shedRect)
-                .fill("#D3D3D3")
-                .attr("stroke-width", "3")
-                .attr("fill-opacity", "0.5")
-                .build();
     }
 
     /**

@@ -34,7 +34,8 @@ public class UserOrders extends HttpServlet {
 
 
             if (order.getStatus().equals("PAID")){
-                String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+                // String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
+                String svg = new SVGCarport(order.getCarport()).toString();
                 request.setAttribute("svg", svg);
 
                 CarportCalc carportCalc = new CarportCalc(order.getCarport().getLength(), order.getCarport().getWidth());
