@@ -10,11 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * A filter for role-based access control.
+ * Any page that requires a certain role must be put
+ * inside restrictedPages.
+ * ADMIN has access to all the pages that CUSTOMER has access to.
+ * For unrestricted pages, do nothing.
+ */
 @WebFilter("/*")
 public class RBACFilter implements Filter {
 
     private HashMap<String, String> restrictedPages;
-    private HashMap<String, String> userPages;
 
     final String ADMIN = "Admin";
     final String CUSTOMER = "Customer";
@@ -36,6 +42,7 @@ public class RBACFilter implements Filter {
         restrictedPages.put("/orders/orderId", CUSTOMER);
         restrictedPages.put("/orders/add", CUSTOMER);
         restrictedPages.put("/orders/remove", CUSTOMER);
+        restrictedPages.put("/orders/pay", CUSTOMER);
 
         restrictedPages.put("/profile", CUSTOMER);
         restrictedPages.put("/profile/update", CUSTOMER);
