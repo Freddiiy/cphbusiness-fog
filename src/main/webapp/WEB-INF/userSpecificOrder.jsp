@@ -166,6 +166,14 @@
                                                 <td>${item.key.price}</td>
                                             </tr>
                                         </c:forEach>
+                                        <c:forEach var="item" items="${requestScope.woodBillOfMaterials}">
+                                            <tr>
+                                                <td>${item.key.id}</td>
+                                                <td>${item.key.name}</td>
+                                                <td>${item.key.length} cm</td>
+                                                <td>${item.value}</td>
+                                            </tr>
+                                        </c:forEach>
                                         <tr>
                                             <td></td>
                                             <td></td>
