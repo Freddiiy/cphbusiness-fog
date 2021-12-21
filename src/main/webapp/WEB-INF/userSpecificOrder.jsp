@@ -131,14 +131,6 @@
                                                        value="Annullér ordre">
                                             </form>
                                         </div>
-                                        <div class="col">
-                                            <form action="${pageContext.request.contextPath}/orders/remove"
-                                                  method="post">
-                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                <input type="submit" id="acceptButton" class="btn btn-danger btn-sm"
-                                                       value="Annullér ordre">
-                                            </form>
-                                        </div>
                                     </c:if>
                                 </div>
                             </div>
