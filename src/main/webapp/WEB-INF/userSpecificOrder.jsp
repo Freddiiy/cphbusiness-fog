@@ -155,7 +155,7 @@
                                         <thead class="table-active">
                                         <th class="col">Id</th>
                                         <th class="col">Navn</th>
-                                        <th class="col">Kvantitet</th>
+                                        <th class="col">Antal</th>
                                         <th class="col">Pris</th>
                                         </thead>
                                         <c:forEach var="item" items="${requestScope.billOfMaterials}">
@@ -177,7 +177,7 @@
                                         <tr>
                                             <td></td>
                                             <td></td>
-                                            <td>total</td>
+                                            <td>Total</td>
                                             <td>${requestScope.totalPrice}</td>
                                         </tr>
                                     </table>

@@ -3,6 +3,7 @@ package util.Carport;
 import mapper.MaterialMapper;
 import model.Material;
 import util.Geometry;
+import util.shapes.Line;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -129,7 +130,7 @@ public class CarportCalc {
 
         // Length of holetape used
         holetapeRolls = (int) (Geometry.distBetweenPoints(maxRafterSpace, 35, length - maxRafterSpace, width - 35) * 2);
-        holetapeRolls = holetapeRolls / holetape;
+        holetapeRolls = (int) Math.ceil((double) holetapeRolls / (double) holetape);
 
         // For every pillar use these materials
         bolt = amountPillars*2;
