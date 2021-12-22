@@ -131,14 +131,6 @@
                                                        value="Annullér ordre">
                                             </form>
                                         </div>
-                                        <div class="col">
-                                            <form action="${pageContext.request.contextPath}/orders/remove"
-                                                  method="post">
-                                                <input type="hidden" name="orderId" value="${requestScope.order.id}">
-                                                <input type="submit" id="acceptButton" class="btn btn-danger btn-sm"
-                                                       value="Annullér ordre">
-                                            </form>
-                                        </div>
                                     </c:if>
                                 </div>
                             </div>
@@ -172,6 +164,14 @@
                                                 <td>${item.key.name}</td>
                                                 <td>${item.value}</td>
                                                 <td>${item.key.price}</td>
+                                            </tr>
+                                        </c:forEach>
+                                        <c:forEach var="item" items="${requestScope.woodBillOfMaterials}">
+                                            <tr>
+                                                <td>${item.key.id}</td>
+                                                <td>${item.key.name}</td>
+                                                <td>${item.key.length} cm</td>
+                                                <td>${item.value}</td>
                                             </tr>
                                         </c:forEach>
                                         <tr>
