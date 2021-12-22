@@ -129,8 +129,10 @@ public class CarportCalc {
 
 
         // Length of holetape used
-        holetapeRolls = (int) (Geometry.distBetweenPoints(maxRafterSpace, 35, length - maxRafterSpace, width - 35) * 2);
-        holetapeRolls = (int) Math.ceil((double) holetapeRolls / (double) holetape);
+        Line[] holeTapesx = construction.getHoleTape();
+        double holetapeLength = holeTapesx[0].length() + holeTapesx[1].length();
+        holetapeRolls = (int) Math.ceil(holetapeLength / (double) holetape);
+
 
         // For every pillar use these materials
         bolt = amountPillars*2;
