@@ -75,10 +75,6 @@ public class SVGRect extends SVGElement {
 
     /* Getters */
 
-    public HashMap<String, String> getAttributes() {
-        return getAttributes();
-    }
-
     public int getX() {
         return rect.getX();
     }
