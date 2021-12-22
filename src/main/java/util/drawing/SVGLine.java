@@ -1,20 +1,10 @@
 package util.drawing;
 
-import util.Geometry;
 import util.shapes.Line;
 
 public class SVGLine extends SVGElement {
 
     private final Line line;
-
-    private final String TEMPLATE = "" +
-            "<line\n" +
-            "    x1=\"%d\"\n" +
-            "    y1=\"%d\"\n" +
-            "    x2=\"%d\"\n" +
-            "    y2=\"%d\"\n" +
-            "    %s" +                                  // other attributes
-            "></line>";
 
     public static class Builder extends SVGElement.Builder<Builder> {
         private final Line line;
@@ -53,8 +43,16 @@ public class SVGLine extends SVGElement {
 
     @Override
     public String toString() {
+        String template = "" +
+                "<line\n" +
+                "    x1=\"%d\"\n" +
+                "    y1=\"%d\"\n" +
+                "    x2=\"%d\"\n" +
+                "    y2=\"%d\"\n" +
+                "    %s" +
+                "></line>";
         return String.format(
-                TEMPLATE,
+                template,
                 line.getX1(), line.getY1(),
                 line.getX2(), line.getY2(),
                 attributePairs()

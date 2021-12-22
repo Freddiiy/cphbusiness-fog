@@ -46,7 +46,7 @@ public class SVGCarport {
 
         // Measurement guides
         SVGMeasurementGuide supportBarsGuide = SVGMeasurementGuide.forSupportBars(supportBars);
-        SVGMeasurementGuide hCarportGuide = SVGMeasurementGuide.forCarportHeight(carportRect, supportBarsGuide);
+        SVGMeasurementGuide hCarportGuide = SVGMeasurementGuide.forCarportWidth(carportRect, supportBarsGuide);
         SVGMeasurementGuide[] rafterGuides = SVGMeasurementGuide.forRafters(rafters);
 
         SVG svg = new SVG(viewport(), viewBox());

@@ -59,7 +59,7 @@ public class SVGMeasurementGuide extends SVGElement {
                 .build();
     }
 
-    public static SVGMeasurementGuide forCarportHeight(SVGRect carportRect, SVGMeasurementGuide supportBarsGuide) {
+    public static SVGMeasurementGuide forCarportWidth(SVGRect carportRect, SVGMeasurementGuide supportBarsGuide) {
         int x = supportBarsGuide.getX1() - SVGMeasurementGuide.spaceNeeded();
         int y1 = carportRect.getY();
         int y2 = carportRect.getY() + carportRect.getW();
@@ -131,7 +131,7 @@ public class SVGMeasurementGuide extends SVGElement {
         return lines;
     }
 
-    private String verticalGuide() {
+        private String verticalGuide() {
         SVGLine guide = new SVGLine.Builder(
                 line.getX1(),
                 line.getY1() + MARKER_WIDTH,

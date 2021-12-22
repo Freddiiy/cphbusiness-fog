@@ -23,8 +23,7 @@ public class UserOrders extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserMapper userMapper = new UserMapper();
-        MeasurementMapper measurementMapper = new MeasurementMapper();
+
         OrderMapper orderMapper = new OrderMapper();
         HttpSession session = request.getSession();
         if(request.getServletPath().equals("/orders/orderId")) {
@@ -34,7 +33,6 @@ public class UserOrders extends HttpServlet {
 
 
             if (order.getStatus().equals("PAID")){
-                // String svg = new SVGCarport(order.getCarport().getLength(), order.getCarport().getWidth(), order.getCarport().getWidth(), order.getCarport().getLength()).toString();
                 String svg = new SVGCarport(order.getCarport()).toString();
                 request.setAttribute("svg", svg);
 

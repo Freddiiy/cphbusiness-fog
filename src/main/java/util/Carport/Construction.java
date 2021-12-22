@@ -17,7 +17,6 @@ public class Construction {
     private final Rect[] rafters;
     private final Rect[] pillars;
     private final Line[] holeTape;
-    private final Rect shed;
 
     public Construction(int length, int width) {
         carportRect = new Rect(140, 80, length, width);
@@ -26,7 +25,6 @@ public class Construction {
         rafters = rafters();
         pillars = pillars(supportBars);
         holeTape = holeTape(rafters, supportBars);
-        shed = shed(300, 240, pillars);
     }
 
     /**
@@ -174,7 +172,6 @@ public class Construction {
     }
 
     private Line[] holeTape(Rect[] rafters, Rect[] supportBars) {
-        // Assumes there is no shed. todo: don't assume this
         int last = rafters.length - 1;
         int x1 = rafters[0].getX();
         int y1 = supportBars[0].getY();
@@ -184,16 +181,6 @@ public class Construction {
                 new Line(x1, y1, x2, y2),
                 new Line(x1, y2, x2, y1)
         };
-    }
-
-    private Rect shed(int l, int w, Rect[] pillars) {
-        int secondToLast = pillars.length - 2;
-        Rect referencePillar = pillars[secondToLast];
-
-        int xPillarTopRight = referencePillar.getX() + referencePillar.getL();
-        int x = xPillarTopRight - l;
-        int y = referencePillar.getY();
-        return new Rect(x, y, l, w);
     }
 
     /**
@@ -250,9 +237,5 @@ public class Construction {
 
     public Line[] getHoleTape() {
         return holeTape;
-    }
-
-    public Rect getShed() {
-        return shed;
     }
 }
