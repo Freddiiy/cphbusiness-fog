@@ -52,7 +52,7 @@
                             <div class="rounded-3 col-12 col-md-12 col-lg-7 my-3 my-md-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Om os</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p class="card-text">Hos Johannes Fog får du en byggeoplevelse som ingen anden. Vores carportadfeling er specialiseret i kvalitetscarporte til alle dine behov af den højeste kvalitet. Hvis du har nogle spøgsmål angående vores specialiserede carporte kan du frit kontakte Johannes Fogs supportcenter nedenfor.</p>
                                     <a href="/kontakt"><button class="btn btn-outline-dark flex-shrink-0 position-absolute" style="bottom: 10px;">Kontakt os</button></a>
                                 </div>
                             </div>
