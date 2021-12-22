@@ -15,24 +15,8 @@
             <!-- Product section-->
             <section class="pb-5">
                 <div class="container px-4 px-lg-5 mb-5 p-5">
-                    <div class="row gx-4 gx-lg-5">
-                        <div class="col-12 col-md-12 col-lg-3 text-fog text-center mb-3">
-                            <ul class="nav nav-pills flex-column justify-content-center">
-                                <li>
-                                    <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport/flat-roof">Carport med fladt tag</a>
-                                    <hr class="w-100">
-                                </li>
-                                <li>
-                                    <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport/raised-roof">Carport med rejsning</a>
-                                    <hr class="w-100">
-                                </li>
-                                <li>
-                                    <a class="text-decoration-none text-center text-fog h5" href="${pageContext.request.contextPath}/carport">Standard carport</a>
-                                    <hr class="w-100">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-9">
+                    <div class="gx-4 gx-lg-5">
+                        <div class="d-flex justify-content-center">
                             <form action="${pageContext.request.contextPath}/orders/add" method="POST">
                                 <h2 class="fw-bolder">Byg carport med fladt tag</h2>
                                 <hr>

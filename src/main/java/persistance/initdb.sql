@@ -29,18 +29,52 @@ CREATE TABLE `CarportMaterialMisc` (
 -- Table structure for table `CarportMaterials`
 --
 
-DROP TABLE IF EXISTS `CarportMaterials`;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `CarportValues`
+--
+
+DROP TABLE IF EXISTS `CarportValues`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CarportMaterials` (
-  `material_id` int NOT NULL AUTO_INCREMENT,
-  `material_name` varchar(100) NOT NULL,
-  `material_price` double NOT NULL,
-  `material_length` int DEFAULT NULL,
-  `nickname` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  PRIMARY KEY (`material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `CarportValues` (
+                                 `id` int NOT NULL AUTO_INCREMENT,
+                                 `length` int DEFAULT NULL,
+                                 `width` int DEFAULT NULL,
+                                 `shed_length` int DEFAULT NULL,
+                                 `shed_width` int DEFAULT NULL,
+                                 PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CarportValues`
+--
+
+LOCK TABLES `CarportValues` WRITE;
+/*!40000 ALTER TABLE `CarportValues` DISABLE KEYS */;
+INSERT INTO `CarportValues` VALUES (1,240,240,240,240),(2,270,270,270,270),(3,300,300,300,300),(4,330,330,330,330),(5,360,360,360,360),(6,390,390,390,390),(7,420,420,420,420),(8,450,450,450,450),(9,480,480,480,480),(10,510,510,510,510),(11,540,540,540,540),(12,570,570,570,570),(13,600,600,600,600),(14,630,NULL,630,630),(15,660,NULL,660,660),(16,690,NULL,690,690),(17,720,NULL,720,720),(18,750,NULL,NULL,750),(19,780,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `CarportValues` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 --
 -- Table structure for table `CarportMeterialForRequest`
