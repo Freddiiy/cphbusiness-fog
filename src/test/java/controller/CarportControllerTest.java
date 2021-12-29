@@ -1,12 +1,7 @@
 package controller;
 
-import mapper.MaterialMapper;
-import model.Material;
 import org.testng.annotations.Test;
-import persistance.Database;
 import util.Carport.Construction;
-
-import java.util.HashMap;
 
 import static org.testng.Assert.*;
 

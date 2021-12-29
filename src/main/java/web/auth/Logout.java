@@ -1,6 +1,6 @@
 package web.auth;
 
-import mapper.UserMapper;
+import persistance.UserMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;

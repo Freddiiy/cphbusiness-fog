@@ -1,8 +1,7 @@
 package web.orders;
 
 
-import mapper.UserMapper;
-import model.User;
+import persistance.UserMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;

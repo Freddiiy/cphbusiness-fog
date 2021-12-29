@@ -1,4 +1,4 @@
-package mapper;
+package persistance;
 
 import model.Measurement;
 import persistance.ConnectionPool;

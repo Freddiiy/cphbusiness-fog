@@ -1,7 +1,6 @@
-package mapper;
+package persistance;
 
 import model.*;
-import persistance.Database;
 
 import java.sql.*;
 import java.util.ArrayList;

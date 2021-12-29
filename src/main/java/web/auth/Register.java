@@ -1,7 +1,7 @@
 package web.auth;
 
 import model.User;
-import mapper.UserMapper;
+import persistance.UserMapper;
 import util.Validation;
 
 import java.io.*;

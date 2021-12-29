@@ -1,4 +1,4 @@
-package mapper;
+package persistance;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import model.*;

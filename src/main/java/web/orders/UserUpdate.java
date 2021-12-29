@@ -1,7 +1,7 @@
 package web.orders;
 
 
-import mapper.UserMapper;
+import persistance.UserMapper;
 import model.User;
 
 import java.io.*;

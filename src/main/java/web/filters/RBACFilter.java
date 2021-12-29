@@ -1,6 +1,6 @@
 package web.filters;
 
-import mapper.UserMapper;
+import persistance.UserMapper;
 import util.ArrayHelpers;
 
 import javax.servlet.*;

@@ -1,7 +1,7 @@
 package web.admin;
 
 
-import mapper.AdminMapper;
+import persistance.AdminMapper;
 
 import java.io.*;
 import javax.servlet.ServletException;

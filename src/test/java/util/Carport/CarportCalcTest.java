@@ -1,14 +1,12 @@
 package util.Carport;
 
-import mapper.MaterialMapper;
+import persistance.MaterialMapper;
 import model.Material;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalcTest {
 

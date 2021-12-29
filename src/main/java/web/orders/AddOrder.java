@@ -1,7 +1,7 @@
 package web.orders;
 
-import mapper.OrderMapper;
-import mapper.UserMapper;
+import persistance.OrderMapper;
+import persistance.UserMapper;
 import model.Carport;
 import model.User;
 

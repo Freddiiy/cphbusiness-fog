@@ -1,9 +1,8 @@
 package web.admin;
 
 
-import mapper.AdminMapper;
-import mapper.MeasurementMapper;
-import model.Measurement;
+import persistance.AdminMapper;
+import persistance.MeasurementMapper;
 import model.Order;
 import model.User;
 

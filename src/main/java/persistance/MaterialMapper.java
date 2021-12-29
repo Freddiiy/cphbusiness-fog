@@ -1,4 +1,4 @@
-package mapper;
+package persistance;
 import model.Material;
 import persistance.ConnectionPool;
 import persistance.Database;

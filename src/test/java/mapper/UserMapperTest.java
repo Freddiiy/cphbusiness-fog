@@ -2,6 +2,7 @@ package mapper;
 
 import model.User;
 import org.junit.jupiter.api.Test;
+import persistance.UserMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
