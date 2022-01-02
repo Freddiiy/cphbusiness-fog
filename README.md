@@ -11,4 +11,4 @@
 
 ### Coming soon
 * Read the [project writeup here](https://github.com/Freddiiy/cphbusiness-fog) (Danish)
-* See a [live hosted demo here](https://github.com/Freddiiy/cphbusiness-fog)
+* See a [live hosted demo here](https://www.youtube.com/watch?v=7VPCYVwcpFs)
